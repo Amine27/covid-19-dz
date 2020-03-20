@@ -93,7 +93,7 @@ geojson = L.geoJson(statesData, {
   onEachFeature: onEachFeature
 }).addTo(map);
 
-map.attributionControl.addAttribution('Data: <a href="http://covid19.sante.gov.dz/">MSP</a> | <a href="https://www.who.int/fr/emergencies/diseases/novel-coronavirus-2019/advice-for-public/q-a-coronaviruses">WHO</a>');
+map.attributionControl.addAttribution('Data: <a href="http://covid19.sante.gov.dz/">MSP</a>');
 
 
 var legend = L.control({position: 'bottomright'});

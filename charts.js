@@ -50,25 +50,17 @@ const statsChart = new Chart($('#statsChart'), {
   },
   options: {
     response: true,
+    maintainAspectRatio: false,
+    aspectRatio: 1,
     scales: {
       xAxes: [{
         type: 'time',
         time: {
 	  tooltipFormat: 'll'
 	},
-        scaleLabel: {
-	  display: true,
-	  labelString: 'Date'
-	},
         gridLines: {
           drawOnChartArea: false
         }
-      }],
-      yAxes: [{
-	scaleLabel: {
-	  display: true,
-	  labelString: 'Number'
-	}
       }]
     },
     title: {

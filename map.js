@@ -10,6 +10,9 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   zoomOffset: -1
 }).addTo(map);
 
+if (L.Browser.touch) {
+  L.control.touchHover().addTo(map);
+}
 
 // control that shows state info on hover
 var info = L.control();
@@ -32,12 +35,12 @@ info.addTo(map);
 // get color depending on population density value
 function getColor(d) {
   return d > 20 ? '#800026' :
-    d > 15  ? '#BD0026' :
-    d > 10  ? '#E31A1C' :
-    d > 7  ? '#FC4E2A' :
-    d > 5   ? '#FD8D3C' :
-    d > 2   ? '#FEB24C' :
-    d > 0   ? '#FED976' :
+    d > 15 ? '#BD0026' :
+    d > 10 ? '#E31A1C' :
+    d > 7 ? '#FC4E2A' :
+    d > 5 ? '#FD8D3C' :
+    d > 2 ? '#FEB24C' :
+    d > 0 ? '#FED976' :
     '#fff8db';
 }
 
@@ -46,7 +49,7 @@ function style(feature) {
     weight: 2,
     opacity: 1,
     color: 'white',
-    dashArray: '3',
+    dashArray: '',
     fillOpacity: 0.7,
     fillColor: getColor(feature.properties.CASES)
   };
@@ -56,7 +59,7 @@ function highlightFeature(e) {
   var layer = e.target;
 
   layer.setStyle({
-    weight: 5,
+    weight: 3,
     color: '#666',
     dashArray: '',
     fillOpacity: 0.7
@@ -84,7 +87,7 @@ function onEachFeature(feature, layer) {
   layer.on({
     mouseover: highlightFeature,
     mouseout: resetHighlight,
-    click: zoomToFeature
+    dblclick: zoomToFeature
   });
 }
 

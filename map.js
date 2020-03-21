@@ -24,7 +24,7 @@ info.onAdd = function (map) {
 };
 
 info.update = function (props) {
-  this._div.innerHTML = 'Confirmed: 139<br>Recovered: 54<br>Deaths: 15<br><br>' +  (props ?
+  this._div.innerHTML = 'Confirmed: 139<br>Recovered: 65<br>Deaths: 15<br><br>' +  (props ?
 			                                                          '<b>' + props.NAME_1 + '</b><br />' + props.CASES + ' cases</sup>'
 			                                                          : 'Hover over a state');
 };

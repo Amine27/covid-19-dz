@@ -29,3 +29,15 @@
     margin-right: 8px;
     opacity: 0.7;
 }
+
+.confirmed {
+    color: rgb(255, 159, 64);
+}
+
+.recovered {
+    color: rgb(75, 192, 192);
+}
+
+.deaths {
+    color: rgb(255, 99, 132);
+}

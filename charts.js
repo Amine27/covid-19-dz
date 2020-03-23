@@ -3,9 +3,9 @@ const confirmed = [1,1,1,1,1,1,3,5,12,12,17,17,19,20,20,20,24,26,37,48,54,60,74,
 const recovered = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,8,12,12,12,12,12,32,43,65,65]
 const deaths = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,4,4,6,9,11,15,17]
 const gender = ['Man', 'Woman']
-const genderData = [49, 41]
+const genderData = [90, 111]
 const age = ['< 25', '25 - 34', '35 - 44', '45 - 59', '+60']
-const ageData = [6, 11, 26, 26, 20]
+const ageData = [16, 27, 43, 55, 60]
 
 const chartColors = {
   red: 'rgb(255, 99, 132)',

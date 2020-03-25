@@ -76,6 +76,10 @@ const statsChart = new Chart($('#statsChart'), {
         hoverRadius: 4,
         hoverBorderWidth: 3
       }
+    },
+    tooltips: {
+      mode: 'index',
+      intersect: false
     }
   }
 })
@@ -171,6 +175,10 @@ const ageChart = new Chart($('#ageChart'), {
     title: {
       display: true,
       text: 'Cases by age'
+    },
+    tooltips: {
+      mode: 'index',
+      intersect: false
     }
   }
 })

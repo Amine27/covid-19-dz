@@ -3,9 +3,10 @@ const confirmed = [1,1,1,1,1,1,3,5,12,12,17,17,19,20,20,20,24,26,37,48,54,60,74,
 const recovered = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,8,12,12,12,12,12,32,43,65,65,65,89]
 const deaths = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,4,4,6,9,11,15,17,17,19]
 const gender = ['Man', 'Woman']
-const genderData = [118, 112]
-const age = ['< 25', '25 - 34', '35 - 44', '45 - 59', '+60']
-const ageData = [16, 27, 45, 63, 72]
+const genderData = [120, 112]
+const age = ['< 5', '5 - 14', '15 - 24', '25 - 34', '35 - 44', '45 - 59', '60 - 7', '+70']
+const ageConfirmedData = [3, 8, 20, 37, 31, 50, 48, 34]
+const ageDeathsData = [0, 0, 0, 0, 0, 6, 9, 5]
 
 const chartColors = {
   red: 'rgb(255, 99, 132)',
@@ -14,7 +15,8 @@ const chartColors = {
   green: 'rgb(75, 192, 192)',
   blue: 'rgb(54, 162, 235)',
   purple: 'rgb(153, 102, 255)',
-  grey: 'rgb(201, 203, 207)'
+  grey: 'rgb(201, 203, 207)',
+  pink: 'rgb(255, 192, 203)'
 }
 
 const statsChart = new Chart($('#statsChart'), {
@@ -114,6 +116,7 @@ const ageChart = new Chart($('#ageChart'), {
     labels: age,
     datasets: [
       {
+        label: 'Confirmed',
         backgroundColor: [
 	  chartColors.red,
 	  chartColors.orange,
@@ -121,7 +124,8 @@ const ageChart = new Chart($('#ageChart'), {
 	  chartColors.green,
 	  chartColors.blue,
 	  chartColors.purple,
-	  chartColors.red
+	  chartColors.grey,
+          chartColors.pink
 	],
         borderColor: [
 	  chartColors.red,
@@ -130,10 +134,18 @@ const ageChart = new Chart($('#ageChart'), {
 	  chartColors.green,
 	  chartColors.blue,
 	  chartColors.purple,
-	  chartColors.red
+	  chartColors.grey,
+          chartColors.pink
 	],
         borderWidth: 2,
-        data: ageData
+        data: ageConfirmedData
+      },
+      {
+        label: 'Deaths',
+        backgroundColor: chartColors.red,
+        borderColor: chartColors.red,
+        borderWidth: 2,
+        data: ageDeathsData
       }
     ]
   },
@@ -144,11 +156,13 @@ const ageChart = new Chart($('#ageChart'), {
     },
     scales: {
       xAxes: [{
+        stacked: true,
         gridLines: {
           drawOnChartArea: false
         }
       }],
       yAxes: [{
+        stacked: true,
         ticks: {
           beginAtZero: true
         }

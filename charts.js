@@ -5,8 +5,8 @@ const deaths = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,4,4,6,9,11,15,17,17,19,2
 const gender = ['Man', 'Woman']
 const genderData = [195, 172]
 const age = ['< 5', '5 - 14', '15 - 24', '25 - 34', '35 - 44', '45 - 59', '60 - 70', '+70']
-const ageConfirmedData = [2, 8, 22, 44, 53, 70, 56, 47]
-const ageDeathsData = [0, 0, 0, 0, 1, 9, 8, 6]
+const ageConfirmedData = [2, 9, 25, 55, 66, 87, 66, 56]
+const ageDeathsData = [0, 0, 0, 0, 1, 10, 8, 6]
 
 const chartColors = {
   red: 'rgb(255, 99, 132)',

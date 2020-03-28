@@ -182,3 +182,72 @@ const ageChart = new Chart($('#ageChart'), {
     }
   }
 })
+
+const dailyChart = new Chart($('#dailyChart'), {
+  type: 'bar',
+  data: {
+    labels: date,
+    datasets: [
+      {
+        label: 'Confirmed',
+        backgroundColor: chartColors.orange,
+        borderColor: chartColors.orange,
+        borderWidth: 2,
+        data: getDailyConfirmed()
+      },
+      {
+        label: 'Deaths',
+        backgroundColor: chartColors.red,
+        borderColor: chartColors.red,
+        borderWidth: 2,
+        data: getDailyDeaths()
+      }
+    ]
+  },
+  options: {
+    response: true,
+    maintainAspectRatio: false,
+    aspectRatio: 1,
+    legend: {
+        display: true
+    },
+    scales: {
+      xAxes: [{
+        stacked: true,
+        gridLines: {
+          drawOnChartArea: false
+        }
+      }],
+      yAxes: [{
+        stacked: true,
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    },
+    title: {
+      display: true,
+      text: 'Daily new cases'
+    },
+    tooltips: {
+      mode: 'index',
+      intersect: false
+    }
+  }
+})
+
+function getDailyConfirmed() {
+  let dailyConfirmed = []
+  for (var i = 0; i < confirmed.length; ++i) {
+    dailyConfirmed.push(confirmed[i] - (confirmed[i-1] === undefined ? 0 : confirmed[i-1]))
+  }
+  return dailyConfirmed
+}
+
+function getDailyDeaths() {
+  let dailyDeaths = []
+  for (var i = 0; i < deaths.length; ++i) {
+    dailyDeaths.push(deaths[i] - (deaths[i-1] === undefined ? 0 : deaths[i-1]))
+  }
+  return dailyDeaths
+}

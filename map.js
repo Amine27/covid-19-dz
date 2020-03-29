@@ -24,8 +24,14 @@ info.onAdd = function (map) {
 };
 
 info.update = function (props) {
-  this._div.innerHTML = '<span class="confirmed">Confirmed: 454</span><br><span class="recovered">Recovered: 31</span><br><span class="deaths">Deaths: 29</span><br><br>'
-    + (props ? '<b>' + props.NAME_1 + '</b><br />' + props.CASES + (props.CASES > 1 ? ' cases</sup>' : ' case</sup>') : 'Hover over a state');
+  this._div.innerHTML = (props ?
+                         '<b>' + props.NAME_1 + ':</b><br><br>'
+                         + '<span class="confirmed">Confirmed: ' + props.CONFIRMED + '</span></br>'
+                         + '<span class="recovered">Recovered: ' + props.RECOVERED + '</span><br>'
+                         + '<span class="deaths">Deaths: ' + props.DEATHS + '</span><br>'
+                         : '<span class="confirmed">Confirmed: ' + confirmed[confirmed.length-1] + '</span><br>'
+                         + '<span class="recovered">Recovered: ' + recovered[recovered.length-1] + '</span><br>'
+                         + '<span class="deaths">Deaths: ' + deaths[deaths.length-1] + '</span><br>')
 };
 
 info.addTo(map);
@@ -50,7 +56,7 @@ function style(feature) {
     color: 'white',
     dashArray: '',
     fillOpacity: 0.7,
-    fillColor: getColor(feature.properties.CASES)
+    fillColor: getColor(feature.properties.CONFIRMED)
   };
 }
 

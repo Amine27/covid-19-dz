@@ -3,10 +3,10 @@ const confirmed = [1,1,1,1,1,1,3,5,12,12,17,17,19,20,20,20,24,26,37,48,54,60,74,
 const recovered = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,8,10,12,12,12,12,12,12,22,23,23,24,24,29,29,31]
 const deaths = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,4,4,6,9,11,15,17,17,19,21,25,26,29]
 const gender = ['Man', 'Woman']
-const genderData = [195, 172]
+const genderData = [196, 172]
 const age = ['< 5', '5 - 14', '15 - 24', '25 - 34', '35 - 44', '45 - 59', '60 - 70', '+70']
-const ageConfirmedData = [2, 9, 25, 55, 66, 87, 66, 56]
-const ageDeathsData = [0, 0, 0, 0, 1, 10, 8, 6]
+const ageConfirmedData = [2, 9, 25, 55, 67, 86, 67, 57]
+const ageDeathsData = [0, 0, 0, 0, 1, 10, 8, 7]
 
 const chartColors = {
   red: 'rgb(255, 99, 132)',

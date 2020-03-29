@@ -214,6 +214,11 @@ const dailyChart = new Chart($('#dailyChart'), {
     scales: {
       xAxes: [{
         stacked: true,
+        offset: true,
+        type: 'time',
+        time: {
+	  tooltipFormat: 'll'
+	},
         gridLines: {
           drawOnChartArea: false
         }

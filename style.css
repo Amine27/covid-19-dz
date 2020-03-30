@@ -44,3 +44,11 @@
     color: rgb(255, 99, 132);
     font-weight: bold;
 }
+
+.province {
+    font-weight: bold;
+}
+
+.table_style {
+    width: 100% !important;
+}

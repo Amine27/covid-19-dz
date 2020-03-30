@@ -11,4 +11,29 @@ const chartColors = {
 
 $(document).ready(() => {
   $('#lastUpdated').text(`Last updated: ${lastUpdated}`)
+
+  let provincesData = []
+  for (key in provinces) {
+    let province = [key, provinces[key].confirmed, provinces[key].recovered, provinces[key].deaths, moment(provinces[key].reported).isValid() ? moment(provinces[key].reported).format('ll') : '']
+    provincesData.push(province)
+  }
+
+  $.fn.dataTable.moment('ll')
+
+  $('#wilayaTable').DataTable({
+    data: provincesData,
+    order: [[ 1, 'desc' ]],
+    paging: false,
+    info: false,
+    scrollX: true,
+    scrollY: 400,
+    scrollCollapse: true,
+    columnDefs: [
+      // { className: "table_cells", targets: "_all" },
+      { className: "province", targets: 0 },
+      { className: "confirmed", targets: 1 },
+      { className: "recovered", targets: 2 },
+      { className: "deaths", targets: 3 }
+    ]
+  })
 })

@@ -30,10 +30,11 @@ $(document).ready(() => {
     scrollCollapse: true,
     columnDefs: [
       // { className: "table_cells", targets: "_all" },
-      { className: "province", targets: 0 },
-      { className: "confirmed", targets: 1 },
-      { className: "recovered", targets: 2 },
-      { className: "deaths", targets: 3 }
+      { className: "province text-nowrap", targets: 0 },
+      { className: "confirmed text-nowrap", targets: 1 },
+      { className: "recovered text-nowrap", targets: 2 },
+      { className: "deaths text-nowrap", targets: 3 },
+      { className: "text-nowrap", targets: 4 }
     ]
   })
 })

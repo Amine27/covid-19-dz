@@ -38,3 +38,10 @@ $(document).ready(() => {
     ]
   })
 })
+
+$('#tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
+  activeTab = e.target.id
+  if(activeTab === 'table-tab') {
+    $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust()
+  }
+})

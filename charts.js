@@ -78,7 +78,9 @@ const genderChart = new Chart($('#genderChart'), {
     ]
   },
   options: {
-    responsive: true,
+    response: true,
+    maintainAspectRatio: false,
+    aspectRatio: 1,
     legend: {
       position: 'top',
     },
@@ -134,6 +136,8 @@ const ageChart = new Chart($('#ageChart'), {
   },
   options: {
     response: true,
+    maintainAspectRatio: false,
+    aspectRatio: 1,
     legend: {
         display: false
     },

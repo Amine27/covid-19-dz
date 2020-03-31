@@ -10,9 +10,9 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   zoomOffset: -1
 }).addTo(map);
 
-if (L.Browser.touch) {
-  L.control.touchHover().addTo(map);
-}
+// if (L.Browser.touch) {
+//   L.control.touchHover().addTo(map);
+// }
 
 // control that shows state info on hover
 var info = L.control();
@@ -60,7 +60,11 @@ function style(feature) {
   };
 }
 
+let previousTarget = null
+
 function highlightFeature(e) {
+  resetHighlight(previousTarget)
+  previousTarget = e
   var layer = e.target;
 
   layer.setStyle({
@@ -80,8 +84,10 @@ function highlightFeature(e) {
 var geojson;
 
 function resetHighlight(e) {
-  geojson.resetStyle(e.target);
-  info.update();
+  if (e !== null) {
+    geojson.resetStyle(e.target);
+    info.update();
+  }
 }
 
 function zoomToFeature(e) {
@@ -92,7 +98,8 @@ function onEachFeature(feature, layer) {
   layer.on({
     mouseover: highlightFeature,
     mouseout: resetHighlight,
-    dblclick: zoomToFeature
+    dblclick: zoomToFeature,
+    click: highlightFeature
   });
 }
 

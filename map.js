@@ -1,4 +1,4 @@
-var map = L.map('map').setView([28.5, 1.8], 4.8);
+var map = L.map('map').setView([33, 3], 5.8);
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW1pbmVyb3VraCIsImEiOiJjazgwanNndWIwMjVjM21tdzFqb2d0Z3g2In0.pl24-pEleZ_3DywYNIZ8vA', {
   maxZoom: 18,

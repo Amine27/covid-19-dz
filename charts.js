@@ -37,6 +37,7 @@ const statsChart = new Chart($('#statsChart'), {
       xAxes: [{
         type: 'time',
         time: {
+          parser: 'YYYY-MM-DD',
 	  tooltipFormat: 'll'
 	},
         gridLines: {
@@ -200,6 +201,7 @@ const dailyChart = new Chart($('#dailyChart'), {
         offset: true,
         type: 'time',
         time: {
+          parser: 'YYYY-MM-DD',
 	  tooltipFormat: 'll'
 	},
         gridLines: {

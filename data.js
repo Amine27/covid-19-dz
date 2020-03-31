@@ -7,7 +7,7 @@ const genderData = [228, 182]
 const age = ['< 5', '5 - 14', '15 - 24', '25 - 34', '35 - 44', '45 - 59', '60 - 70', '+70']
 const ageConfirmedData = [2, 9, 25, 55, 68, 71, 70, 60]
 const ageDeathsData = [0, 0, 0, 0, 1, 12, 12, 10]
-const lastUpdated = '2020-03-31 18:58'
+const lastUpdated = '2020-03-31 19:01'
 const provinces = {
   "Aïn Defla": { confirmed: 13, recovered: 0, deaths: 1, reported: "2020-03-27" },
   "Aïn Témouchent": { confirmed: 2, recovered: 0, deaths: 0, reported: "2020-03-23" },
@@ -34,10 +34,10 @@ const provinces = {
   "Jijel": { confirmed: 4, recovered: 0, deaths: 0, reported: "2020-03-23" },
   "Khenchela": { confirmed: 2, recovered: 0, deaths: 1, reported: "2020-03-20" },
   "Laghouat": { confirmed: 1, recovered: 0, deaths: 0, reported: "2020-03-26" },
-  "M'Sila": { confirmed: 0, recovered: 0, deaths: 0, reported: "" },
+  "M'Sila": { confirmed: 1, recovered: 0, deaths: 0, reported: "2020-03-31" },
   "Médéa": { confirmed: 17, recovered: 0, deaths: 2, reported: "2020-03-18" },
   "Mascara": { confirmed: 7, recovered: 2, deaths: 0, reported: "2020-03-05" },
-  "Mila": { confirmed: 1, recovered: 0, deaths: 0, reported: "2020-03-31" },
+  "Mila": { confirmed: 0, recovered: 0, deaths: 0, reported: "" },
   "Mostaganem": { confirmed: 8, recovered: 1, deaths: 1, reported: "2020-03-23" },
   "Naâma": { confirmed: 0, recovered: 0, deaths: 0, reported: "" },
   "Oran": { confirmed: 44, recovered: 0, deaths: 2, reported: "2020-03-19" },

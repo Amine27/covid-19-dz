@@ -35,7 +35,7 @@ $(document).ready(() => {
     scrollCollapse: true,
     columnDefs: [
       // { className: "table_cells", targets: "_all" },
-      { className: "province text-nowrap", targets: 0 },
+      { className: "province", targets: 0 },
       { className: "confirmed", targets: 2 },
       { className: "recovered text-nowrap", targets: 5 },
       { className: "deaths", targets: 4 },

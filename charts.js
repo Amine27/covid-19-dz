@@ -226,6 +226,38 @@ const dailyChart = new Chart($('#dailyChart'), {
   }
 })
 
+const wilayaChart = new Chart($('#wilayaChart'), {
+  type: 'horizontalBar',
+  data: {
+    labels: getConfirmedPerWilayaName(provinces),
+    datasets: [
+      {
+        label: 'Confirmed',
+        backgroundColor: chartColors.orange,
+        borderColor: chartColors.orange,
+        borderWidth: 2,
+        data: getConfirmedPerWilayaValue(provinces)
+      }
+    ]
+  },
+  options: {
+    response: true,
+    maintainAspectRatio: false,
+    aspectRatio: 1,
+    legend: {
+        display: true
+    },
+    title: {
+      display: true,
+      text: 'Cases per wilaya'
+    },
+    tooltips: {
+      mode: 'index',
+      intersect: false
+    }
+  }
+})
+
 function getDailyConfirmed(confirmed) {
   let dailyConfirmed = []
   for (var i = 0; i < confirmed.length; ++i) {
@@ -240,4 +272,18 @@ function getDailyDeaths(deaths) {
     dailyDeaths.push(deaths[i] - (deaths[i-1] === undefined ? 0 : deaths[i-1]))
   }
   return dailyDeaths
+}
+
+function getConfirmedPerWilayaName(provinces) {
+  return getConfirmedPerWilaya(provinces).map((t, i) => (i+1)+' - '+ t[0])
+}
+
+function getConfirmedPerWilayaValue(provinces) {
+  return getConfirmedPerWilaya(provinces).map(t => t[1])
+}
+
+function getConfirmedPerWilaya(provinces) {
+  var items = Object.keys(provinces).map(key => [key, provinces[key].confirmed])
+  items.sort((first, second) => second[1] - first[1])
+  return items
 }

@@ -14,7 +14,12 @@ $(document).ready(() => {
 
   let provincesData = []
   for (key in provinces) {
-    let province = [key, provinces[key].confirmed, provinces[key].recovered, provinces[key].deaths, moment(provinces[key].reported).isValid() ? moment(provinces[key].reported).format('ll') : '']
+    let province = [key,
+                    provinces[key].confirmed,
+                    provinces[key].new_confirmed > 0 ? '+'+provinces[key].new_confirmed : '',
+                    provinces[key].deaths, provinces[key].new_deaths > 0 ? '+'+provinces[key].new_deaths : '',
+                    provinces[key].recovered,
+                    moment(provinces[key].reported).isValid() ? moment(provinces[key].reported).format('ll') : '']
     provincesData.push(province)
   }
 
@@ -31,10 +36,10 @@ $(document).ready(() => {
     columnDefs: [
       // { className: "table_cells", targets: "_all" },
       { className: "province text-nowrap", targets: 0 },
-      { className: "confirmed text-nowrap", targets: 1 },
-      { className: "recovered text-nowrap", targets: 2 },
-      { className: "deaths text-nowrap", targets: 3 },
-      { className: "text-nowrap", targets: 4 }
+      { className: "confirmed", targets: 2 },
+      { className: "recovered text-nowrap", targets: 5 },
+      { className: "deaths", targets: 4 },
+      { className: "text-nowrap", targets: 6 }
     ]
   })
 })

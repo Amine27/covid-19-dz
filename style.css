@@ -48,3 +48,7 @@
 .table_style {
     width: 100% !important;
 }
+
+.table_style thead th {
+    vertical-align: middle !important;
+}

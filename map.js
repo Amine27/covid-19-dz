@@ -117,20 +117,20 @@ legend.onAdd = function (map) {
 
   var div = L.DomUtil.create('div', 'info legend'),
       grades = [0, 5, 10, 15, 20, 25, 30],
-      labels = [],
-      from, to;
+      labels = []
 
   for (var i = 0; i < grades.length; i++) {
-    from = grades[i];
-    to = grades[i + 1];
-
-    labels.push(
-      '<i style="background:' + getColor(from + 1) + '"></i> ' +
-	from + (to ? '&ndash;' + to : '+'));
+    labels.push('<span style="background:' + getColor(grades[i] + 1) + '"></span> ')
   }
 
-  div.innerHTML = labels.join('<br>');
-  return div;
+  labels.push('<br>')
+
+  for (var i = 0; i < grades.length; i++) {
+    labels.push('<label>' + grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] : '+') + '</label> ')
+  }
+
+  div.innerHTML = labels.join('')
+  return div
 };
 
 legend.addTo(map);

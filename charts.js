@@ -257,33 +257,3 @@ const wilayaChart = new Chart($('#wilayaChart'), {
     }
   }
 })
-
-function getDailyConfirmed(confirmed) {
-  let dailyConfirmed = []
-  for (var i = 0; i < confirmed.length; ++i) {
-    dailyConfirmed.push(confirmed[i] - (confirmed[i-1] === undefined ? 0 : confirmed[i-1]))
-  }
-  return dailyConfirmed
-}
-
-function getDailyDeaths(deaths) {
-  let dailyDeaths = []
-  for (var i = 0; i < deaths.length; ++i) {
-    dailyDeaths.push(deaths[i] - (deaths[i-1] === undefined ? 0 : deaths[i-1]))
-  }
-  return dailyDeaths
-}
-
-function getConfirmedPerWilayaName(provinces) {
-  return getConfirmedPerWilaya(provinces).map((t, i) => (i+1)+' - '+ t[0])
-}
-
-function getConfirmedPerWilayaValue(provinces) {
-  return getConfirmedPerWilaya(provinces).map(t => t[1])
-}
-
-function getConfirmedPerWilaya(provinces) {
-  var items = Object.keys(provinces).map(key => [key, provinces[key].confirmed])
-  items.sort((first, second) => second[1] - first[1])
-  return items
-}

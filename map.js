@@ -10,10 +10,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   zoomOffset: -1
 }).addTo(map);
 
-// if (L.Browser.touch) {
-//   L.control.touchHover().addTo(map);
-// }
-
 // control that shows state info on hover
 var info = L.control();
 
@@ -29,9 +25,7 @@ info.update = function (props) {
                          + '<span class="confirmed">Confirmed: ' + props.CONFIRMED + '</span></br>'
                          + '<span class="recovered">Recovered: ' + props.RECOVERED + '</span><br>'
                          + '<span class="deaths">Deaths: ' + props.DEATHS + '</span><br>'
-                         : '<span class="confirmed">Confirmed: ' + confirmed[confirmed.length-1] + '</span><br>'
-                         + '<span class="recovered">Recovered: ' + recovered[recovered.length-1] + '</span><br>'
-                         + '<span class="deaths">Deaths: ' + deaths[deaths.length-1] + '</span><br>')
+                         : 'Hover over a city<br>')
 };
 
 info.addTo(map);

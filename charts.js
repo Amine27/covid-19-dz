@@ -1,3 +1,5 @@
+Chart.defaults.global.plugins.datalabels.display = false
+
 const statsChart = new Chart($('#statsChart'), {
   type: 'line',
   data: {
@@ -92,6 +94,15 @@ const genderChart = new Chart($('#genderChart'), {
     animation: {
       animateScale: true,
       animateRotate: true
+    },
+    plugins: {
+      datalabels: {
+        display: true,
+        color: 'white',
+        font: {
+	  weight: 'bold'
+	}
+      }
     }
   }
 })
@@ -254,6 +265,13 @@ const wilayaChart = new Chart($('#wilayaChart'), {
     tooltips: {
       mode: 'index',
       intersect: false
+    },
+    plugins: {
+      datalabels: {
+        display: true,
+        anchor :'end',
+        align :'right'
+      }
     }
   }
 })

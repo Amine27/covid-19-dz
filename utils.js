@@ -10,7 +10,7 @@ const chartColors = {
 }
 
 $(document).ready(() => {
-  $('#lastUpdated').text(`Last updated: ${lastUpdated}`)
+  $('#lastUpdated').text(`Updated ${moment(lastUpdated).fromNow()}`)
 
   let provincesData = []
   for (key in provinces) {

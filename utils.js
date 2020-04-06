@@ -134,6 +134,7 @@ function setupTable() {
 }
 
 $(document).ready(() => {
+  moment.tz.setDefault('Europe/Brussels')
   $('#lastUpdated').text(`Updated ${moment(lastUpdated).fromNow()}`)
 
   $('#totalConfirmed').text(getTotalConfirmed(confirmed))

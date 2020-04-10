@@ -12,19 +12,19 @@ const chartColors = {
 function getTotalConfirmed(confirmed) {
   if (confirmed.length > 0)
     return confirmed[confirmed.length-1]
-  0
+  return 0
 }
 
 function getTotalRecovered(recovered) {
   if (recovered.length > 0)
     return recovered[recovered.length-1]
-  0
+  return 0
 }
 
 function getTotalDeaths(deaths) {
   if (deaths.length > 0)
     return deaths[deaths.length-1]
-  0
+  return 0
 }
 
 function getDailyConfirmed(confirmed) {

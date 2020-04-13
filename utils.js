@@ -93,7 +93,6 @@ function getTotalDays(date) {
 
 function getFatalityRate(confirmed, deaths) {
   return `${(getTotalDeaths(deaths) / getTotalConfirmed(confirmed) * 100).toFixed(2)}%`
-
 }
 
 function getRecoveryRate(confirmed, recovered) {

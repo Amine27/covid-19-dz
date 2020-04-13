@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import sys
 import json
 from urllib.request import urlopen
 
@@ -46,7 +45,7 @@ provinces = {
     21: { "name": "Skikda", "reported": "2020-03-12" },
     41: { "name": "Souk Ahras", "reported": "2020-03-12" },
     12: { "name": "Tébessa", "reported": "2020-04-03" },
-    11: { "name": "Tamanghasset", "reported": "" },
+    11: { "name": "Tamanghasset", "reported": "2020-04-13" },
     14: { "name": "Tiaret", "reported": "2020-04-02" },
     37: { "name": "Tindouf", "reported": "" },
     42: { "name": "Tipaza", "reported": "2020-03-23" },
@@ -114,28 +113,27 @@ def getDeathStats():
     return usefulData[0]
 
 def main():
-
     totalStats = getTotalStats()
     deathsStats = getDeathStats()
     getWilayaStats()
 
-    total_ncases = 0
-    total_ndeaths = 0
-    total_cases = 0
-    total_deaths = 0
+    totalNCases = 0
+    totalNDeaths = 0
+    totalCases = 0
+    totalDeaths = 0
 
     for w_id, w in provinces.items():
         print('"'+w['name']+'": { confirmed: '+str(w['confirmed'])+', recovered: '+str(w['recovered'])+', deaths: '+str(w['deaths'])+', new_confirmed: '+str(w['new_confirmed'])+', new_recovered: '+str(w['new_recovered'])+', new_deaths: '+str(w['new_deaths'])+', reported: "'+str(w['reported'])+'" },')
-        total_ncases += w['new_confirmed']
-        total_ndeaths += w['new_deaths']
-        total_cases +=  w['confirmed']
-        total_deaths += w['deaths']
+        totalNCases += w['new_confirmed']
+        totalNDeaths += w['new_deaths']
+        totalCases +=  w['confirmed']
+        totalDeaths += w['deaths']
 
     print('const genderData = ['+str(totalStats['man'])+', '+ str(totalStats['woman'])+']')
     print('const ageConfirmedData = ['+str(totalStats['an'])+', '+str(totalStats['unquatorze'])+', '+str(totalStats['vingtquatre'])+', '+str(totalStats['quaranteneuf'])+', '+str(totalStats['cinquanteneuf'])+', '+str(totalStats['soixante'])+', '+str(totalStats['NP'])+']')
     print('const ageDeathsData = ['+str(deathsStats['quatorz'])+', '+str(deathsStats['vingquatre'])+', '+str(deathsStats['trentequatre'])+', '+str(deathsStats['quarantequatre'])+', '+str(deathsStats['cinquanteneuf'])+', '+str(deathsStats['soixantedix'])+', '+str(0)+']')
     print('offcial\t confirmed:', str(totalStats['total_confirmed']), 'deaths:', str(totalStats['total_deaths']), 'recovered:', str(totalStats['total_recovered']), 'new_confirmed:', str(totalStats['New_cases']))
-    print('calcul\t confirmed:', total_cases, 'deaths:', total_deaths, 'new confirmed:', total_ncases, 'new_deaths:', total_ndeaths)
+    print('calcul\t confirmed:', totalCases, 'deaths:', totalDeaths, 'new confirmed:', totalNCases, 'new_deaths:', totalNDeaths)
 
 if __name__ == '__main__':
     main()

@@ -22,9 +22,9 @@ info.onAdd = function (map) {
 info.update = function (props) {
   this._div.innerHTML = (props ?
                          '<b>' + props.NAME_1 + ':</b><br><br>'
-                         + '<span class="confirmed">Confirmed: ' + props.CONFIRMED + '</span></br>'
-                         + '<span class="recovered">Recovered: ' + props.RECOVERED + '</span><br>'
-                         + '<span class="deaths">Deaths: ' + props.DEATHS + '</span><br>'
+                         + '<span class="confirmed">Confirmed: ' + props.CONFIRMED + (props.NEW_CONFIRMED > 0 ? ' <sup>+'+props.NEW_CONFIRMED+'</sup>' : '') + '</span></br>'
+                         + '<span class="recovered">Recovered: ' + props.RECOVERED + (props.NEW_RECOVERED > 0 ? ' <sup>+'+props.NEW_RECOVERED+'</sup>' : '') + '</span><br>'
+                         + '<span class="deaths">Deaths: ' + props.DEATHS + (props.NEW_DEATHS > 0 ? ' <sup>+'+props.NEW_DEATHS+'</sup>' : '') + '</span><br>'
                          : 'Hover over a city<br>')
 };
 

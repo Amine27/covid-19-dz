@@ -107,7 +107,7 @@ const genderChart = new Chart($('#genderChart'), {
           let dataArr = ctx.chart.data.datasets[0].data
           dataArr.map(data => {
             sum += data
-          });
+          })
           return `${(value*100 / sum).toFixed(2)}%`
         },
       }

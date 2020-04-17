@@ -65,3 +65,7 @@
 [class^=text-value] {
     font-weight: 600;
 }
+
+.spacing {
+    padding-bottom: 3px;
+}

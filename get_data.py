@@ -132,7 +132,7 @@ def main():
     print('const genderData = ['+str(totalStats['man'])+', '+ str(totalStats['woman'])+']')
     print('const ageConfirmedData = ['+str(totalStats['an'])+', '+str(totalStats['unquatorze'])+', '+str(totalStats['vingtquatre'])+', '+str(totalStats['quaranteneuf'])+', '+str(totalStats['cinquanteneuf'])+', '+str(totalStats['soixante'])+', '+str(totalStats['NP'])+']')
     print('const ageDeathsData = ['+str(deathsStats['quatorz'])+', '+str(deathsStats['vingquatre'])+', '+str(deathsStats['trentequatre'])+', '+str(deathsStats['quarantequatre'])+', '+str(deathsStats['cinquanteneuf'])+', '+str(deathsStats['soixantedix'])+', '+str(0)+']')
-    print('offcial\t confirmed:', str(totalStats['total_confirmed']), 'deaths:', str(totalStats['total_deaths']), 'recovered:', str(totalStats['total_recovered']), 'new_confirmed:', str(totalStats['New_cases']))
+    print('offcial\t confirmed:', str(totalStats['total_confirmed']), 'deaths:', str(totalStats['total_deaths']), 'new_confirmed:', str(totalStats['New_cases']), 'recovered:', str(totalStats['total_recovered']))
     print('calcul\t confirmed:', totalCases, 'deaths:', totalDeaths, 'new confirmed:', totalNCases, 'new_deaths:', totalNDeaths)
 
 if __name__ == '__main__':

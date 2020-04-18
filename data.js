@@ -3,10 +3,10 @@ const confirmed = [1,1,1,1,1,1,3,5,12,12,17,17,19,20,20,20,24,26,37,48,54,60,74,
 const recovered = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,8,10,12,12,12,12,12,12,22,23,23,24,24,29,29,31,31,37,46,61,61,62,90,90,90,113,237,347,405,460,591,601,691,708,783,846,846]
 const deaths = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,4,4,6,9,11,15,17,17,19,21,25,26,29,31,35,44,58,83,105,130,152,173,193,205,235,256,275,293,313,326,336,348,364,367]
 const gender = ['Male', 'Female']
-const genderData = [1391, 1027]
+const genderData = [1459, 1075]
 const age = ['< 1', '1 - 14', '15 - 24', '25 - 49', '50 - 59', '+60', 'N/A']
-const ageConfirmedData = [3, 41, 72, 870, 426, 903, 103]
-const ageDeathsData = [0, 1, 1, 31, 65, 266, 0]
+const ageConfirmedData = [4, 45, 77, 907, 446, 950, 105]
+const ageDeathsData = [0, 1, 1, 31, 65, 269, 0]
 const lastUpdated = '2020-04-18 17:17'
 const provinces = {
   "Aïn Defla": { confirmed: 75, recovered: 0, deaths: 5, new_confirmed: 2, new_recovered: 0, new_deaths: 0, reported: "2020-03-27" },

@@ -17,7 +17,7 @@ const provinces = {
   "Béchar": { confirmed: 14, recovered: 0, deaths: 0, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-04-03" },
   "Béjaïa": { confirmed: 100, recovered: 1, deaths: 13, new_confirmed: 3, new_recovered: 0, new_deaths: 0, reported: "2020-03-17" },
   "Batna": { confirmed: 26, recovered: 0, deaths: 4, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-26" },
-  "Biskra": { confirmed: 20, recovered: 2, deaths: 4, new_confirmed: 2, new_recovered: 0, new_deaths: 0, reported: "2020-03-25" },
+  "Biskra": { confirmed: 20, recovered: 2, deaths: 5, new_confirmed: 2, new_recovered: 0, new_deaths: 1, reported: "2020-03-25" },
   "Blida": { confirmed: 677, recovered: 32, deaths: 97, new_confirmed: 8, new_recovered: 0, new_deaths: 1, reported: "2020-03-01" },
   "Bordj Bou Arréridj": { confirmed: 62, recovered: 0, deaths: 14, new_confirmed: 2, new_recovered: 0, new_deaths: 0, reported: "2020-03-16" },
   "Bouira": { confirmed: 18, recovered: 0, deaths: 2, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-16" },

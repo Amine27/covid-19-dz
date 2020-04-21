@@ -122,26 +122,8 @@ const ageChart = new Chart($('#ageChart'), {
     datasets: [
       {
         label: 'Confirmed',
-        backgroundColor: [
-	  chartColors.red,
-	  chartColors.orange,
-	  chartColors.yellow,
-	  chartColors.green,
-	  chartColors.blue,
-	  chartColors.purple,
-	  chartColors.grey,
-          chartColors.pink
-	],
-        borderColor: [
-	  chartColors.red,
-	  chartColors.orange,
-	  chartColors.yellow,
-	  chartColors.green,
-	  chartColors.blue,
-	  chartColors.purple,
-	  chartColors.grey,
-          chartColors.pink
-	],
+        backgroundColor: chartColors.orange,
+        borderColor: chartColors.orange,
         borderWidth: 2,
         data: ageConfirmedData
       },
@@ -159,17 +141,15 @@ const ageChart = new Chart($('#ageChart'), {
     maintainAspectRatio: false,
     aspectRatio: 1,
     legend: {
-        display: false
+        display: true
     },
     scales: {
       xAxes: [{
-        stacked: true,
         gridLines: {
           drawOnChartArea: false
         }
       }],
       yAxes: [{
-        stacked: true,
         ticks: {
           beginAtZero: true
         }

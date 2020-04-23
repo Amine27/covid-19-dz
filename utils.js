@@ -132,9 +132,12 @@ function setupTable() {
   })
 }
 
+function updateFromNow() {
+  $('#lastUpdated').text(`Updated ${moment(lastUpdated).fromNow()}`)
+}
+
 $(document).ready(() => {
   moment.tz.setDefault('Europe/Brussels')
-  $('#lastUpdated').text(`Updated ${moment(lastUpdated).fromNow()}`)
   $('#lastUpdated').attr('datetime', moment(lastUpdated).toISOString())
   $('#lastUpdated').attr('title', moment(lastUpdated).format('LLLL'))
 
@@ -150,6 +153,8 @@ $(document).ready(() => {
   $('#fatalityRate').text(getFatalityRate(confirmed, deaths))
   $('#recoveryRate').text(getRecoveryRate(confirmed, recovered))
 
+  updateFromNow()
+  setInterval(updateFromNow, 60000)
   setupTable()
 })
 

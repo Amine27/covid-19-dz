@@ -178,6 +178,13 @@ const dailyChart = new Chart($('#dailyChart'), {
         borderWidth: 2,
         data: getDailyConfirmed(confirmed)
       },
+      // {
+      //   label: 'Recovered',
+      //   backgroundColor: chartColors.green,
+      //   borderColor: chartColors.green,
+      //   borderWidth: 2,
+      //   data: getDailyRecovered(recovered)
+      // },
       {
         label: 'Deaths',
         backgroundColor: chartColors.red,

@@ -35,6 +35,14 @@ function getDailyConfirmed(confirmed) {
   return dailyConfirmed
 }
 
+function getDailyRecovered(recovered) {
+  let dailyRecovered = []
+  for (let i = 0; i < recovered.length; ++i) {
+    dailyRecovered.push(recovered[i] - (recovered[i-1] === undefined ? 0 : recovered[i-1]))
+  }
+  return dailyRecovered
+}
+
 function getDailyDeaths(deaths) {
   let dailyDeaths = []
   for (let i = 0; i < deaths.length; ++i) {
@@ -48,7 +56,6 @@ function getNewConfirmed(confirmed) {
     let newConfirmed = confirmed[confirmed.length-1] - confirmed[confirmed.length-2]
     if (newConfirmed > 0)
       return `+${newConfirmed}`
-    return 0
   }
   return 0
 }
@@ -58,7 +65,6 @@ function getNewRecovered(recovered) {
     let newRecovered = recovered[recovered.length-1] - recovered[recovered.length-2]
     if (newRecovered > 0)
       return `+${newRecovered}`
-    return 0
   }
   return 0
 }
@@ -68,7 +74,6 @@ function getNewDeaths(deaths) {
     let newDeaths = deaths[deaths.length-1] - deaths[deaths.length-2]
     if (newDeaths > 0)
       return `+${newDeaths}`
-    return 0
   }
   return 0
 }

@@ -156,7 +156,7 @@ $('#wilayaChartsList').change(() => {
     dataset.label = 'New confirmed'
     dataset.backgroundColor = chartColors.orange
     dataset.borderColor = chartColors.orange
-    filter = true
+    // filter = true
   } else if (chartData === 'deaths') {
     dataset.label = 'Deaths'
     dataset.backgroundColor = chartColors.red
@@ -165,7 +165,7 @@ $('#wilayaChartsList').change(() => {
     dataset.label = 'New deaths'
     dataset.backgroundColor = chartColors.red
     dataset.borderColor = chartColors.red
-    filter = true
+    // filter = true
   } else if (chartData === 'recovered') {
     dataset.label = 'Recovered'
     dataset.backgroundColor = chartColors.green

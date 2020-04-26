@@ -78,17 +78,19 @@ function getNewDeaths(deaths) {
   return 0
 }
 
-function getConfirmedPerWilayaName(provinces) {
-  return getConfirmedPerWilaya(provinces).map((t, i) => (i+1)+' - '+ t[0])
+function getDataPerWilayaName(provinces, dataType, filter) {
+  return getDataPerWilaya(provinces, dataType, filter).map((t, i) => (i+1)+' - '+ t[0])
 }
 
-function getConfirmedPerWilayaValue(provinces) {
-  return getConfirmedPerWilaya(provinces).map(t => t[1])
+function getDataPerWilayaValue(provinces, dataType, filter) {
+  return getDataPerWilaya(provinces, dataType, filter).map(t => t[1])
 }
 
-function getConfirmedPerWilaya(provinces) {
-  let items = Object.keys(provinces).map(key => [key, provinces[key].confirmed])
+function getDataPerWilaya(provinces, dataType, filter) {
+  let items = Object.keys(provinces).map(key => [key, provinces[key][dataType]])
   items.sort((first, second) => second[1] - first[1])
+  if(filter)
+    items = items.filter(item => item[1] > 0)
   return items
 }
 
@@ -141,6 +143,47 @@ function updateFromNow() {
   $('#lastUpdated').text(`Updated ${moment(lastUpdated).fromNow()}`)
 }
 
+$('#wilayaChartsList').change(() => {
+  const chartData = $('#wilayaChartsList').val()
+  let filter = false
+  let dataset = wilayaChart.data.datasets[0]
+
+  if (chartData === 'confirmed') {
+    dataset.label = 'Confirmed'
+    dataset.backgroundColor = chartColors.orange
+    dataset.borderColor = chartColors.orange
+  } else if (chartData === 'new_confirmed') {
+    dataset.label = 'New confirmed'
+    dataset.backgroundColor = chartColors.orange
+    dataset.borderColor = chartColors.orange
+    filter = true
+  } else if (chartData === 'deaths') {
+    dataset.label = 'Deaths'
+    dataset.backgroundColor = chartColors.red
+    dataset.borderColor = chartColors.red
+  } else if (chartData === 'new_deaths') {
+    dataset.label = 'New deaths'
+    dataset.backgroundColor = chartColors.red
+    dataset.borderColor = chartColors.red
+    filter = true
+  } else if (chartData === 'recovered') {
+    dataset.label = 'Recovered'
+    dataset.backgroundColor = chartColors.green
+    dataset.borderColor = chartColors.green
+  }
+  dataset.data = getDataPerWilayaValue(provinces, chartData, filter)
+  wilayaChart.data.labels = getDataPerWilayaName(provinces, chartData, filter)
+  wilayaChart.update()
+  wilayaChart.update()
+})
+
+$('#tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
+  activeTab = e.target.id
+  if(activeTab === 'table-tab') {
+    $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust()
+  }
+})
+
 $(document).ready(() => {
   moment.tz.setDefault('Europe/Brussels')
   $('#lastUpdated').attr('datetime', moment(lastUpdated).toISOString())
@@ -161,11 +204,4 @@ $(document).ready(() => {
   updateFromNow()
   setInterval(updateFromNow, 60000)
   setupTable()
-})
-
-$('#tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
-  activeTab = e.target.id
-  if(activeTab === 'table-tab') {
-    $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust()
-  }
 })

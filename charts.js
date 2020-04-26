@@ -53,10 +53,7 @@ const statsChart = new Chart($('#statsChart'), {
     },
     elements: {
       point: {
-        radius: 3,
-        hitRadius: 10,
-        hoverRadius: 4,
-        hoverBorderWidth: 3
+        radius: 0
       }
     },
     tooltips: {
@@ -235,23 +232,28 @@ const dailyChart = new Chart($('#dailyChart'), {
 const wilayaChart = new Chart($('#wilayaChart'), {
   type: 'horizontalBar',
   data: {
-    labels: getConfirmedPerWilayaName(provinces),
+    labels: getDataPerWilayaName(provinces, 'confirmed', false),
     datasets: [
       {
         label: 'Confirmed',
         backgroundColor: chartColors.orange,
         borderColor: chartColors.orange,
         borderWidth: 2,
-        data: getConfirmedPerWilayaValue(provinces)
+        data: getDataPerWilayaValue(provinces, 'confirmed', false)
       }
     ]
   },
   options: {
+    layout: {
+      padding: {
+        right: 30
+      }
+    },
     response: true,
     maintainAspectRatio: false,
     aspectRatio: 1,
     legend: {
-        display: true
+      display: false
     },
     title: {
       display: true,
@@ -261,11 +263,18 @@ const wilayaChart = new Chart($('#wilayaChart'), {
       mode: 'index',
       intersect: false
     },
+    scales: {
+      xAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    },
     plugins: {
       datalabels: {
         display: true,
-        anchor :'end',
-        align :'right'
+        anchor: 'end',
+        align:'right',
       }
     }
   }

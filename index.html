@@ -88,49 +88,55 @@
 
       </div>
       <div class="row my-2">
-        <div class="col-md-9 py-1">
-          <div class="card">
-            <div class="card-body">
-              <ul class="nav nav-tabs" id="tab" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active" id="map-tab" data-toggle="tab" href="#map-pane" role="tab" aria-controls="map" aria-selected="true">Map</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="chart-tab" data-toggle="tab" href="#chart-pane" role="tab" aria-controls="chart" aria-selected="false">Chart</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="table-tab" data-toggle="tab" href="#table-pane" role="tab" aria-controls="table" aria-selected="false">Table</a>
-                </li>
-              </ul>
-              <div class="tab-content" id="tabContent">
-                <div class="tab-pane fade show active" id="map-pane" role="tabpanel" aria-labelledby="map-tab">
-                  <div id='map'></div>
-                </div>
-                <div class="tab-pane fade" id="chart-pane" role="tabpanel" aria-labelledby="chart-tab">
-                  <div style='height:800px;width:100%'>
-                    <canvas id="wilayaChart"></canvas>
-                  </div>
-                </div>
-                <div class="tab-pane fade" id="table-pane" role="tabpanel" aria-labelledby="table-tab">
-                  <div class="mt-3">
-                    <table id="wilayaTable" class="table table-sm table-hover table-bordered display table_style">
-                      <thead class="thead-light">
-                        <tr>
-                          <th>Wilaya</th>
-                          <th>Confirmed</th>
-                          <th>New confirmed</th>
-                          <th>Deaths</th>
-                          <th>New deaths</th>
-                          <th>Recovered</th>
-                          <th>1<sup>st</sup> Reported</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
-                  </div>
+        <div class="col-md-9 py-1 pb-4">
+          <ul class="nav nav-tabs" id="tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="map-tab" data-toggle="tab" href="#map-pane" role="tab" aria-controls="map" aria-selected="true">Map</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="chart-tab" data-toggle="tab" href="#chart-pane" role="tab" aria-controls="chart" aria-selected="false">Chart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="table-tab" data-toggle="tab" href="#table-pane" role="tab" aria-controls="table" aria-selected="false">Table</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="tabContent">
+            <div class="tab-pane fade show active border border-top-0" id="map-pane" role="tabpanel" aria-labelledby="map-tab">
+              <div id='map'></div>
+            </div>
+            <div class="tab-pane fade border border-top-0" id="chart-pane" role="tabpanel" aria-labelledby="chart-tab">
+              <div class="row">
+                <div class="col-sm-12 col-md-6"></div>
+                <div class="col-sm-12 col-md-6">
+                  <select class="form-control form-control-sm w-auto float-right mr-3 mt-3" id="wilayaChartsList" name="wilayaChartsList">
+                    <option value="confirmed">Confirmed</option>
+                    <option value="new_confirmed">New confirmed</option>
+                    <option value="deaths">Deaths</option>
+                    <option value="new_deaths">New deaths</option>
+                    <option value="recovered">Recovered</option>
+                  </select>
                 </div>
               </div>
+              <div style='height:800px;width:100%'>
+                <canvas id="wilayaChart"></canvas>
+              </div>
+            </div>
+            <div class="tab-pane fade border border-top-0" id="table-pane" role="tabpanel" aria-labelledby="table-tab">
+              <table id="wilayaTable" class="table table-sm table-hover table-bordered display table_style">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Wilaya</th>
+                    <th>Confirmed</th>
+                    <th>New confirmed</th>
+                    <th>Deaths</th>
+                    <th>New deaths</th>
+                    <th>Recovered</th>
+                    <th>1<sup>st</sup> Reported</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

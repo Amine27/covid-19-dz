@@ -18,7 +18,7 @@
 
 .legend span, .legend label {
     display: block;
-    width: 38px;
+    width: 40px;
     height: 18px;
     float: left;
     opacity: 0.7;
@@ -68,4 +68,15 @@
 
 .spacing {
     padding-bottom: 3px;
+}
+
+div.dataTables_filter {
+    margin-top: 1rem!important;
+    margin-right: 14px;
+}
+
+@media screen and (max-width: 767px) {
+    div.dataTables_filter {
+        margin-right: 0px;
+    }
 }

@@ -119,10 +119,10 @@ function setupTable() {
                       nextWeek: 'dddd',
                       lastDay:  '[Yesterday]',
                       lastWeek: () => {
-                        return "[" + moment(provinces[key].last_reported).fromNow(true) + "]"
+                        return "[" + moment().diff(moment(provinces[key].last_reported), 'days') + " days]"
                       },
                       sameElse: () => {
-                        return "[" + moment(provinces[key].last_reported).fromNow(true) + "]"
+                        return "[" + moment().diff(moment(provinces[key].last_reported), 'days') + " days]"
                       }
                     }) : '',
                     moment(provinces[key].reported).isValid() ? moment(provinces[key].reported).format('ll') : '']

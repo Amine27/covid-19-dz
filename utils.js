@@ -113,7 +113,18 @@ function setupTable() {
                     provinces[key].confirmed,
                     provinces[key].new_confirmed > 0 ? '+'+provinces[key].new_confirmed : '',
                     provinces[key].deaths, provinces[key].new_deaths > 0 ? '+'+provinces[key].new_deaths : '',
-                    provinces[key].recovered,
+                    moment(provinces[key].last_reported).isValid() ? moment(provinces[key].last_reported).calendar(moment(), {
+                      sameDay:  '[Today]',
+                      nextDay:  '[Tomorrow]',
+                      nextWeek: 'dddd',
+                      lastDay:  '[Yesterday]',
+                      lastWeek: () => {
+                        return "[" + moment(provinces[key].last_reported).fromNow(true) + "]"
+                      },
+                      sameElse: () => {
+                        return "[" + moment(provinces[key].last_reported).fromNow(true) + "]"
+                      }
+                    }) : '',
                     moment(provinces[key].reported).isValid() ? moment(provinces[key].reported).format('ll') : '']
     provincesData.push(province)
   }
@@ -132,8 +143,8 @@ function setupTable() {
       // { className: "table_cells", targets: "_all" },
       { className: "province", targets: 0 },
       { className: "confirmed", targets: 2 },
-      { className: "recovered text-nowrap", targets: 5 },
       { className: "deaths", targets: 4 },
+      // { className: "text-nowrap", targets: 5 },
       { className: "text-nowrap", targets: 6 }
     ]
   })

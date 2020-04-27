@@ -39,6 +39,8 @@ def getWilayaStats():
                 provinces[w['WILAYA']]['new_confirmed'] = w['new_cases'] or 0
                 provinces[w['WILAYA']]['new_recovered'] = w['new_recovred'] or 0
                 provinces[w['WILAYA']]['new_deaths'] = w['New_case_death'] or 0
+                if(w['new_cases']):
+                    provinces[w['WILAYA']]['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
                 totalCalculStats['new_confirmed'] += w['new_cases']
                 totalCalculStats['new_deaths'] += w['New_case_death']
                 totalCalculStats['confirmed'] +=  w['Cas_confirm']
@@ -133,6 +135,7 @@ def readData():
                 provinces[pId]['new_recovered'] = 0
                 provinces[pId]['new_deaths'] = 0
                 provinces[pId]['reported'] = p['reported']
+                provinces[pId]['last_reported'] = p['last_reported']
                 newConfirmedOld += int(p['new_confirmed'])
                 newRecoveredOld += int(p['new_recovered'])
                 newDeathsOld += int(p['new_deaths'])
@@ -167,7 +170,7 @@ def updateData():
                      + '\nconst provinces = {\n'
         )
         for p_id, p in provinces.items():
-            finalData += '  "'+p['name']+'": { id: '+str(p_id)+', confirmed: '+str(p['confirmed'])+', recovered: '+str(p['recovered'])+', deaths: '+str(p['deaths'])+', new_confirmed: '+str(p['new_confirmed'])+', new_recovered: '+str(p['new_recovered'])+', new_deaths: '+str(p['new_deaths'])+', reported: "'+str(p['reported'])+'" },\n'
+            finalData += '  "'+p['name']+'": { id: '+str(p_id)+', confirmed: '+str(p['confirmed'])+', recovered: '+str(p['recovered'])+', deaths: '+str(p['deaths'])+', new_confirmed: '+str(p['new_confirmed'])+', new_recovered: '+str(p['new_recovered'])+', new_deaths: '+str(p['new_deaths'])+', reported: "'+str(p['reported'])+'", last_reported: "'+str(p['last_reported'])+'" },\n'
 
         finalData = finalData[:-2] + '\n}'
         with open("data.js", "w") as dataFile:

@@ -9,21 +9,22 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162515731-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || []
-      function gtag(){dataLayer.push(arguments)}
-      gtag('js', new Date())
-      gtag('config', 'UA-162515731-1')
-    </script>
   </head>
   <body>
     <div class="container">
       <div class="row my-3">
         <div class="col">
           <h4>Algeria Covid-19</h4>
-          <sup><time id='lastUpdated'>Updated</time></sup>
+          <sup><time id='lastUpdated'>Updated
+              <div class="spinner">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+            </time>
+            </div>
+          </sup>
         </div>
       </div>
 
@@ -32,15 +33,21 @@
           <div class="card text-white bg-warning">
             <div class="card-body row text-center">
               <div class="col">
-                <div class="text-value-xl" id="totalConfirmed">-</div>
+                <div class="text-value-xl" id="totalConfirmed">
+                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
+                </div>
                 <div class="text-uppercase">Confirmed</div>
               </div>
               <div class="col">
-                <div class="text-value-xl" id="newConfirmed">-</div>
+                <div class="text-value-xl" id="newConfirmed">
+                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
+                </div>
                 <div class="text-uppercase">Last 24h</div>
               </div>
               <div class="col">
-                <div class="text-value-xl" id="totalDays">-</div>
+                <div class="text-value-xl" id="totalDays">
+                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
+                </div>
                 <div class="text-uppercase">Days</div>
               </div>
             </div>
@@ -51,18 +58,23 @@
           <div class="card text-white bg-success">
             <div class="card-body row text-center">
               <div class="col">
-                <div class="text-value-xl" id="totalRecovered">-</div>
+                <div class="text-value-xl" id="totalRecovered">
+                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
+                </div>
                 <div class="text-uppercase">Recovered</div>
               </div>
-                            <div class="col">
-                <div class="text-value-xl" id="newRecovered">-</div>
+              <div class="col">
+                <div class="text-value-xl" id="newRecovered">
+                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
+                </div>
                 <div class="text-uppercase">Last 24h</div>
               </div>
               <div class="col">
-                <div class="text-value-xl" id="recoveryRate">-</div>
+                <div class="text-value-xl" id="recoveryRate">
+                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
+                </div>
                 <div class="text-uppercase">Rate</div>
               </div>
-
             </div>
           </div>
         </div>
@@ -71,15 +83,21 @@
           <div class="card text-white bg-danger">
             <div class="card-body row text-center">
               <div class="col">
-                <div class="text-value-xl" id="totalDeaths">-</div>
+                <div class="text-value-xl" id="totalDeaths">
+                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
+                </div>
                 <div class="text-uppercase">Deaths</div>
               </div>
               <div class="col">
-                <div class="text-value-xl" id="newDeaths">-</div>
+                <div class="text-value-xl" id="newDeaths">
+                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
+                </div>
                 <div class="text-uppercase">Last 24h</div>
               </div>
               <div class="col">
-                <div class="text-value-xl" id="fatalityRate">-</div>
+                <div class="text-value-xl" id="fatalityRate">
+                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
+                </div>
                 <div class="text-uppercase">Rate</div>
               </div>
             </div>
@@ -173,11 +191,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="row my-3"> -->
-      <!--   <div class="col"> -->
-      <!--     <sup id='lastUpdated'></sup> -->
-      <!--   </div> -->
-      <!-- </div> -->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -191,6 +204,13 @@
     <script src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
     <script src="https://cdn.datatables.net/plug-ins/1.10.20/sorting/datetime-moment.js"></script>
     <script data-href="https://github.com/Amine27/covid-19-dz" data-target="_blank" src="https://unpkg.com/github-corners/dist/embed.min.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162515731-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag(){dataLayer.push(arguments)}
+      gtag('js', new Date())
+      gtag('config', 'UA-162515731-1')
+    </script>
 
     <script type="text/javascript" src="data.js?v=1588174022"></script>
     <script type="text/javascript" src="utils.js"></script>

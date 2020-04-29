@@ -120,7 +120,7 @@ legend.onAdd = function (map) {
   labels.push('<br>')
 
   for (var i = 0; i < grades.length; i++) {
-    labels.push('<label>' + grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] : '+') + '</label> ')
+    labels.push('<label>' + grades[i] + (grades[i + 1] ? '-' + grades[i + 1] : '+') + '</label> ')
   }
 
   div.innerHTML = labels.join('')

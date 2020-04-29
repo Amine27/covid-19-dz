@@ -37,7 +37,7 @@ def getWilayaStats():
                 provinces[w['WILAYA']]['recovered'] = w['Récupér']
                 provinces[w['WILAYA']]['deaths'] = w['Décés']
                 provinces[w['WILAYA']]['new_confirmed'] = w['new_cases'] or 0
-                provinces[w['WILAYA']]['new_recovered'] = w['new_recovred'] or 0
+                provinces[w['WILAYA']]['new_recovered'] = 0 # w['new_recovred'] or 0
                 provinces[w['WILAYA']]['new_deaths'] = w['New_case_death'] or 0
                 if(w['new_cases']):
                     provinces[w['WILAYA']]['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')

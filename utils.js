@@ -154,6 +154,16 @@ function updateFromNow() {
   $('#lastUpdated').text(`Updated ${moment(lastUpdated).fromNow()}`)
 }
 
+function checkYesterday() {
+  if (moment(date[date.length-1], 'M/D/YY').isBefore(moment(), 'day')) {
+    $('#newConfirmedText').text('Yesterday')
+    $('#newRecoveredText').text('Yesterday')
+    $('#newDeathsText').text('Yesterday')
+    $('#newConfirmedTh').text('Yesterday cases')
+    $('#newDeathsTh').text('Yesterday deaths')
+  }
+}
+
 $('#wilayaChartsList').change(() => {
   const chartData = $('#wilayaChartsList').val()
   let filter = false
@@ -197,6 +207,7 @@ $('#tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
 
 $(document).ready(() => {
   moment.tz.setDefault('Europe/Brussels')
+  checkYesterday()
   $('#lastUpdated').attr('datetime', moment(lastUpdated).toISOString())
   $('#lastUpdated').attr('title', moment(lastUpdated).format('LLLL'))
 

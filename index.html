@@ -42,7 +42,7 @@
                 <div class="text-value-xl" id="newConfirmed">
                   <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
                 </div>
-                <div class="text-uppercase">Last 24h</div>
+                <div class="text-uppercase" id="newConfirmedText">Last 24h</div>
               </div>
               <div class="col">
                 <div class="text-value-xl" id="totalDays">
@@ -67,7 +67,7 @@
                 <div class="text-value-xl" id="newRecovered">
                   <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
                 </div>
-                <div class="text-uppercase">Last 24h</div>
+                <div class="text-uppercase" id="newRecoveredText">Last 24h</div>
               </div>
               <div class="col">
                 <div class="text-value-xl" id="recoveryRate">
@@ -92,7 +92,7 @@
                 <div class="text-value-xl" id="newDeaths">
                   <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
                 </div>
-                <div class="text-uppercase">Last 24h</div>
+                <div class="text-uppercase" id="newDeathsText">Last 24h</div>
               </div>
               <div class="col">
                 <div class="text-value-xl" id="fatalityRate">
@@ -145,9 +145,9 @@
                   <tr>
                     <th>Wilaya</th>
                     <th>Confirmed</th>
-                    <th>New confirmed</th>
+                    <th id="newConfirmedTh">New confirmed</th>
                     <th>Deaths</th>
-                    <th>New deaths</th>
+                    <th id="newDeathsTh">New deaths</th>
                     <th>Last reported</th>
                     <th>1<sup>st</sup> Reported</th>
                   </tr>
@@ -220,8 +220,3 @@
 
   </body>
 </html>
-
-
-
-
-

@@ -92,19 +92,19 @@ div.dataTables_filter {
 
 .load > div {
   position: absolute;
-  width: 72px;
-  height: 72px;
+  width: 90px;
+  height: 90px;
   top: 14px;
   left: 14px;
   border-radius: 50%;
-  border: 8px solid #000;
+  border: 12px solid #000;
   border-color: #fff transparent #fff transparent;
   animation: load 1.6s linear infinite;
 }
 
 .load-spinner {
-  width: 21px;
-  height: 21px;
+  width: 26px;
+  height: 26px;
   display: inline-block;
   overflow: hidden;
   background: none;

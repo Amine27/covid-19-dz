@@ -206,6 +206,9 @@ $('#tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
 })
 
 $(document).ready(() => {
+  // migrate to our new domain
+  window.location.replace("https://corona-dz.live")
+
   moment.tz.setDefault('Europe/Brussels')
   checkYesterday()
   $('#lastUpdated').attr('datetime', moment(lastUpdated).toISOString())

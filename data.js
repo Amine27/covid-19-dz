@@ -52,7 +52,7 @@ const provinces = {
   "Tébessa": { id: 12, confirmed: 33, recovered: 0, deaths: 3, new_confirmed: 3, new_recovered: 0, new_deaths: 0, reported: "2020-04-03", last_reported: "2020-05-01" },
   "Tamanghasset": { id: 11, confirmed: 3, recovered: 0, deaths: 0, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-04-13", last_reported: "2020-04-29" },
   "Tiaret": { id: 14, confirmed: 81, recovered: 0, deaths: 4, new_confirmed: 5, new_recovered: 0, new_deaths: 0, reported: "2020-04-02", last_reported: "2020-05-01" },
-  "Tindouf": { id: 37, confirmed: 6, recovered: 0, deaths: 0, new_confirmed: 6, new_recovered: 0, new_deaths: 0, reported: "", last_reported: "2020-05-01" },
+  "Tindouf": { id: 37, confirmed: 6, recovered: 0, deaths: 0, new_confirmed: 6, new_recovered: 0, new_deaths: 0, reported: "2020-05-01", last_reported: "2020-05-01" },
   "Tipaza": { id: 42, confirmed: 143, recovered: 0, deaths: 23, new_confirmed: 3, new_recovered: 0, new_deaths: 0, reported: "2020-03-23", last_reported: "2020-05-01" },
   "Tissemsilt": { id: 38, confirmed: 46, recovered: 1, deaths: 2, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-19", last_reported: "2020-04-26" },
   "Tizi Ouzou": { id: 15, confirmed: 105, recovered: 2, deaths: 15, new_confirmed: 1, new_recovered: 0, new_deaths: 1, reported: "2020-03-12", last_reported: "2020-05-01" },

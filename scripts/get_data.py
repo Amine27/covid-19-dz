@@ -113,7 +113,7 @@ def getDeathStats():
 
 def readData():
     global dateOld, confirmedOld, recoveredOld, deathsOld, newConfirmedOld, newRecoveredOld, newDeathsOld, provinces
-    with open('data.js') as f:
+    with open('js/data.js') as f:
         for line in f:
             if(line.startswith('const date')):
                 dateOld = line[line.find("[")+1:line.find("]")].replace("'", "").split(', ')
@@ -173,7 +173,7 @@ def updateData():
             finalData += '  "'+p['name']+'": { id: '+str(p_id)+', confirmed: '+str(p['confirmed'])+', recovered: '+str(p['recovered'])+', deaths: '+str(p['deaths'])+', new_confirmed: '+str(p['new_confirmed'])+', new_recovered: '+str(p['new_recovered'])+', new_deaths: '+str(p['new_deaths'])+', reported: "'+str(p['reported'])+'", last_reported: "'+str(p['last_reported'])+'" },\n'
 
         finalData = finalData[:-2] + '\n}'
-        with open("data.js", "w") as dataFile:
+        with open("js/data.js", "w") as dataFile:
             print("{}".format(finalData), file=dataFile)
 
         print(datetime.datetime.now(), ': saved new data')
@@ -188,18 +188,18 @@ def updateIndex():
     newIndex = ''
     with open('index.html') as f:
         for line in f:
-            if(line.startswith('    <script type="text/javascript" src="data.js')):
-                newIndex += '    <script type="text/javascript" src="data.js?v='+ str(int(time.time())) +'"></script>\n'
+            if(line.startswith('    <script type="text/javascript" src="js/data.js')):
+                newIndex += '    <script type="text/javascript" src="js/data.js?v='+ str(int(time.time())) +'"></script>\n'
             else:
                 newIndex += line
 
     with open("index.html", "w") as indexFile:
-        print("{}".format(newIndex), file=indexFile)
+        print("{}".format(newIndex.strip()), file=indexFile)
 
 def gitPush():
     try:
         repo = Repo('.')
-        repo.index.add(['data.js', 'index.html'])
+        repo.index.add(['js/data.js', 'index.html'])
         repo.index.commit('[Bot] Update stats')
         origin = repo.remote(name='origin')
         origin.push()

@@ -226,4 +226,8 @@ $(document).ready(() => {
   updateFromNow()
   setInterval(updateFromNow, 60000)
   setupTable()
+
+  if(document.referrer === 'https://amine27.github.io/covid-19-dz/') {
+    $('#alert').show()
+  }
 })

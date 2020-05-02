@@ -9,71 +9,25 @@ const chartColors = {
   pink: 'rgb(255, 192, 203)'
 }
 
-function getTotalConfirmed(confirmed) {
-  if (confirmed.length > 0)
-    return confirmed[confirmed.length-1]
+function getTotalData(dataType) {
+  if (dataType.length > 0)
+    return dataType[dataType.length-1]
   return 0
 }
 
-function getTotalRecovered(recovered) {
-  if (recovered.length > 0)
-    return recovered[recovered.length-1]
-  return 0
-}
-
-function getTotalDeaths(deaths) {
-  if (deaths.length > 0)
-    return deaths[deaths.length-1]
-  return 0
-}
-
-function getDailyConfirmed(confirmed) {
-  let dailyConfirmed = []
-  for (let i = 0; i < confirmed.length; ++i) {
-    dailyConfirmed.push(confirmed[i] - (confirmed[i-1] === undefined ? 0 : confirmed[i-1]))
+function getDailyData(dataType) {
+  let dailyData = []
+  for (let i = 0; i < dataType.length; ++i) {
+    dailyData.push(dataType[i] - (dataType[i-1] === undefined ? 0 : dataType[i-1]))
   }
-  return dailyConfirmed
+  return dailyData
 }
 
-function getDailyRecovered(recovered) {
-  let dailyRecovered = []
-  for (let i = 0; i < recovered.length; ++i) {
-    dailyRecovered.push(recovered[i] - (recovered[i-1] === undefined ? 0 : recovered[i-1]))
-  }
-  return dailyRecovered
-}
-
-function getDailyDeaths(deaths) {
-  let dailyDeaths = []
-  for (let i = 0; i < deaths.length; ++i) {
-    dailyDeaths.push(deaths[i] - (deaths[i-1] === undefined ? 0 : deaths[i-1]))
-  }
-  return dailyDeaths
-}
-
-function getNewConfirmed(confirmed) {
-  if(confirmed.length > 1) {
-    let newConfirmed = confirmed[confirmed.length-1] - confirmed[confirmed.length-2]
-    if (newConfirmed > 0)
-      return `+${newConfirmed}`
-  }
-  return 0
-}
-
-function getNewRecovered(recovered) {
-  if(recovered.length > 1) {
-    let newRecovered = recovered[recovered.length-1] - recovered[recovered.length-2]
-    if (newRecovered > 0)
-      return `+${newRecovered}`
-  }
-  return 0
-}
-
-function getNewDeaths(deaths) {
-  if(deaths.length > 1) {
-    let newDeaths = deaths[deaths.length-1] - deaths[deaths.length-2]
-    if (newDeaths > 0)
-      return `+${newDeaths}`
+function getNewData(dataType) {
+  if(dataType.length > 1) {
+    let newData = dataType[dataType.length-1] - dataType[dataType.length-2]
+    if (newData > 0)
+      return `+${newData}`
   }
   return 0
 }
@@ -98,12 +52,12 @@ function getTotalDays(date) {
   return date.length
 }
 
-function getFatalityRate(confirmed, deaths) {
-  return `${(getTotalDeaths(deaths) / getTotalConfirmed(confirmed) * 100).toFixed(2)}%`
+function getDataRate(confirmed, dataType) {
+  return `${(getTotalData(dataType) / getTotalData(confirmed) * 100).toFixed(2)}%`
 }
 
-function getRecoveryRate(confirmed, recovered) {
-  return `${(getTotalRecovered(recovered) / getTotalConfirmed(confirmed) * 100).toFixed(2)}%`
+function getDataAugmentationRate(dataType) {
+  return `${((getTotalData(dataType) - dataType[dataType.length-2]) / getTotalData(dataType) * 100).toFixed(2)}%`
 }
 
 function setupTable() {
@@ -211,17 +165,20 @@ $(document).ready(() => {
   $('#lastUpdated').attr('datetime', moment(lastUpdated).toISOString())
   $('#lastUpdated').attr('title', moment(lastUpdated).format('LLLL'))
 
-  $('#totalConfirmed').text(getTotalConfirmed(confirmed))
-  $('#totalRecovered').text(getTotalRecovered(recovered))
-  $('#totalDeaths').text(getTotalDeaths(deaths))
+  $('#totalConfirmed').text(getTotalData(confirmed))
+  $('#totalRecovered').text(getTotalData(recovered))
+  $('#totalDeaths').text(getTotalData(deaths))
+  $('#totalTreatment').text(getTotalData(treatment))
 
-  $('#newConfirmed').text(getNewConfirmed(confirmed))
-  $('#newRecovered').text(getNewRecovered(recovered))
-  $('#newDeaths').text(getNewDeaths(deaths))
+  $('#newConfirmed').text(getNewData(confirmed))
+  $('#newRecovered').text(getNewData(recovered))
+  $('#newDeaths').text(getNewData(deaths))
+  $('#newTreatment').text(getNewData(treatment))
 
   $('#totalDays').text(getTotalDays(date))
-  $('#fatalityRate').text(getFatalityRate(confirmed, deaths))
-  $('#recoveryRate').text(getRecoveryRate(confirmed, recovered))
+  $('#fatalityRate').text(getDataRate(confirmed, deaths))
+  $('#recoveryRate').text(getDataRate(confirmed, recovered))
+  $('#augmentationRate').text(getDataAugmentationRate(treatment))
 
   updateFromNow()
   setInterval(updateFromNow, 60000)

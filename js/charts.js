@@ -173,21 +173,21 @@ const dailyChart = new Chart($('#dailyChart'), {
         backgroundColor: chartColors.orange,
         borderColor: chartColors.orange,
         borderWidth: 2,
-        data: getDailyConfirmed(confirmed)
+        data: getDailyData(confirmed)
       },
       // {
       //   label: 'Recovered',
       //   backgroundColor: chartColors.green,
       //   borderColor: chartColors.green,
       //   borderWidth: 2,
-      //   data: getDailyRecovered(recovered)
+      //   data: getDailyData(recovered)
       // },
       {
         label: 'Deaths',
         backgroundColor: chartColors.red,
         borderColor: chartColors.red,
         borderWidth: 2,
-        data: getDailyDeaths(deaths)
+        data: getDailyData(deaths)
       }
     ]
   },

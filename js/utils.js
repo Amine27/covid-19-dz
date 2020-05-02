@@ -111,7 +111,8 @@ function updateFromNow() {
 function checkYesterday() {
   if (moment(date[date.length-1], 'M/D/YY').isBefore(moment(), 'day')) {
     $('#newConfirmedText, #newRecoveredText, #newDeathsText, #newTreatmentText').text('Yesterday')
-    $('#newConfirmedTh, #newDeathsTh').text('Yesterday cases')
+    $('#newConfirmedTh').text('Yesterday cases')
+    $('#newDeathsTh').text('Yesterday deaths')
   }
 }
 

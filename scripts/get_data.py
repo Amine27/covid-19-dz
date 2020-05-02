@@ -12,6 +12,7 @@ dateOld = []
 confirmedOld = []
 recoveredOld = []
 deathsOld = []
+treatmentOld = []
 newConfirmedOld = 0
 newRecoveredOld = 0
 newDeathsOld = 0
@@ -46,6 +47,7 @@ def getWilayaStats():
                 totalCalculStats['confirmed'] +=  w['Cas_confirm']
                 totalCalculStats['deaths'] += w['Décés']
                 totalCalculStats['recovered'] = totalOfficialStats['recovered']
+                totalCalculStats['treatment'] = totalOfficialStats['treatment']
         except KeyError:
             print('getWilayaStats(): incorrect json file')
             totalCalculStats['new_confirmed'] = newConfirmedOld
@@ -53,6 +55,7 @@ def getWilayaStats():
             totalCalculStats['confirmed'] = totalOfficialStats['confirmed']
             totalCalculStats['deaths'] = totalOfficialStats['deaths']
             totalCalculStats['recovered'] = totalOfficialStats['recovered']
+            totalCalculStats['treatment'] = totalOfficialStats['treatment']
             # sys.exit(0)
 
 def getTotalStats():
@@ -68,6 +71,7 @@ def getTotalStats():
                     'confirmed': t['Cumul'],
                     'recovered': t['gueris'],
                     'deaths': t['Death_cumul'],
+                    'treatment': t['Straitem'] or treatmentOld[-1],
                     'man': t['Masculin'],
                     'woman': t['Féminin'],
                     'an': t['an'],
@@ -112,7 +116,7 @@ def getDeathStats():
     deathsStats = usefulData[0]
 
 def readData():
-    global dateOld, confirmedOld, recoveredOld, deathsOld, newConfirmedOld, newRecoveredOld, newDeathsOld, provinces
+    global dateOld, confirmedOld, recoveredOld, deathsOld, treatmentOld, newConfirmedOld, newRecoveredOld, newDeathsOld, provinces
     with open('js/data.js') as f:
         for line in f:
             if(line.startswith('const date')):
@@ -123,6 +127,8 @@ def readData():
                 recoveredOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
             elif(line.startswith('const deaths')):
                 deathsOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
+            elif(line.startswith('const treatment')):
+                treatmentOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
             elif(line.startswith('  "')):
                 p = json.loads('{'+line[line.find("{")+1:line.find("}")].replace(': ', '": "').replace(', ', '", "').replace('""', '"').replace(' id', ' "id')+'}')
                 pId = int(p['id'])
@@ -151,16 +157,19 @@ def updateData():
             confirmedOld.append(totalCalculStats['confirmed'])
             recoveredOld.append(totalCalculStats['recovered'])
             deathsOld.append(totalCalculStats['deaths'])
+            treatmentOld.append(totalCalculStats['treatment'])
         else:
             print('modifying day:', lastDate)
             confirmedOld[-1] = totalCalculStats['confirmed']
             recoveredOld[-1] = totalOfficialStats['recovered']
             deathsOld[-1] = totalCalculStats['deaths']
+            treatmentOld[-1] = totalCalculStats['treatment']
 
         finalData = ('const date = ' + str(dateOld)
                      + '\nconst confirmed = ' + str(confirmedOld)
                      + '\nconst recovered = ' + str(recoveredOld)
                      + '\nconst deaths = ' + str(deathsOld)
+                     + '\nconst treatment = ' + str(treatmentOld)
                      + "\nconst gender = ['Male', 'Female']"
                      + '\nconst genderData = ['+str(totalOfficialStats['man'])+', '+ str(totalOfficialStats['woman'])+']'
                      + "\nconst age = ['< 1', '1 - 14', '15 - 24', '25 - 49', '50 - 59', '+60', 'N/A']"

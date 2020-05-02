@@ -177,6 +177,8 @@ $(document).ready(() => {
   $('#recoveryRate').text(getDataRate(confirmed, recovered))
   $('#augmentationRate').text(getDataAugmentationRate(treatment))
 
+  $('[data-toggle="tooltip"]').tooltip()
+
   updateFromNow()
   setInterval(updateFromNow, 60000)
   setupTable()

@@ -28,6 +28,7 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
   </head>
@@ -76,7 +77,9 @@
                 <div class="text-value-xl text-warning" id="totalDays">
                   <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
                 </div>
-                <div class="text-uppercase">Days</div>
+                <div class="text-uppercase">Days
+                  <span class="oi oi-info tooltip-info" data-toggle="tooltip" title="Days since first case (Feb 25, 2020)" data-placement="bottom" aria-hidden="true"></span>
+                </div>
               </div>
             </div>
           </div>
@@ -101,7 +104,9 @@
                 <div class="text-value-xl text-success" id="recoveryRate">
                   <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
                 </div>
-                <div class="text-uppercase">Rate</div>
+                <div class="text-uppercase">Rate
+                  <span class="oi oi-info tooltip-info" data-toggle="tooltip" title="Recovery rate" data-placement="bottom" aria-hidden="true"></span>
+                </div>
               </div>
             </div>
           </div>
@@ -126,7 +131,9 @@
                 <div class="text-value-xl text-danger" id="fatalityRate">
                   <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
                 </div>
-                <div class="text-uppercase">Rate</div>
+                <div class="text-uppercase">Rate
+                  <span class="oi oi-info tooltip-info" data-toggle="tooltip" title="Fatality rate" data-placement="bottom" aria-hidden="true"></span>
+                </div>
               </div>
             </div>
           </div>
@@ -151,7 +158,9 @@
                 <div class="text-value-xl text-info" id="augmentationRate">
                   <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
                 </div>
-                <div class="text-uppercase">Rate</div>
+                <div class="text-uppercase">Rate
+                  <span class="oi oi-info tooltip-info" data-toggle="tooltip" title="Increasing rate" data-placement="bottom" aria-hidden="true"></span>
+                </div>
               </div>
             </div>
           </div>

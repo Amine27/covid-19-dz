@@ -58,6 +58,42 @@
     box-shadow: 0 1px 1px 0 rgba(60,75,100,.14), 0 2px 1px -1px rgba(60,75,100,.12), 0 1px 3px 0 rgba(60,75,100,.2);
 }
 
+.card-confirmed {
+    border-top: 4px solid rgb(255, 193, 7) !important;
+}
+
+.card-new-confirmed {
+    border-radius: 32px;
+    background: rgba(255, 193, 7, 0.2);
+}
+
+.card-recovered {
+    border-top: 4px solid rgb(40, 167, 69) !important;
+}
+
+.card-new-recovered {
+    border-radius: 32px;
+    background: rgba(40, 167, 69, 0.2);
+}
+
+.card-deaths {
+    border-top: 4px solid rgb(220, 53, 69) !important;
+}
+
+.card-new-deaths {
+    border-radius: 32px;
+    background: rgba(220, 53, 69, 0.2);
+}
+
+.card-treatment {
+    border-top: 4px solid rgb(23, 162, 184) !important;
+}
+
+.card-new-treatment {
+    border-radius: 32px;
+    background: rgba(23, 162, 184, 0.2);
+}
+
 .text-value-xl {
     font-size: 1.53125rem;
 }
@@ -97,8 +133,8 @@ div.dataTables_filter {
   top: 14px;
   left: 14px;
   border-radius: 50%;
-  border: 12px solid #000;
-  border-color: #fff transparent #fff transparent;
+  border: 12px solid red;
+  border-color: red transparent red transparent;
   animation: load 1.6s linear infinite;
 }
 

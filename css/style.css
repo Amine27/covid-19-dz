@@ -105,6 +105,11 @@
     font-size: smaller;
 }
 
+.link-unstyled, .link-unstyled:link, .link-unstyled:hover {
+    color: inherit;
+    text-decoration: inherit;
+}
+
 div.dataTables_filter {
     margin-top: 1rem!important;
     margin-right: 14px;

@@ -253,6 +253,23 @@
           </div>
         </div>
       </div>
+
+      <footer class="pt-3 border-top">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+            <p>
+              <small>
+                <a class="text-muted link-unstyled" href="https://corona-dz.live"><img src="img/favicon-32x32.png" alt="" width="32" height="32">
+                  <span class="text-muted mx-2">Algeria Covid-19 Tracker</span></a>|
+                <span class="a2a_kit" data-a2a-url="https://corona-dz.live" data-a2a-title="Algeria Covid-19 Tracker">
+                  <a class="a2a_dd text-muted mx-2" id="shareBtn" href="#share" role="button">
+                    <span class="oi oi-share-boxed mr-2" aria-hidden="true"></span>Share</a>|</span>
+                <a class="text-muted" href="mailto:amineroukh@gmail.com"><span class="oi oi-envelope-closed mx-2" aria-hidden="true"></span>Contact</a>
+              </small>
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -266,6 +283,17 @@
     <script src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
     <script src="https://cdn.datatables.net/plug-ins/1.10.20/sorting/datetime-moment.js"></script>
     <script data-href="https://github.com/Amine27/covid-19-dz" data-target="_blank" src="https://unpkg.com/github-corners/dist/embed.min.js"></script>
+    <script>
+      if(navigator.share === undefined) {
+        document.getElementById("shareBtn").classList.remove("a2a_dd");
+        console.log('my_addtoany_onready')
+      }
+    </script>
+    <script async src="https://static.addtoany.com/menu/page.js"></script>
+    <script>
+      var a2a_config = a2a_config || {};
+      a2a_config.onclick = 1;
+    </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162515731-1"></script>
     <script>
       window.dataLayer = window.dataLayer || []

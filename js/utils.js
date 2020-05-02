@@ -115,6 +115,24 @@ function checkYesterday() {
   }
 }
 
+function setupShare() {
+  $("#shareBtn").click(() => {
+    // console.log("Handler for share.click() called.")
+    if (navigator.share) {
+      navigator.share({
+        title: $('meta[property="og:title"]').attr('content'),
+        text: $('meta[property="og:description"]').attr('content'),
+        url: $('meta[property="og:url"]').attr('content')
+      }).then(() => {
+        // console.log('Thanks for sharing!');
+      }).catch(console.error);
+    } else {
+      // console.log('Error: Unsupported feature: navigator.share()')
+      // shareDialog.classList.add('is-open');
+    }
+  })
+}
+
 $('#wilayaChartsList').change(() => {
   const chartData = $('#wilayaChartsList').val()
   let filter = false
@@ -182,6 +200,7 @@ $(document).ready(() => {
   updateFromNow()
   setInterval(updateFromNow, 60000)
   setupTable()
+  setupShare()
 
   if(document.referrer === 'https://amine27.github.io/covid-19-dz/') {
     $('#alert').show()

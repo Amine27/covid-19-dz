@@ -113,6 +113,7 @@ function checkYesterday() {
     $('#newConfirmedText').text('Yesterday')
     $('#newRecoveredText').text('Yesterday')
     $('#newDeathsText').text('Yesterday')
+    $('#newTreatmentText').text('Yesterday')
     $('#newConfirmedTh').text('Yesterday cases')
     $('#newDeathsTh').text('Yesterday deaths')
   }

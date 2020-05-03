@@ -169,25 +169,20 @@ const dailyChart = new Chart($('#dailyChart'), {
     labels: date,
     datasets: [
       {
+        type: 'line',
+        label: 'Average 7 days',
+        backgroundColor: chartColors.purple,
+        borderColor: chartColors.purple,
+        borderWidth: 2,
+        fill: false,
+        data: getAverageDailyData(confirmed, 7)
+      },
+      {
         label: 'Confirmed',
         backgroundColor: chartColors.orange,
         borderColor: chartColors.orange,
         borderWidth: 2,
         data: getDailyData(confirmed)
-      },
-      // {
-      //   label: 'Recovered',
-      //   backgroundColor: chartColors.green,
-      //   borderColor: chartColors.green,
-      //   borderWidth: 2,
-      //   data: getDailyData(recovered)
-      // },
-      {
-        label: 'Deaths',
-        backgroundColor: chartColors.red,
-        borderColor: chartColors.red,
-        borderWidth: 2,
-        data: getDailyData(deaths)
       }
     ]
   },
@@ -200,7 +195,6 @@ const dailyChart = new Chart($('#dailyChart'), {
     },
     scales: {
       xAxes: [{
-        stacked: true,
         offset: true,
         type: 'time',
         time: {
@@ -212,7 +206,6 @@ const dailyChart = new Chart($('#dailyChart'), {
         }
       }],
       yAxes: [{
-        stacked: true,
         ticks: {
           beginAtZero: true
         }
@@ -221,6 +214,11 @@ const dailyChart = new Chart($('#dailyChart'), {
     title: {
       display: true,
       text: 'Daily new cases'
+    },
+    elements: {
+      point: {
+        radius: 0
+      }
     },
     tooltips: {
       mode: 'index',

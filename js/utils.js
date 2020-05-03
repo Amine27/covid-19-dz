@@ -23,6 +23,16 @@ function getDailyData(dataType) {
   return dailyData
 }
 
+function getAverageDailyData(dataType, days) {
+  const dailyData = getDailyData(dataType).reverse()
+  let averageDailyData = []
+
+  for (let i = 0; i < dailyData.length; i++) {
+    averageDailyData.push((dailyData.slice(i, i+days).reduce((a,b) => a + b, 0) / days).toFixed(2))
+  }
+  return averageDailyData.reverse()
+}
+
 function getNewData(dataType) {
   if(dataType.length > 1) {
     let newData = dataType[dataType.length-1] - dataType[dataType.length-2]

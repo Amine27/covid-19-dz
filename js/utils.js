@@ -151,6 +151,24 @@ function updateFromNow() {
     $('#blink').removeClass('d-none')
     $('#blink').addClass('d-inline-block')
   }
+
+  // auto-reload page if new update is available (only between 15-19h)
+  if(moment().hours() < 20 && moment().hours() > 14) {
+    fetch("https://corona-dz.live/js/data.js").then((data) => {
+      data.text().then((text) => {
+        text.split("\n").some((line) => {
+          if(line.startsWith('const lastUpdated')) {
+            const newUpdate = line.substring(line.indexOf("'")+1, line.lastIndexOf("'"))
+            if(moment(lastUpdated) < moment(newUpdate)) {
+              // reload current page without using cache
+              document.location.reload(true)
+            }
+            return true
+          }
+        })
+      })
+    })
+  }
 }
 
 function checkYesterday() {
@@ -290,7 +308,7 @@ $(document).ready(() => {
   moment.tz.setDefault('Europe/Brussels')
   checkYesterday()
   showData()
-  updateFromNow()
+  //updateFromNow()
   setInterval(updateFromNow, 60000) // 1 min
   setupShare()
 

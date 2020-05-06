@@ -8,7 +8,7 @@ The project is a single page JavaScript application running in the browser, pull
 
 ## Screenshot
 
-![Screenshot](img/screenshot2.png)
+![Screenshot](img/screenshot.png)
 
 ## Data Sources
 

@@ -193,3 +193,30 @@ div.dataTables_filter {
         transform: scale(1.0);
     }
 }
+
+.blink {
+    background: rgba(255, 82, 82, 1);
+    border-radius: 50%;
+    height: 12px;
+    width: 12px;
+    box-shadow: 0 0 0 0 rgba(255, 82, 82, 1);
+    transform: scale(1);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 6px rgba(255, 82, 82, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 82, 82, 0);
+    }
+}

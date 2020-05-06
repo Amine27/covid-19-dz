@@ -146,6 +146,11 @@ function setupTable(languageUrl) {
 
 function updateFromNow() {
   $('#lastUpdated').text(`${moment(lastUpdated).fromNow()}`)
+
+  if(moment().diff(moment(lastUpdated), 'hours') < 1) {
+    $('#blink').removeClass('d-none')
+    $('#blink').addClass('d-inline-block')
+  }
 }
 
 function checkYesterday() {

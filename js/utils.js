@@ -1,3 +1,4 @@
+let tippyInstances = null
 const chartColors = {
   red: 'rgb(255, 99, 132)',
   orange: 'rgb(255, 159, 64)',
@@ -43,7 +44,7 @@ function getNewData(dataType) {
 }
 
 function getDataPerWilayaName(provinces, dataType, filter) {
-  return getDataPerWilaya(provinces, dataType, filter).map((t, i) => (i+1)+' - '+ t[0])
+  return getDataPerWilaya(provinces, dataType, filter).map((t, i) => (i+1)+' - '+ i18next.t("provinces."+t[0]))
 }
 
 function getDataPerWilayaValue(provinces, dataType, filter) {
@@ -70,23 +71,47 @@ function getDataAugmentationRate(dataType) {
   return `${((getTotalData(dataType) - dataType[dataType.length-2]) / getTotalData(dataType) * 100).toFixed(2)}%`
 }
 
-function setupTable() {
+function getDataLocalized(dataType) {
+  return dataType.map(e => i18next.t(e))
+}
+
+function showData() {
+  $('#lastUpdated').attr('datetime', moment(lastUpdated).toISOString())
+  $('#lastUpdated').attr('title', moment(lastUpdated).format('LLLL'))
+
+  $('#totalConfirmed').text(getTotalData(confirmed))
+  $('#totalRecovered').text(getTotalData(recovered))
+  $('#totalDeaths').text(getTotalData(deaths))
+  $('#totalTreatment').text(getTotalData(treatment))
+
+  $('#newConfirmed').text(getNewData(confirmed))
+  $('#newRecovered').text(getNewData(recovered))
+  $('#newDeaths').text(getNewData(deaths))
+  $('#newTreatment').text(getNewData(treatment))
+
+  $('#totalDays').text(getTotalDays(date))
+  $('#fatalityRate').text(getDataRate(confirmed, deaths))
+  $('#recoveryRate').text(getDataRate(confirmed, recovered))
+  $('#augmentationRate').text(getDataAugmentationRate(treatment))
+}
+
+function setupTable(languageUrl) {
   let provincesData = []
   for (key in provinces) {
-    let province = [key,
+    let province = [i18next.t("provinces."+key),
                     provinces[key].confirmed,
                     provinces[key].new_confirmed > 0 ? '+'+provinces[key].new_confirmed : '',
                     provinces[key].deaths, provinces[key].new_deaths > 0 ? '+'+provinces[key].new_deaths : '',
                     moment(provinces[key].last_reported).isValid() ? moment(provinces[key].last_reported).calendar(moment(), {
-                      sameDay:  '[Today]',
-                      nextDay:  '[Tomorrow]',
+                      sameDay:  '['+i18next.t('today')+']',
+                      nextDay:  '['+i18next.t('tomorrow')+']',
                       nextWeek: 'dddd',
-                      lastDay:  '[Yesterday]',
+                      lastDay:  '['+i18next.t('yesterday')+']',
                       lastWeek: () => {
-                        return "[" + moment().diff(moment(provinces[key].last_reported), 'days') + " days]"
+                        return "[" + i18next.t('day_count', {count: (moment().diff(moment(provinces[key].last_reported), 'days'))}) + "]"
                       },
                       sameElse: () => {
-                        return "[" + moment().diff(moment(provinces[key].last_reported), 'days') + " days]"
+                        return "[" + i18next.t('day_count', {count: (moment().diff(moment(provinces[key].last_reported), 'days'))}) + "]"
                       }
                     }) : '',
                     moment(provinces[key].reported).isValid() ? moment(provinces[key].reported).format('ll') : '']
@@ -105,43 +130,113 @@ function setupTable() {
     scrollCollapse: true,
     columnDefs: [
       // { className: "table_cells", targets: "_all" },
-      { className: "province", targets: 0 },
-      { className: "confirmed", targets: 2 },
-      { className: "deaths", targets: 4 },
-      // { className: "text-nowrap", targets: 5 },
-      { className: "text-nowrap", targets: 6 }
-    ]
+      { title: i18next.t('wilaya'), className: "province", targets: 0 },
+      { title: i18next.t('confirmed'), targets: 1 },
+      { title: i18next.t('new-confirmed'), className: "confirmed", targets: 2 },
+      { title: i18next.t('deaths'), targets: 3 },
+      { title: i18next.t('new-deaths'), className: "deaths", targets: 4 },
+      { title: i18next.t('last-reported'), className: "text-nowrap", targets: 5 },
+      { title: i18next.t('first-reported'), className: "text-nowrap", targets: 6 }
+    ],
+    language : {
+        url: languageUrl
+    }
   })
 }
 
 function updateFromNow() {
-  $('#lastUpdated').text(`Updated ${moment(lastUpdated).fromNow()}`)
+  $('#lastUpdated').text(`${moment(lastUpdated).fromNow()}`)
 }
 
 function checkYesterday() {
   if (moment(date[date.length-1], 'M/D/YY').isBefore(moment(), 'day')) {
-    $('#newConfirmedText, #newRecoveredText, #newDeathsText, #newTreatmentText').text('Yesterday')
-    $('#newConfirmedTh').text('Yesterday cases')
-    $('#newDeathsTh').text('Yesterday deaths')
+    $('#newConfirmedText, #newRecoveredText, #newDeathsText, #newTreatmentText').attr('data-i18n', 'yesterday')
+    $('#newConfirmedTh').attr('data-i18n', 'yesterday-confirmed')
+    $('#newDeathsTh').attr('data-i18n', 'yesterday-deaths')
   }
 }
 
 function setupShare() {
   $("#shareBtn").click(() => {
-    // console.log("Handler for share.click() called.")
     if (navigator.share) {
       navigator.share({
         title: $('meta[property="og:title"]').attr('content'),
         text: $('meta[property="og:description"]').attr('content'),
         url: $('meta[property="og:url"]').attr('content')
       }).then(() => {
-        // console.log('Thanks for sharing!');
+        // console.log('Thanks for sharing!')
       }).catch(console.error);
     } else {
       // console.log('Error: Unsupported feature: navigator.share()')
-      // shareDialog.classList.add('is-open');
     }
   })
+}
+
+function i18nInit() {
+  i18next
+    .use(i18nextHttpBackend)
+    .use(i18nextBrowserLanguageDetector)
+    .init({
+      // debug: true,
+      // saveMissing: true,
+      // saveMissingTo: "current",
+      load: 'languageOnly',
+      fallbackLng: 'en',
+      backend: {
+        loadPath: 'locales/{{lng}}.json',
+        addPath: 'locales/{{lng}}.missing.json'
+      }
+    }, (err, t) => {
+      jqueryI18next.init(i18next, $)
+      $('body,html').localize()
+      $('a[data-lang-picker]').click(function() {
+        i18next.changeLanguage($(this).attr('data-lang-picker')).then((t) => {
+          $('body,html').localize()
+        })
+      })
+    })
+}
+
+i18next.on('initialized', (options) => {
+  //console.log('i18next on initialized')
+  initMap() // Only once
+})
+
+i18next.on('languageChanged', (lng) => {
+  updateLayoutDirection()
+  moment.locale(lng)
+  updateFromNow()
+  setupTable('locales/'+lng+'.json')
+  initCharts()
+  updateTooltipLang()
+
+  $(".preloader").fadeOut("slow")
+})
+
+function updateLayoutDirection() {
+  document.body.dir = i18next.dir()
+  if (i18next.dir() === 'rtl') {
+    $('html,#map').addClass('font-face-ar')
+    $('#dropdownMenu').removeClass('dropdown-menu-right')
+    Chart.defaults.global.defaultFontFamily = 'Tajawal', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'
+  } else {
+    $('html,#map').removeClass('font-face-ar')
+    $('#dropdownMenu').addClass('dropdown-menu-right')
+    Chart.defaults.global.defaultFontFamily = 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'
+  }
+  $("tbody").attr("dir", i18next.dir())
+  $('#wilayaTable').DataTable().clear().destroy()
+}
+
+function updateTooltipLang() {
+  if (Array.isArray(tippyInstances)) {
+    tippyInstances.forEach((instance) => instance.destroy())
+  }
+  // Set tooltip content to current language
+  $("[data-tooltip-i18n]").each(function(index) {
+    $(this).attr("data-tippy-content", i18next.t($(this).attr("data-tooltip-i18n")))
+  })
+  tippyInstances = tippy('[data-tippy-content]')
 }
 
 $('#wilayaChartsList').change(() => {
@@ -154,29 +249,29 @@ $('#wilayaChartsList').change(() => {
     dataset.backgroundColor = chartColors.orange
     dataset.borderColor = chartColors.orange
   } else if (chartData === 'new_confirmed') {
-    dataset.label = 'New confirmed'
+    dataset.label = i18next.t('new-confirmed')
     dataset.backgroundColor = chartColors.orange
     dataset.borderColor = chartColors.orange
     // filter = true
   } else if (chartData === 'deaths') {
-    dataset.label = 'Deaths'
+    dataset.label = i18next.t('deaths')
     dataset.backgroundColor = chartColors.red
     dataset.borderColor = chartColors.red
   } else if (chartData === 'new_deaths') {
-    dataset.label = 'New deaths'
+    dataset.label = i18next.t('new-deaths')
     dataset.backgroundColor = chartColors.red
     dataset.borderColor = chartColors.red
     // filter = true
   } else if (chartData === 'recovered') {
-    dataset.label = 'Recovered'
+    dataset.label = i18next.t('recovered')
     dataset.backgroundColor = chartColors.green
     dataset.borderColor = chartColors.green
   }
   dataset.data = getDataPerWilayaValue(provinces, chartData, filter)
   wilayaChart.data.labels = getDataPerWilayaName(provinces, chartData, filter)
   wilayaChart.update()
-  wilayaChart.update()
-})
+  wilayaChart.update() // Twice to take effect!
+  })
 
 $('#tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
   activeTab = e.target.id
@@ -186,31 +281,12 @@ $('#tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
 })
 
 $(document).ready(() => {
+  i18nInit()
   moment.tz.setDefault('Europe/Brussels')
   checkYesterday()
-  $('#lastUpdated').attr('datetime', moment(lastUpdated).toISOString())
-  $('#lastUpdated').attr('title', moment(lastUpdated).format('LLLL'))
-
-  $('#totalConfirmed').text(getTotalData(confirmed))
-  $('#totalRecovered').text(getTotalData(recovered))
-  $('#totalDeaths').text(getTotalData(deaths))
-  $('#totalTreatment').text(getTotalData(treatment))
-
-  $('#newConfirmed').text(getNewData(confirmed))
-  $('#newRecovered').text(getNewData(recovered))
-  $('#newDeaths').text(getNewData(deaths))
-  $('#newTreatment').text(getNewData(treatment))
-
-  $('#totalDays').text(getTotalDays(date))
-  $('#fatalityRate').text(getDataRate(confirmed, deaths))
-  $('#recoveryRate').text(getDataRate(confirmed, recovered))
-  $('#augmentationRate').text(getDataAugmentationRate(treatment))
-
-  $('[data-toggle="tooltip"]').tooltip()
-
+  showData()
   updateFromNow()
-  setInterval(updateFromNow, 60000)
-  setupTable()
+  setInterval(updateFromNow, 60000) // 1 min
   setupShare()
 
   if(document.referrer === 'https://amine27.github.io/covid-19-dz/') {

@@ -27,31 +27,44 @@
     <meta property="og:description" content="Live updates of the Coronavirus COVID-19 outbreak in Algeria" />
 
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-v4-rtl@4.4.1-1/dist/css/bootstrap-rtl.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet" />
   </head>
   <body>
+
+    <div class="preloader" dir="ltr">
+      <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    </div>
+
     <div class="container">
       <div class="row my-3">
-        <div class="col">
-          <h4>Algeria Covid-19</h4>
-          <sup><time id='lastUpdated'>Updated
-              <div class="spinner">
-                <div class="rect1"></div>
-                <div class="rect2"></div>
-                <div class="rect3"></div>
-                <div class="rect4"></div>
-                <div class="rect5"></div>
-            </time>
+        <div class="col-9">
+          <h5 data-i18n="algeria-covid19">Algeria Covid-19</h5>
+          <sup><span data-i18n="updated">Updated </span><time id='lastUpdated'></time></sup>
+        </div>
+
+        <div class="col d-flex flex-row-reverse align-self-center text-muted">
+          <div class="dropdown">
+            <i class="fas fa-globe btn-lg" type="button" id="dropdownMenuIcon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            </i>
+            <div id="dropdownMenu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuIcon">
+              <a class="dropdown-item" href="#" data-lang-picker='en'>English</a>
+              <a class="dropdown-item" href="#" data-lang-picker='ar'>العربية</a>
+              <a class="dropdown-item" href="#" data-lang-picker='fr'>Français</a>
             </div>
-          </sup>
+          </div>
         </div>
       </div>
 
       <div id="alert" class="alert alert-primary alert-dismissible fade show" role="alert" style="display: none">
-        Welcome to our new domain <a href="https://corona-dz.live" class="alert-link">corona-dz.live</a>. Follow us and stay updated with live Covid-19 statistics in Algeria.
+        <span data-i18n="welcome1">Welcome to our new domain </span><a href="https://corona-dz.live" class="alert-link">corona-dz.live</a>.<span data-i18n="welcome2"> Follow us and stay updated with live Covid-19 statistics in Algeria.</span>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -62,23 +75,17 @@
           <div class="card card-confirmed text-secondary shadow-sm mb-4">
             <div class="card-body row text-center">
               <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-warning" id="totalConfirmed">
-                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
-                </div>
-                <div>Confirmed</div>
+                <div class="text-value-xl text-warning card-font-ar" id="totalConfirmed"></div>
+                <div data-i18n="confirmed">Confirmed</div>
               </div>
               <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-warning card-new-confirmed" id="newConfirmed">
-                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
-                </div>
-                <div id="newConfirmedText">Today</div>
+                <div class="text-value-xl text-warning px-lg-3 card-new-confirmed card-font-ar" id="newConfirmed"></div>
+                <div data-i18n="today" id="newConfirmedText">Today</div>
               </div>
               <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-warning" id="totalDays">
-                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
-                </div>
-                <div>Days
-                  <span class="oi oi-info tooltip-info" data-toggle="tooltip" title="Days since first case (Feb 25, 2020)" data-placement="bottom" aria-hidden="true"></span>
+                <div class="text-value-xl text-warning card-font-ar" id="totalDays"> </div>
+                <div><span data-i18n="days">Days</span>
+                  <span class="fas fa-info-circle tooltip-info" data-tooltip-i18n="confirmed-days-tooltip" data-tippy-placement="bottom" aria-hidden="true"></span>
                 </div>
               </div>
             </div>
@@ -89,23 +96,17 @@
           <div class="card card-recovered text-secondary shadow-sm mb-4">
             <div class="card-body row text-center">
               <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-success" id="totalRecovered">
-                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
-                </div>
-                <div>Recovered</div>
+                <div class="text-value-xl text-success card-font-ar" id="totalRecovered"></div>
+                <div data-i18n="recovered">Recovered</div>
               </div>
               <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-success card-new-recovered" id="newRecovered">
-                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
-                </div>
-                <div id="newRecoveredText">Today</div>
+                <div class="text-value-xl text-success px-lg-3 card-new-recovered card-font-ar" id="newRecovered"></div>
+                <div data-i18n="today" id="newRecoveredText">Today</div>
               </div>
               <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-success" id="recoveryRate">
-                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
-                </div>
-                <div>Rate
-                  <span class="oi oi-info tooltip-info" data-toggle="tooltip" title="Recovery rate" data-placement="bottom" aria-hidden="true"></span>
+                <div class="text-value-xl text-success card-font-ar" id="recoveryRate"></div>
+                <div><span data-i18n="rate">Rate</span>
+                  <span class="fas fa-info-circle tooltip-info" data-tooltip-i18n="recovery-rate-tooltip" data-tippy-placement="bottom" aria-hidden="true"></span>
                 </div>
               </div>
             </div>
@@ -116,23 +117,17 @@
           <div class="card card-deaths text-secondary shadow-sm mb-4">
             <div class="card-body row text-center">
               <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-danger" id="totalDeaths">
-                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
-                </div>
-                <div>Deaths</div>
+                <div class="text-value-xl text-danger card-font-ar" id="totalDeaths"></div>
+                <div data-i18n="deaths">Deaths</div>
               </div>
               <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-danger card-new-deaths" id="newDeaths">
-                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
-                </div>
-                <div id="newDeathsText">Today</div>
+                <div class="text-value-xl text-danger px-lg-3 card-new-deaths card-font-ar" id="newDeaths"></div>
+                <div data-i18n="today" id="newDeathsText">Today</div>
               </div>
               <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-danger" id="fatalityRate">
-                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
-                </div>
-                <div>Rate
-                  <span class="oi oi-info tooltip-info" data-toggle="tooltip" title="Fatality rate" data-placement="bottom" aria-hidden="true"></span>
+                <div class="text-value-xl text-danger card-font-ar" id="fatalityRate"></div>
+                <div><span data-i18n="rate">Rate</span>
+                  <span class="fas fa-info-circle tooltip-info" data-tooltip-i18n="deaths-rate-tooltip" data-tippy-placement="bottom" aria-hidden="true"></span>
                 </div>
               </div>
             </div>
@@ -143,23 +138,17 @@
           <div class="card card-treatment text-secondary shadow-sm mb-4">
             <div class="card-body row text-center">
               <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-info" id="totalTreatment">
-                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
-                </div>
-                <div>Treatment</div>
+                <div class="text-value-xl text-info card-font-ar" id="totalTreatment"></div>
+                <div data-i18n="treatment">Treatment</div>
               </div>
               <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-info card-new-treatment" id="newTreatment">
-                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
-                </div>
-                <div id="newTreatmentText">Today</div>
+                <div class="text-value-xl text-info px-lg-3 card-new-treatment card-font-ar" id="newTreatment"></div>
+                <div data-i18n="today" id="newTreatmentText">Today</div>
               </div>
               <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-info" id="augmentationRate">
-                  <div class="load-spinner"><div class="load"><div></div><div><div></div></div></div></div>
-                </div>
-                <div>Rate
-                  <span class="oi oi-info tooltip-info" data-toggle="tooltip" title="Increasing rate" data-placement="bottom" aria-hidden="true"></span>
+                <div class="text-value-xl text-info card-font-ar" id="augmentationRate"></div>
+                <div><span data-i18n="rate">Rate</span>
+                  <span class="fas fa-info-circle tooltip-info" data-tooltip-i18n="treatment-rate-tooltip" data-tippy-placement="bottom" aria-hidden="true"></span>
                 </div>
               </div>
             </div>
@@ -171,13 +160,19 @@
         <div class="col-md-9 col-lg-12 py-1 pb-4">
           <ul class="nav nav-tabs" id="tab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active" id="map-tab" data-toggle="tab" href="#map-pane" role="tab" aria-controls="map" aria-selected="true">Map</a>
+              <a class="nav-link active" id="map-tab" data-toggle="tab" href="#map-pane" role="tab" aria-controls="map" aria-selected="true">
+                <span class="fa fa-map pr-1"></span><span data-i18n="map">Map</span>
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="chart-tab" data-toggle="tab" href="#chart-pane" role="tab" aria-controls="chart" aria-selected="false">Chart</a>
+              <a class="nav-link" id="chart-tab" data-toggle="tab" href="#chart-pane" role="tab" aria-controls="chart" aria-selected="false">
+                <span class="fas fa-chart-bar pr-1"></span><span data-i18n="chart">Chart</span>
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="table-tab" data-toggle="tab" href="#table-pane" role="tab" aria-controls="table" aria-selected="false">Table</a>
+              <a class="nav-link" id="table-tab" data-toggle="tab" href="#table-pane" role="tab" aria-controls="table" aria-selected="false">
+                <span class="fas fa-table pr-1"></span><span data-i18n="table">Table</span>
+              </a>
             </li>
           </ul>
           <div class="tab-content shadow-sm" id="tabContent">
@@ -187,31 +182,31 @@
             <div class="tab-pane fade border border-top-0" id="chart-pane" role="tabpanel" aria-labelledby="chart-tab">
               <div class="row">
                 <div class="col-sm-12 col-md-6"></div>
-                <div class="col-sm-12 col-md-6">
+                <div class="col-sm-12 col-md-6 d-flex flex-row-reverse">
                   <select class="form-control form-control-sm w-auto float-right mr-3 mt-3" id="wilayaChartsList" name="wilayaChartsList">
-                    <option value="confirmed">Confirmed</option>
-                    <option value="new_confirmed">New confirmed</option>
-                    <option value="deaths">Deaths</option>
-                    <option value="new_deaths">New deaths</option>
-                    <option value="recovered">Recovered</option>
+                    <option data-i18n="confirmed" value="confirmed">Confirmed</option>
+                    <option data-i18n="new-confirmed" value="new_confirmed">New confirmed</option>
+                    <option data-i18n="deaths" value="deaths">Deaths</option>
+                    <option data-i18n="new-deaths" value="new_deaths">New deaths</option>
+                    <option data-i18n="recovered" value="recovered">Recovered</option>
                   </select>
                 </div>
               </div>
               <div style='height:800px;width:100%'>
-                <canvas id="wilayaChart"></canvas>
+                <canvas id="wilayaChart" dir="ltr"></canvas>
               </div>
             </div>
             <div class="tab-pane fade border border-top-0" id="table-pane" role="tabpanel" aria-labelledby="table-tab">
               <table id="wilayaTable" class="table table-sm table-hover table-bordered display table_style">
                 <thead class="thead-light">
                   <tr>
-                    <th>Wilaya</th>
-                    <th>Confirmed</th>
-                    <th id="newConfirmedTh">New confirmed</th>
-                    <th>Deaths</th>
-                    <th id="newDeathsTh">New deaths</th>
-                    <th>Last reported</th>
-                    <th>1<sup>st</sup> Reported</th>
+                    <th data-i18n="wilaya">Wilaya</th>
+                    <th data-i18n="confirmed">Confirmed</th>
+                    <th data-i18n="new-confirmed" id="newConfirmedTh">New confirmed</th>
+                    <th data-i18n="deaths">Deaths</th>
+                    <th data-i18n="new-deaths" id="newDeathsTh">New deaths</th>
+                    <th data-i18n="last-reported">Last reported</th>
+                    <th data-i18n="first-reported">1<sup>st</sup> Reported</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -223,7 +218,7 @@
         <div class="col-md-6 py-1">
           <div class="card shadow-sm mb-4">
             <div class="card-body">
-              <canvas id="genderChart"></canvas>
+              <canvas id="genderChart" dir="ltr"></canvas>
             </div>
           </div>
         </div>
@@ -259,12 +254,13 @@
           <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <p>
               <small>
-                <a class="text-muted link-unstyled" href="https://corona-dz.live"><img src="img/favicon-32x32.png" alt="" width="32" height="32">
-                  <span class="text-muted mx-2">Algeria Covid-19 Tracker</span></a>|
+                <a class="text-muted link-unstyled" href="https://corona-dz.live"><img src="img/favicon.svg" alt="" width="32" height="32">
+                  <span data-i18n="algeria-covid19-tracker" class="text-muted mx-2">Algeria Covid-19 Tracker</span></a>|
                 <span class="a2a_kit" data-a2a-url="https://corona-dz.live" data-a2a-title="Algeria Covid-19 Tracker">
                   <a class="a2a_dd text-muted mx-2" id="shareBtn" href="#share" role="button">
-                    <span class="oi oi-share-boxed mr-2" aria-hidden="true"></span>Share</a>|</span>
-                <a class="text-muted" href="mailto:amineroukh@gmail.com"><span class="oi oi-envelope-closed mx-2" aria-hidden="true"></span>Contact</a>
+                    <span class="fas fa-share mr-2" aria-hidden="true"></span><span data-i18n="share">Share</span></a>|</span>
+                <a class="text-muted" href="mailto:amineroukh@gmail.com"><span class="fas fa-envelope mx-2" aria-hidden="true"></span><span class="mr-2" data-i18n="contact" >Contact</span></a>|
+                <a class="text-muted" href="https://github.com/Amine27/covid-19-dz" target="_blank"><span class="fab fa-github mx-2" aria-hidden="true"></span><span data-i18n="github" >Github</span></a>
               </small>
             </p>
           </div>
@@ -272,17 +268,24 @@
       </footer>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
-    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js" crossorigin=""></script>
-    <script src="https://unpkg.com/moment@2.24.0/min/moment.min.js" crossorigin=""></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.28/moment-timezone-with-data-10-year-range.min.js" crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1-lts/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/moment@2.24.0/min/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.28/moment-timezone-with-data-10-year-range.min.js"></script>
+    <script src="./js/momen-ar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.1/locale/fr.min.js"></script>
     <script src="https://unpkg.com/chart.js@2.9.3/dist/Chart.min.js" crossorigin=""></script>
     <script src="https://unpkg.com/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-v4-rtl@4.4.1-1/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
     <script src="https://cdn.datatables.net/plug-ins/1.10.20/sorting/datetime-moment.js"></script>
-    <script data-href="https://github.com/Amine27/covid-19-dz" data-target="_blank" src="https://unpkg.com/github-corners/dist/embed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/19.4.4/i18next.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-i18next/1.2.1/jquery-i18next.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next-browser-languagedetector/4.1.1/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/i18next-http-backend@1.0.8/i18nextHttpBackend.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tippy.js/5.2.1/tippy-bundle.iife.min.js"></script>
     <script>
       if(navigator.share !== undefined) {
         document.getElementById("shareBtn").classList.remove("a2a_dd");
@@ -303,9 +306,9 @@
 
     <script type="text/javascript" src="js/data.js?v=1588691882"></script>
     <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/charts.js"></script>
     <script type="text/javascript" src="js/algeria-provinces.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
-    <script type="text/javascript" src="js/charts.js"></script>
 
   </body>
 </html>

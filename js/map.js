@@ -1,35 +1,72 @@
-var map = L.map('map').setView([33, 3], 5.8);
+let map
+let info
+let geojson
+let previousTarget = null
 
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW1pbmVyb3VraCIsImEiOiJjazgwanNndWIwMjVjM21tdzFqb2d0Z3g2In0.pl24-pEleZ_3DywYNIZ8vA', {
-  maxZoom: 18,
-  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-  id: 'mapbox/light-v9',
-  tileSize: 512,
-  zoomOffset: -1
-}).addTo(map);
+function initMap() {
 
-// control that shows state info on hover
-var info = L.control();
+  map = L.map('map').setView([33, 3], 5.8);
 
-info.onAdd = function (map) {
-  this._div = L.DomUtil.create('div', 'info');
-  this.update();
-  return this._div;
-};
+  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW1pbmVyb3VraCIsImEiOiJjazgwanNndWIwMjVjM21tdzFqb2d0Z3g2In0.pl24-pEleZ_3DywYNIZ8vA', {
+    maxZoom: 18,
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    id: 'mapbox/light-v10',
+    tileSize: 512,
+    zoomOffset: -1
+  }).addTo(map)
 
-info.update = function (props) {
-  this._div.innerHTML = (props ?
-                         '<b>' + props.NAME_1 + ':</b><br><br>'
-                         + '<div class="confirmed spacing">Confirmed: ' + props.CONFIRMED + (props.NEW_CONFIRMED > 0 ? ' <sup>+'+props.NEW_CONFIRMED+'</sup>' : '') + '</div>'
-                         + '<div class="recovered spacing">Recovered: ' + props.RECOVERED + (props.NEW_RECOVERED > 0 ? ' <sup>+'+props.NEW_RECOVERED+'</sup>' : '') + '</div>'
-                         + '<div class="deaths">Deaths: ' + props.DEATHS + (props.NEW_DEATHS > 0 ? ' <sup>+'+props.NEW_DEATHS+'</sup>' : '') + '</div><br>'
-                         : 'Hover over a city<br>')
-};
+  // control that shows state info on hover
+  info = L.control()
+  info.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'info')
+    this.update()
+    return this._div
+  }
 
-info.addTo(map);
+  info.update = function (props) {
+    this._div.innerHTML = (props ?
+                           '<div class="province">' + i18next.t('provinces.'+props.NAME_1) + '</div>'
+                           + '<div class="confirmed spacing">'+i18next.t("confirmed")+': ' + props.CONFIRMED + (props.NEW_CONFIRMED > 0 ? ' <sup>+'+props.NEW_CONFIRMED+'</sup>' : '') + '</div>'
+                           + '<div class="recovered spacing">'+i18next.t("recovered")+': ' + props.RECOVERED + (props.NEW_RECOVERED > 0 ? ' <sup>+'+props.NEW_RECOVERED+'</sup>' : '') + '</div>'
+                           + '<div class="deaths">'+i18next.t("deaths")+': ' + props.DEATHS + (props.NEW_DEATHS > 0 ? ' <sup>+'+props.NEW_DEATHS+'</sup>' : '') + '</div>'
+                           : i18next.t("hover-city-map")+'<br>')
+  }
 
+  info.addTo(map)
+
+  geojson = L.geoJson(statesData, {
+    style: style,
+    onEachFeature: onEachFeature
+  }).addTo(map)
+
+  map.attributionControl.addAttribution('Data: <a href="http://covid19.sante.gov.dz/">MSP</a>')
+
+  let legend = L.control({position: 'bottomright'})
+  legend.onAdd = function (map) {
+
+    let div = L.DomUtil.create('div', 'info legend'),
+        grades = [0, 25, 50, 75, 100, 150, 200],
+        labels = []
+
+    for (let i = 0; i < grades.length; i++) {
+      labels.push('<span style="background:' + getColor(grades[i] + 1) + '"></span> ')
+    }
+
+    labels.push('<br>')
+
+    for (let i = 0; i < grades.length; i++) {
+      labels.push('<label>' + grades[i] + (grades[i + 1] ? '-' + grades[i + 1] : '+') + '</label> ')
+    }
+
+    div.innerHTML = labels.join('')
+    return div
+  }
+
+  legend.addTo(map)
+
+}
 
 // get color depending on population density value
 function getColor(d) {
@@ -40,7 +77,7 @@ function getColor(d) {
     d > 50 ? '#FD8D3C' :
     d > 25 ? '#FEB24C' :
     d > 0 ? '#FED976' :
-    '#fff8db';
+    '#fff8db'
 }
 
 function style(feature) {
@@ -51,41 +88,37 @@ function style(feature) {
     dashArray: '',
     fillOpacity: 0.7,
     fillColor: getColor(feature.properties.CONFIRMED)
-  };
+  }
 }
-
-let previousTarget = null
 
 function highlightFeature(e) {
   resetHighlight(previousTarget)
   previousTarget = e
-  var layer = e.target;
+  let layer = e.target
 
   layer.setStyle({
     weight: 3,
     color: '#666',
     dashArray: '',
     fillOpacity: 0.7
-  });
+  })
 
   if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-    layer.bringToFront();
+    layer.bringToFront()
   }
 
-  info.update(layer.feature.properties);
+  info.update(layer.feature.properties)
 }
-
-var geojson;
 
 function resetHighlight(e) {
   if (e !== null) {
-    geojson.resetStyle(e.target);
-    info.update();
+    geojson.resetStyle(e.target)
+    info.update()
   }
 }
 
 function zoomToFeature(e) {
-  map.fitBounds(e.target.getBounds());
+  map.fitBounds(e.target.getBounds())
 }
 
 function onEachFeature(feature, layer) {
@@ -94,37 +127,5 @@ function onEachFeature(feature, layer) {
     mouseout: resetHighlight,
     dblclick: zoomToFeature,
     click: highlightFeature
-  });
+  })
 }
-
-geojson = L.geoJson(statesData, {
-  style: style,
-  onEachFeature: onEachFeature
-}).addTo(map);
-
-map.attributionControl.addAttribution('Data: <a href="http://covid19.sante.gov.dz/">MSP</a>');
-
-
-var legend = L.control({position: 'bottomright'});
-
-legend.onAdd = function (map) {
-
-  var div = L.DomUtil.create('div', 'info legend'),
-      grades = [0, 25, 50, 75, 100, 150, 200],
-      labels = []
-
-  for (var i = 0; i < grades.length; i++) {
-    labels.push('<span style="background:' + getColor(grades[i] + 1) + '"></span> ')
-  }
-
-  labels.push('<br>')
-
-  for (var i = 0; i < grades.length; i++) {
-    labels.push('<label>' + grades[i] + (grades[i + 1] ? '-' + grades[i + 1] : '+') + '</label> ')
-  }
-
-  div.innerHTML = labels.join('')
-  return div
-};
-
-legend.addTo(map);

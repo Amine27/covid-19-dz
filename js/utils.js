@@ -221,7 +221,6 @@ function i18nInit() {
 }
 
 i18next.on('initialized', (options) => {
-  //console.log('i18next on initialized')
   initMap() // Only once
 })
 
@@ -268,7 +267,7 @@ $('#wilayaChartsList').change(() => {
   let dataset = wilayaChart.data.datasets[0]
 
   if (chartData === 'confirmed') {
-    dataset.label = 'Confirmed'
+    dataset.label = i18next.t('confirmed')
     dataset.backgroundColor = chartColors.orange
     dataset.borderColor = chartColors.orange
   } else if (chartData === 'new_confirmed') {
@@ -294,7 +293,42 @@ $('#wilayaChartsList').change(() => {
   wilayaChart.data.labels = getDataPerWilayaName(provinces, chartData, filter)
   wilayaChart.update()
   wilayaChart.update() // Twice to take effect!
-  })
+})
+
+$('#dailyChartsList').change(() => {
+  const dataType = $('#dailyChartsList').val()
+  let lineDataset = dailyChart.data.datasets[1]
+  let barDataset = dailyChart.data.datasets[0]
+  let days = 7
+
+  if (dataType === 'confirmed') {
+    lineDataset.label = i18next.t('confirmed')
+    lineDataset.backgroundColor = chartColors.orange
+    lineDataset.borderColor = chartColors.orange
+    barDataset.data = getAverageDailyData(confirmed, days)
+    lineDataset.data = getDailyData(confirmed)
+  } else if (dataType === 'deaths') {
+    lineDataset.label = i18next.t(dataType)
+    lineDataset.backgroundColor = chartColors.red
+    lineDataset.borderColor = chartColors.red
+    barDataset.data = getAverageDailyData(deaths, days)
+    lineDataset.data = getDailyData(deaths)
+  } else if (dataType === 'recovered') {
+    lineDataset.label = i18next.t(dataType)
+    lineDataset.backgroundColor = chartColors.green
+    lineDataset.borderColor = chartColors.green
+    barDataset.data = getAverageDailyData(recovered, days)
+    lineDataset.data = getDailyData(recovered)
+  }  else if (dataType === 'treatment') {
+    lineDataset.label = i18next.t(dataType)
+    lineDataset.backgroundColor = chartColors.blue
+    lineDataset.borderColor = chartColors.blue
+    barDataset.data = getAverageDailyData(treatment, days)
+    lineDataset.data = getDailyData(treatment)
+  }
+  dailyChart.update()
+  dailyChart.update() // Twice to take effect!
+})
 
 $('#tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
   activeTab = e.target.id

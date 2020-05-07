@@ -119,6 +119,7 @@ function setupTable(languageUrl) {
   }
 
   $.fn.dataTable.moment('ll')
+  newCasesHeader = checkYesterday()
 
   $('#wilayaTable').DataTable({
     data: provincesData,
@@ -132,9 +133,9 @@ function setupTable(languageUrl) {
       // { className: "table_cells", targets: "_all" },
       { title: i18next.t('wilaya'), className: "province", targets: 0 },
       { title: i18next.t('confirmed'), targets: 1 },
-      { title: i18next.t('new-confirmed'), className: "confirmed", targets: 2 },
+      { title: newCasesHeader[0], className: "confirmed", targets: 2 },
       { title: i18next.t('deaths'), targets: 3 },
-      { title: i18next.t('new-deaths'), className: "deaths", targets: 4 },
+      { title: newCasesHeader[1], className: "deaths", targets: 4 },
       { title: i18next.t('last-reported'), className: "text-nowrap", targets: 5 },
       { title: i18next.t('first-reported'), className: "text-nowrap", targets: 6 }
     ],
@@ -172,11 +173,16 @@ function updateFromNow() {
 }
 
 function checkYesterday() {
+  let tableHeader = []
   if (moment(date[date.length-1], 'M/D/YY').isBefore(moment(), 'day')) {
     $('#newConfirmedText, #newRecoveredText, #newDeathsText, #newTreatmentText').attr('data-i18n', 'yesterday')
-    $('#newConfirmedTh').attr('data-i18n', 'yesterday-confirmed')
-    $('#newDeathsTh').attr('data-i18n', 'yesterday-deaths')
+    tableHeader.push(i18next.t('yesterday-confirmed'))
+    tableHeader.push(i18next.t('yesterday-deaths'))
+  } else {
+    tableHeader.push(i18next.t('new-confirmed'))
+    tableHeader.push(i18next.t('new-deaths'))
   }
+  return tableHeader
 }
 
 function setupShare() {
@@ -340,9 +346,7 @@ $('#tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
 $(document).ready(() => {
   i18nInit()
   moment.tz.setDefault('Europe/Brussels')
-  checkYesterday()
   showData()
-  //updateFromNow()
   setInterval(updateFromNow, 60000) // 1 min
   setupShare()
 

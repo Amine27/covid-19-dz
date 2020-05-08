@@ -64,6 +64,11 @@ function initCharts() {
           gridLines: {
             drawOnChartArea: false
           }
+        }],
+        yAxes: [{
+          gridLines: {
+            color: chartColors.gridLinesColor
+          }
         }]
       },
       title: {
@@ -168,6 +173,9 @@ function initCharts() {
         yAxes: [{
           ticks: {
             beginAtZero: true
+          },
+          gridLines: {
+            color: chartColors.gridLinesColor
           }
         }]
       },
@@ -227,6 +235,9 @@ function initCharts() {
         yAxes: [{
           ticks: {
             beginAtZero: true
+          },
+          gridLines: {
+            color: chartColors.gridLinesColor
           }
         }]
       },
@@ -284,6 +295,11 @@ function initCharts() {
         xAxes: [{
           ticks: {
             beginAtZero: true
+          }
+        }],
+        yAxes: [{
+          gridLines: {
+            color: chartColors.gridLinesColor
           }
         }]
       },

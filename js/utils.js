@@ -7,7 +7,8 @@ const chartColors = {
   blue: 'rgb(54, 162, 235)',
   purple: 'rgb(153, 102, 255)',
   grey: 'rgb(201, 203, 207)',
-  pink: 'rgb(255, 192, 203)'
+  pink: 'rgb(255, 192, 203)',
+  gridLinesColor: 'rgba(0, 0, 0, 0.1)'
 }
 
 function getTotalData(dataType) {
@@ -96,6 +97,8 @@ function showData() {
 }
 
 function setupTable(languageUrl) {
+  $('#wilayaTable').DataTable().clear().destroy()
+
   let provincesData = []
   for (key in provinces) {
     let province = [i18next.t("provinces."+key),
@@ -185,6 +188,50 @@ function checkYesterday() {
   return tableHeader
 }
 
+function setupTheme() {
+  const savedTheme = localStorage.getItem('theme')
+  let mode = 'light'
+  if (savedTheme === 'dark') {
+    mode = 'dark'
+  } else if (savedTheme === 'light') {
+    mode = 'light'
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    mode = 'dark'
+  }
+  updateTheme(mode)
+
+  $('#theme-switch').click(() => {
+    let mode = 'light'
+    if($('#theme-switch').hasClass('fa-moon'))
+      mode = 'dark'
+    updateTheme(mode)
+    initCharts()
+    initMap()
+  })
+}
+
+function updateTheme(colorScheme) {
+  $('body').toggleClass('dark', colorScheme === 'dark')
+
+  if(colorScheme === 'dark') {
+    localStorage.setItem('theme', 'dark')
+    $('#theme-switch').removeClass('fa-moon text-muted')
+    $('#theme-switch').addClass('fa-sun text-warning')
+    Chart.defaults.global.defaultFontColor = '#e6e6e6'
+    chartColors.gridLinesColor = '#444'
+    mapStyle = 'dark-v10'
+    mapStatesBorderColor = '#444'
+  } else {
+    localStorage.setItem('theme', 'light')
+    $('#theme-switch').removeClass('fa-sun text-warning')
+    $('#theme-switch').addClass('fa-moon text-muted')
+    Chart.defaults.global.defaultFontColor = '#666'
+    chartColors.gridLinesColor = 'rgba(0, 0, 0, 0.1)'
+    mapStyle = 'light-v10'
+    mapStatesBorderColor = 'white'
+  }
+}
+
 function setupShare() {
   $("#shareBtn").click(() => {
     if (navigator.share) {
@@ -227,7 +274,7 @@ function i18nInit() {
 }
 
 i18next.on('initialized', (options) => {
-  initMap() // Only once
+  initMap()
 })
 
 i18next.on('languageChanged', (lng) => {
@@ -260,7 +307,6 @@ function updateLayoutDirection() {
   Chart.defaults.global.legend.textDirection = dir
   Chart.defaults.global.tooltips.textDirection = dir
   $("tbody").attr("dir", dir)
-  $('#wilayaTable').DataTable().clear().destroy()
 }
 
 function updateTooltipLang() {
@@ -354,6 +400,7 @@ $(document).ready(() => {
   i18nInit()
   moment.tz.setDefault('Europe/Brussels')
   showData()
+  setupTheme()
   setInterval(updateFromNow, 60000) // 1 min
   setupShare()
 

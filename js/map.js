@@ -1,21 +1,28 @@
-let map
+let mapInstance
 let info
 let geojson
 let previousTarget = null
+let mapStyle = 'light-v10'
+let mapStatesBorderColor = 'white'
 
 function initMap() {
 
-  map = L.map('map').setView([33, 3], 5.8);
+  if (mapInstance && mapInstance.remove) {
+    mapInstance.off()
+    mapInstance.remove()
+  }
 
-  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW1pbmVyb3VraCIsImEiOiJjazgwanNndWIwMjVjM21tdzFqb2d0Z3g2In0.pl24-pEleZ_3DywYNIZ8vA', {
+  mapInstance = L.map('map').setView([33, 3], 5.8);
+
+  L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW1pbmVyb3VraCIsImEiOiJjazgwanNndWIwMjVjM21tdzFqb2d0Z3g2In0.pl24-pEleZ_3DywYNIZ8vA', {
     maxZoom: 18,
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
       '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
       'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    id: 'mapbox/light-v10',
+    id: mapStyle,
     tileSize: 512,
     zoomOffset: -1
-  }).addTo(map)
+  }).addTo(mapInstance)
 
   // control that shows state info on hover
   info = L.control()
@@ -34,14 +41,14 @@ function initMap() {
                            : i18next.t("hover-city-map")+'<br>')
   }
 
-  info.addTo(map)
+  info.addTo(mapInstance)
 
   geojson = L.geoJson(statesData, {
     style: style,
     onEachFeature: onEachFeature
-  }).addTo(map)
+  }).addTo(mapInstance)
 
-  map.attributionControl.addAttribution('Data: <a href="http://covid19.sante.gov.dz/">MSP</a>')
+  mapInstance.attributionControl.addAttribution('Data: <a href="http://covid19.sante.gov.dz/">MSP</a>')
 
   let legend = L.control({position: 'bottomright'})
   legend.onAdd = function (map) {
@@ -64,7 +71,7 @@ function initMap() {
     return div
   }
 
-  legend.addTo(map)
+  legend.addTo(mapInstance)
 
 }
 
@@ -84,7 +91,7 @@ function style(feature) {
   return {
     weight: 2,
     opacity: 1,
-    color: 'white',
+    color: mapStatesBorderColor,
     dashArray: '',
     fillOpacity: 0.7,
     fillColor: getColor(feature.properties.CONFIRMED)
@@ -118,7 +125,7 @@ function resetHighlight(e) {
 }
 
 function zoomToFeature(e) {
-  map.fitBounds(e.target.getBounds())
+  mapInstance.fitBounds(e.target.getBounds())
 }
 
 function onEachFeature(feature, layer) {

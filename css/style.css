@@ -204,6 +204,17 @@ body, body .card {
     background: #444;
 }
 
+.dark .leaflet-control-attribution {
+    color: var(--dark-color) !important;
+    background: var(--dark-bg-color) !important;
+}
+
+.dark .leaflet-bar a, .dark .leaflet-bar a:hover {
+    color: var(--dark-color) !important;
+    background: var(--dark-bg-color-card) !important;
+    border-color: var(--dark-border-color) !important;
+}
+
 #map {
     height: 500px;
 }

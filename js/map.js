@@ -16,9 +16,8 @@ function initMap() {
 
   L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW1pbmVyb3VraCIsImEiOiJjazgwanNndWIwMjVjM21tdzFqb2d0Z3g2In0.pl24-pEleZ_3DywYNIZ8vA', {
     maxZoom: 18,
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>, ' +
+      '© <a href="https://www.mapbox.com/">Mapbox</a>',
     id: mapStyle,
     tileSize: 512,
     zoomOffset: -1
@@ -48,7 +47,7 @@ function initMap() {
     onEachFeature: onEachFeature
   }).addTo(mapInstance)
 
-  mapInstance.attributionControl.addAttribution('Data: <a href="http://covid19.sante.gov.dz/">MSP</a>')
+  mapInstance.attributionControl.addAttribution(i18next.t('data')+': <a href="http://covid19.sante.gov.dz/">MSP</a>')
 
   let legend = L.control({position: 'bottomright'})
   legend.onAdd = function (map) {

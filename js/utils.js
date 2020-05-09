@@ -100,7 +100,7 @@ function setupTable(languageUrl) {
   $('#wilayaTable').DataTable().clear().destroy()
 
   let provincesData = []
-  for (key in provinces) {
+  for (let key in provinces) {
     let province = [i18next.t("provinces."+key),
                     provinces[key].confirmed,
                     provinces[key].new_confirmed > 0 ? '+'+provinces[key].new_confirmed : '',
@@ -122,7 +122,7 @@ function setupTable(languageUrl) {
   }
 
   $.fn.dataTable.moment('ll')
-  newCasesHeader = checkYesterday()
+  const newCasesHeader = checkYesterday()
 
   $('#wilayaTable').DataTable({
     data: provincesData,
@@ -390,7 +390,7 @@ $('#dailyChartsList').change(() => {
 })
 
 $('#tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
-  activeTab = e.target.id
+  const activeTab = e.target.id
   if(activeTab === 'table-tab') {
     $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust()
   }

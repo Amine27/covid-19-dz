@@ -8,7 +8,7 @@ const genderData = [3201, 2522]
 const age = ['< 1', '1 - 14', '15 - 24', '25 - 49', '50 - 59', '+60', 'N/A']
 const ageConfirmedData = [6, 108, 228, 2250, 981, 1924, 226]
 const ageDeathsData = [0, 1, 1, 42, 80, 378, 0]
-const lastUpdated = '2020-05-10 15:38'
+const lastUpdated = '2020-05-10 15:41'
 const provinces = {
   "Aïn Defla": { id: 44, confirmed: 281, recovered: 0, deaths: 5, new_confirmed: 3, new_recovered: 0, new_deaths: 0, reported: "2020-03-27", last_reported: "2020-05-10" },
   "Aïn Témouchent": { id: 46, confirmed: 70, recovered: 0, deaths: 4, new_confirmed: 6, new_recovered: 0, new_deaths: 0, reported: "2020-03-23", last_reported: "2020-05-10" },

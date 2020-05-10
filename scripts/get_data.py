@@ -68,9 +68,9 @@ def getTotalStats():
             for totalDict in reversed(data):
                 t = totalDict['attributes']
                 usefulData.append({
-                    'confirmed': t['Cumul'],
-                    'recovered': t['gueris'],
-                    'deaths': t['Death_cumul'],
+                    'confirmed': t['Cumul'] or confirmedOld[-1],
+                    'recovered': t['gueris'] or recoveredOld[-1],
+                    'deaths': t['Death_cumul'] or deathsOld[-1],
                     'treatment': t['Straitem'] or treatmentOld[-1],
                     'man': t['Masculin'],
                     'woman': t['Féminin'],

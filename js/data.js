@@ -8,7 +8,7 @@ const genderData = [3112, 2446]
 const age = ['< 1', '1 - 14', '15 - 24', '25 - 49', '50 - 59', '+60', 'N/A']
 const ageConfirmedData = [6, 103, 224, 2162, 965, 1881, 217]
 const ageDeathsData = [0, 1, 1, 41, 79, 372, 0]
-const lastUpdated = '2020-05-10 15:22'
+const lastUpdated = '2020-05-10 15:23'
 const provinces = {
   "Aïn Defla": { id: 44, confirmed: 281, recovered: 0, deaths: 5, new_confirmed: 3, new_recovered: 0, new_deaths: 0, reported: "2020-03-27", last_reported: "2020-05-10" },
   "Aïn Témouchent": { id: 46, confirmed: 70, recovered: 0, deaths: 4, new_confirmed: 6, new_recovered: 0, new_deaths: 0, reported: "2020-03-23", last_reported: "2020-05-10" },
@@ -40,7 +40,7 @@ const provinces = {
   "Mascara": { id: 29, confirmed: 80, recovered: 2, deaths: 5, new_confirmed: 5, new_recovered: 0, new_deaths: 0, reported: "2020-03-05", last_reported: "2020-05-10" },
   "Mila": { id: 43, confirmed: 25, recovered: 0, deaths: 2, new_confirmed: 2, new_recovered: 0, new_deaths: 0, reported: "2020-04-04", last_reported: "2020-05-10" },
   "Mostaganem": { id: 27, confirmed: 60, recovered: 0, deaths: 3, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-23", last_reported: "2020-04-30" },
-  "Naâma": { id: 45, confirmed: 23, recovered: 0, deaths: 0, new_confirmed: 2, new_recovered: 0, new_deaths: 0, reported: "2020-04-06", last_reported: "2020-05-10" },
+  "Naâma": { id: 45, confirmed: 23, recovered: 0, deaths: 0, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-04-06", last_reported: "2020-05-10" },
   "Oran": { id: 31, confirmed: 334, recovered: 0, deaths: 14, new_confirmed: 16, new_recovered: 0, new_deaths: 0, reported: "2020-03-19", last_reported: "2020-05-10" },
   "Ouargla": { id: 30, confirmed: 132, recovered: 1, deaths: 12, new_confirmed: 4, new_recovered: 0, new_deaths: 2, reported: "2020-02-25", last_reported: "2020-05-10" },
   "Oum el Bouaghi": { id: 4, confirmed: 116, recovered: 0, deaths: 5, new_confirmed: 3, new_recovered: 0, new_deaths: 0, reported: "2020-03-26", last_reported: "2020-05-10" },

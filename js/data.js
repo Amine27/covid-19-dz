@@ -7,8 +7,8 @@ const gender = ['Male', 'Female']
 const genderData = [3112, 2446]
 const age = ['< 1', '1 - 14', '15 - 24', '25 - 49', '50 - 59', '+60', 'N/A']
 const ageConfirmedData = [6, 103, 224, 2162, 965, 1881, 217]
-const ageDeathsData = [0, 1, 1, 41, 79, 372, 0]
-const lastUpdated = '2020-05-10 15:23'
+const ageDeathsData = [0, 1, 1, 41, 79, 373, 0]
+const lastUpdated = '2020-05-10 15:25'
 const provinces = {
   "Aïn Defla": { id: 44, confirmed: 281, recovered: 0, deaths: 5, new_confirmed: 3, new_recovered: 0, new_deaths: 0, reported: "2020-03-27", last_reported: "2020-05-10" },
   "Aïn Témouchent": { id: 46, confirmed: 70, recovered: 0, deaths: 4, new_confirmed: 6, new_recovered: 0, new_deaths: 0, reported: "2020-03-23", last_reported: "2020-05-10" },
@@ -31,7 +31,7 @@ const provinces = {
   "El Tarf": { id: 36, confirmed: 21, recovered: 0, deaths: 0, new_confirmed: 1, new_recovered: 0, new_deaths: 0, reported: "2020-03-27", last_reported: "2020-05-10" },
   "Ghardaïa": { id: 47, confirmed: 83, recovered: 0, deaths: 5, new_confirmed: 1, new_recovered: 0, new_deaths: 0, reported: "2020-03-27", last_reported: "2020-05-10" },
   "Guelma": { id: 24, confirmed: 36, recovered: 0, deaths: 1, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-14", last_reported: "2020-05-10" },
-  "Illizi": { id: 33, confirmed: 3, recovered: 0, deaths: 0, new_confirmed: 1, new_recovered: 0, new_deaths: 0, reported: "2020-03-31", last_reported: "2020-05-10" },
+  "Illizi": { id: 33, confirmed: 3, recovered: 0, deaths: 0, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-31", last_reported: "2020-05-10" },
   "Jijel": { id: 18, confirmed: 49, recovered: 0, deaths: 5, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-23", last_reported: "2020-05-08" },
   "Khenchela": { id: 40, confirmed: 50, recovered: 0, deaths: 3, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-20", last_reported: "2020-05-08" },
   "Laghouat": { id: 3, confirmed: 45, recovered: 0, deaths: 0, new_confirmed: 2, new_recovered: 0, new_deaths: 0, reported: "2020-03-26", last_reported: "2020-05-10" },

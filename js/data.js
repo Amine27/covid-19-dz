@@ -8,11 +8,11 @@ const genderData = [3112, 2446]
 const age = ['< 1', '1 - 14', '15 - 24', '25 - 49', '50 - 59', '+60', 'N/A']
 const ageConfirmedData = [6, 103, 224, 2162, 965, 1881, 217]
 const ageDeathsData = [0, 1, 1, 41, 79, 372, 0]
-const lastUpdated = '2020-05-10 15:20'
+const lastUpdated = '2020-05-10 15:22'
 const provinces = {
   "Aïn Defla": { id: 44, confirmed: 281, recovered: 0, deaths: 5, new_confirmed: 3, new_recovered: 0, new_deaths: 0, reported: "2020-03-27", last_reported: "2020-05-10" },
   "Aïn Témouchent": { id: 46, confirmed: 70, recovered: 0, deaths: 4, new_confirmed: 6, new_recovered: 0, new_deaths: 0, reported: "2020-03-23", last_reported: "2020-05-10" },
-  "Adrar": { id: 1, confirmed: 57, recovered: 0, deaths: 3, new_confirmed: 4, new_recovered: 0, new_deaths: 0, reported: "2020-03-15", last_reported: "2020-05-10" },
+  "Adrar": { id: 1, confirmed: 57, recovered: 0, deaths: 3, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-15", last_reported: "2020-05-10" },
   "Alger": { id: 16, confirmed: 631, recovered: 11, deaths: 115, new_confirmed: 7, new_recovered: 0, new_deaths: 0, reported: "2020-03-13", last_reported: "2020-05-10" },
   "Annaba": { id: 23, confirmed: 105, recovered: 3, deaths: 4, new_confirmed: 1, new_recovered: 0, new_deaths: 0, reported: "2020-03-16", last_reported: "2020-05-10" },
   "Béchar": { id: 8, confirmed: 83, recovered: 0, deaths: 0, new_confirmed: 2, new_recovered: 0, new_deaths: 0, reported: "2020-04-03", last_reported: "2020-05-10" },
@@ -30,7 +30,7 @@ const provinces = {
   "El Oued": { id: 39, confirmed: 48, recovered: 0, deaths: 8, new_confirmed: 2, new_recovered: 0, new_deaths: 0, reported: "2020-03-18", last_reported: "2020-05-10" },
   "El Tarf": { id: 36, confirmed: 21, recovered: 0, deaths: 0, new_confirmed: 1, new_recovered: 0, new_deaths: 0, reported: "2020-03-27", last_reported: "2020-05-10" },
   "Ghardaïa": { id: 47, confirmed: 83, recovered: 0, deaths: 5, new_confirmed: 1, new_recovered: 0, new_deaths: 0, reported: "2020-03-27", last_reported: "2020-05-10" },
-  "Guelma": { id: 24, confirmed: 36, recovered: 0, deaths: 1, new_confirmed: 3, new_recovered: 0, new_deaths: 0, reported: "2020-03-14", last_reported: "2020-05-10" },
+  "Guelma": { id: 24, confirmed: 36, recovered: 0, deaths: 1, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-14", last_reported: "2020-05-10" },
   "Illizi": { id: 33, confirmed: 3, recovered: 0, deaths: 0, new_confirmed: 1, new_recovered: 0, new_deaths: 0, reported: "2020-03-31", last_reported: "2020-05-10" },
   "Jijel": { id: 18, confirmed: 49, recovered: 0, deaths: 5, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-23", last_reported: "2020-05-08" },
   "Khenchela": { id: 40, confirmed: 50, recovered: 0, deaths: 3, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-20", last_reported: "2020-05-08" },
@@ -49,7 +49,7 @@ const provinces = {
   "Saïda": { id: 20, confirmed: 5, recovered: 0, deaths: 0, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-04-10", last_reported: "2020-05-01" },
   "Sidi Bel Abbès": { id: 22, confirmed: 59, recovered: 0, deaths: 7, new_confirmed: 0, new_recovered: 0, new_deaths: 1, reported: "2020-03-23", last_reported: "2020-05-07" },
   "Skikda": { id: 21, confirmed: 64, recovered: 3, deaths: 4, new_confirmed: 4, new_recovered: 0, new_deaths: 0, reported: "2020-03-12", last_reported: "2020-05-10" },
-  "Souk Ahras": { id: 41, confirmed: 27, recovered: 0, deaths: 1, new_confirmed: 7, new_recovered: 0, new_deaths: 0, reported: "2020-03-12", last_reported: "2020-05-10" },
+  "Souk Ahras": { id: 41, confirmed: 27, recovered: 0, deaths: 1, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-12", last_reported: "2020-05-10" },
   "Tébessa": { id: 12, confirmed: 39, recovered: 0, deaths: 3, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-04-03", last_reported: "2020-05-08" },
   "Tamanghasset": { id: 11, confirmed: 3, recovered: 0, deaths: 0, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-04-13", last_reported: "2020-04-29" },
   "Tiaret": { id: 14, confirmed: 117, recovered: 0, deaths: 6, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-04-02", last_reported: "2020-05-10" },

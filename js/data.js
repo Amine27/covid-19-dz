@@ -8,7 +8,7 @@ const genderData = [3112, 2446]
 const age = ['< 1', '1 - 14', '15 - 24', '25 - 49', '50 - 59', '+60', 'N/A']
 const ageConfirmedData = [6, 103, 224, 2162, 965, 1881, 217]
 const ageDeathsData = [0, 1, 1, 41, 79, 372, 0]
-const lastUpdated = '2020-05-10 15:19'
+const lastUpdated = '2020-05-10 15:20'
 const provinces = {
   "Aïn Defla": { id: 44, confirmed: 281, recovered: 0, deaths: 5, new_confirmed: 3, new_recovered: 0, new_deaths: 0, reported: "2020-03-27", last_reported: "2020-05-10" },
   "Aïn Témouchent": { id: 46, confirmed: 70, recovered: 0, deaths: 4, new_confirmed: 6, new_recovered: 0, new_deaths: 0, reported: "2020-03-23", last_reported: "2020-05-10" },
@@ -23,7 +23,7 @@ const provinces = {
   "Bordj Bou Arréridj": { id: 34, confirmed: 191, recovered: 0, deaths: 26, new_confirmed: 5, new_recovered: 0, new_deaths: 2, reported: "2020-03-16", last_reported: "2020-05-10" },
   "Bouira": { id: 10, confirmed: 39, recovered: 0, deaths: 4, new_confirmed: 1, new_recovered: 0, new_deaths: 0, reported: "2020-03-16", last_reported: "2020-05-10" },
   "Boumerdès": { id: 35, confirmed: 65, recovered: 1, deaths: 8, new_confirmed: 5, new_recovered: 0, new_deaths: 0, reported: "2020-03-18", last_reported: "2020-05-10" },
-  "Chlef": { id: 2, confirmed: 63, recovered: 0, deaths: 1, new_confirmed: 1, new_recovered: 0, new_deaths: 0, reported: "2020-03-23", last_reported: "2020-05-10" },
+  "Chlef": { id: 2, confirmed: 63, recovered: 0, deaths: 1, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-23", last_reported: "2020-05-10" },
   "Constantine": { id: 25, confirmed: 259, recovered: 0, deaths: 12, new_confirmed: 17, new_recovered: 0, new_deaths: 0, reported: "2020-03-22", last_reported: "2020-05-10" },
   "Djelfa": { id: 17, confirmed: 96, recovered: 0, deaths: 5, new_confirmed: 4, new_recovered: 0, new_deaths: 0, reported: "2020-03-27", last_reported: "2020-05-10" },
   "El Bayadh": { id: 32, confirmed: 10, recovered: 0, deaths: 0, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-04-06", last_reported: "2020-05-08" },

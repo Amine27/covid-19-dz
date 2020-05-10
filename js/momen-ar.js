@@ -4,7 +4,7 @@
 //! author : Ahmed Elkhatib
 //! author : forabi https://github.com/forabi
 
-;(function (global, factory) {
+(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
@@ -13,11 +13,7 @@
 
     //! moment.js locale configuration
 
-    var symbolMap = {
-        },
-        numberMap = {
-        },
-        pluralForm = function (n) {
+    var pluralForm = function (n) {
             return n === 0
                 ? 0
                 : n === 1

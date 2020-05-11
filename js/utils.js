@@ -278,6 +278,7 @@ i18next.on('initialized', (options) => {
 })
 
 i18next.on('languageChanged', (lng) => {
+  lng = lng.split('-')[0] // get only the lang part without locale
   updateLayoutDirection()
   moment.locale(lng)
   updateFromNow()

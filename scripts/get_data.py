@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import sys
 import json
@@ -117,17 +117,17 @@ def getDeathStats():
 
 def readData():
     global dateOld, confirmedOld, recoveredOld, deathsOld, treatmentOld, newConfirmedOld, newRecoveredOld, newDeathsOld, provinces
-    with open('js/data.js') as f:
+    with open('src/data.js') as f:
         for line in f:
-            if(line.startswith('const date')):
+            if(line.startswith('export const date')):
                 dateOld = line[line.find("[")+1:line.find("]")].replace("'", "").split(', ')
-            elif(line.startswith('const confirmed')):
+            elif(line.startswith('export const confirmed')):
                 confirmedOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
-            elif(line.startswith('const recovered')):
+            elif(line.startswith('export const recovered')):
                 recoveredOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
-            elif(line.startswith('const deaths')):
+            elif(line.startswith('export const deaths')):
                 deathsOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
-            elif(line.startswith('const treatment')):
+            elif(line.startswith('export const treatment')):
                 treatmentOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
             elif(line.startswith('  "')):
                 p = json.loads('{'+line[line.find("{")+1:line.find("}")].replace(': ', '": "').replace(', ', '", "').replace('""', '"').replace(' id', ' "id')+'}')
@@ -165,30 +165,30 @@ def updateData():
             deathsOld[-1] = totalCalculStats['deaths']
             treatmentOld[-1] = totalCalculStats['treatment']
 
-        finalData = ('const date = ' + str(dateOld)
-                     + '\nconst confirmed = ' + str(confirmedOld)
-                     + '\nconst recovered = ' + str(recoveredOld)
-                     + '\nconst deaths = ' + str(deathsOld)
-                     + '\nconst treatment = ' + str(treatmentOld)
-                     + "\nconst gender = ['Male', 'Female']"
-                     + '\nconst genderData = ['+str(totalOfficialStats['man'])+', '+ str(totalOfficialStats['woman'])+']'
-                     + "\nconst age = ['< 1', '1 - 14', '15 - 24', '25 - 49', '50 - 59', '+60', 'N/A']"
-                     + '\nconst ageConfirmedData = ['+str(totalOfficialStats['an'])+', '+str(totalOfficialStats['unquatorze'])+', '+str(totalOfficialStats['vingtquatre'])+', '+str(totalOfficialStats['quaranteneuf'])+', '+str(totalOfficialStats['cinquanteneuf'])+', '+str(totalOfficialStats['soixante'])+', '+str(totalOfficialStats['NP'])+']'
-                     + '\nconst ageDeathsData = ['+str(deathsStats['quatorz'])+', '+str(deathsStats['vingquatre'])+', '+str(deathsStats['trentequatre'])+', '+str(deathsStats['quarantequatre'])+', '+str(deathsStats['cinquanteneuf'])+', '+str(deathsStats['soixantedix'])+', '+str(0)+']'
-                     + "\nconst lastUpdated = '" + datetime.datetime.now().strftime('%Y-%m-%d %H:%M') + "'"
-                     + '\nconst provinces = {\n'
+        finalData = ('export const date = ' + str(dateOld)
+                     + '\nexport const confirmed = ' + str(confirmedOld)
+                     + '\nexport const recovered = ' + str(recoveredOld)
+                     + '\nexport const deaths = ' + str(deathsOld)
+                     + '\nexport const treatment = ' + str(treatmentOld)
+                     + "\nexport const gender = ['Male', 'Female']"
+                     + '\nexport const genderData = ['+str(totalOfficialStats['man'])+', '+ str(totalOfficialStats['woman'])+']'
+                     + "\nexport const age = ['< 1', '1 - 14', '15 - 24', '25 - 49', '50 - 59', '+60', 'N/A']"
+                     + '\nexport const ageConfirmedData = ['+str(totalOfficialStats['an'])+', '+str(totalOfficialStats['unquatorze'])+', '+str(totalOfficialStats['vingtquatre'])+', '+str(totalOfficialStats['quaranteneuf'])+', '+str(totalOfficialStats['cinquanteneuf'])+', '+str(totalOfficialStats['soixante'])+', '+str(totalOfficialStats['NP'])+']'
+                     + '\nexport const ageDeathsData = ['+str(deathsStats['quatorz'])+', '+str(deathsStats['vingquatre'])+', '+str(deathsStats['trentequatre'])+', '+str(deathsStats['quarantequatre'])+', '+str(deathsStats['cinquanteneuf'])+', '+str(deathsStats['soixantedix'])+', '+str(0)+']'
+                     + "\nexport const lastUpdated = '" + datetime.datetime.now().strftime('%Y-%m-%d %H:%M') + "'"
+                     + '\nexport const provinces = {\n'
         )
         for p_id, p in provinces.items():
             finalData += '  "'+p['name']+'": { id: '+str(p_id)+', confirmed: '+str(p['confirmed'])+', recovered: '+str(p['recovered'])+', deaths: '+str(p['deaths'])+', new_confirmed: '+str(p['new_confirmed'])+', new_recovered: '+str(p['new_recovered'])+', new_deaths: '+str(p['new_deaths'])+', reported: "'+str(p['reported'])+'", last_reported: "'+str(p['last_reported'])+'" },\n'
 
         finalData = finalData[:-2] + '\n}'
-        with open("js/data.js", "w") as dataFile:
+        with open("src/data.js", "w") as dataFile:
             print("{}".format(finalData), file=dataFile)
 
         print(datetime.datetime.now(), ': saved new data')
         print('calcul\t confirmed:', totalCalculStats['confirmed'], 'deaths:', totalCalculStats['deaths'], 'recovered:', totalOfficialStats['recovered'], 'new_confirmed:', totalCalculStats['new_confirmed'], 'new_deaths:', totalCalculStats['new_deaths'])
 
-        updateIndex()
+        #updateIndex()
         gitPush()
     else:
         print(datetime.datetime.now(), ': no new data')
@@ -202,13 +202,14 @@ def updateIndex():
             else:
                 newIndex += line
 
-    with open("index.html", "w") as indexFile:
+    with open("src/index.html", "w") as indexFile:
         print("{}".format(newIndex.strip()), file=indexFile)
 
 def gitPush():
     try:
         repo = Repo('.')
-        repo.index.add(['js/data.js', 'index.html'])
+        #repo.index.add(['src/data.js', 'src/index.html'])
+        repo.index.add(['src/data.js'])
         repo.index.commit('[Bot] Update stats')
         origin = repo.remote(name='origin')
         origin.push()

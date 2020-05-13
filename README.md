@@ -8,11 +8,11 @@ The project is a single page JavaScript application running in the browser, pull
 
 ## Screenshot
 
-![Screenshot](img/screenshot.png)
+![Screenshot](static/img/screenshot.png)
 
 ## Data Sources
 
-For all information regarding the data powering this site, please visit [data](https://github.com/Amine27/covid-19-dz/blob/master/js/data.js) file.
+For all information regarding the data powering this site, please visit [data](https://github.com/Amine27/covid-19-dz/blob/master/src/data.js) file.
 
 Our data is sourced primarily from the Algerian Ministry of Health, Population and Hospital Reform ([MSPRH](http://covid19.sante.gov.dz/)).
 
@@ -22,7 +22,19 @@ If you would like to contribute features, refactor code, etc., please create or 
 
 ## Running Dev Locally
 
-Simply, open index.html in your web browser.
+Set up the environment:
+
+```
+npm install
+```
+
+Build the code continuously & serve it:
+
+```
+npm run dev
+```
+
+You will now be able to access the site at http://localhost:8080/
 
 ## License & Code Re-use
 

@@ -1,0 +1,28 @@
+{
+  "ecmaVersion": 8,
+  "libs": [
+    "browser",
+    "jquery",
+    "ecmascript"
+  ],
+  "loadEagerly": [
+    "./**/*.js"
+  ],
+  "dontLoad": [
+    "node_modules/**"
+  ],
+  "plugins": {
+    "requirejs": {
+      "baseURL": "./",
+      "paths": {}
+    },
+    "modules": {},
+    "es_modules": {},
+    "node": {},
+    "node-express": {}
+  },
+  "doc_comment": {
+      "fullDocs": true,
+      "strong": true
+  }
+}

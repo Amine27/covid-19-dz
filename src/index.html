@@ -26,12 +26,6 @@
     <meta property="og:image" content="https://corona-dz.live/img/screenshot.png" />
     <meta property="og:description" content="Live updates of the Coronavirus COVID-19 outbreak in Algeria" />
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-v4-rtl@4.4.1-1/dist/css/bootstrap-rtl.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet" />
   </head>
   <body>
 
@@ -53,7 +47,7 @@
         <div class="col d-flex align-items-end flex-column">
           <div class="row">
             <div class="dropdown">
-              <i class="fas fa-globe btn-lg text-muted" type="button" id="dropdownMenuIcon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="icon-globe btn-lg text-muted" type="button" id="dropdownMenuIcon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               </i>
               <div id="dropdownMenu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuIcon">
                 <a class="dropdown-item" href="#" data-lang-picker='en'>English</a>
@@ -63,7 +57,7 @@
             </div>
           </div>
           <div class="row">
-            <a id="theme-switch" class="fas fa-moon btn-lg text-muted" href="#"></a>
+            <a id="theme-switch" class="icon-moon btn-lg text-muted" href="#"></a>
           </div>
         </div>
       </div>
@@ -90,7 +84,7 @@
               <div class="col px-0 px-sm-6 px-lg-3">
                 <div class="text-value-xl text-warning card-font-ar" id="totalDays"> </div>
                 <div data-tooltip-i18n="confirmed-days-tooltip" data-tippy-placement="bottom"><span data-i18n="days">Days</span>
-                  <span class="fas fa-info-circle tooltip-info" aria-hidden="true"></span>
+                  <span class="icon-info-circle tooltip-info" aria-hidden="true"></span>
                 </div>
               </div>
             </div>
@@ -111,7 +105,7 @@
               <div class="col px-0 px-sm-6 px-lg-3">
                 <div class="text-value-xl text-success card-font-ar" id="recoveryRate"></div>
                 <div data-tooltip-i18n="recovery-rate-tooltip" data-tippy-placement="bottom"><span data-i18n="rate">Rate</span>
-                  <span class="fas fa-info-circle tooltip-info" aria-hidden="true"></span>
+                  <span class="icon-info-circle tooltip-info" aria-hidden="true"></span>
                 </div>
               </div>
             </div>
@@ -132,7 +126,7 @@
               <div class="col px-0 px-sm-6 px-lg-3">
                 <div class="text-value-xl text-danger card-font-ar" id="fatalityRate"></div>
                 <div data-tooltip-i18n="deaths-rate-tooltip" data-tippy-placement="bottom" aria-hidden="true"><span data-i18n="rate">Rate</span>
-                  <span class="fas fa-info-circle tooltip-info"></span>
+                  <span class="icon-info-circle tooltip-info"></span>
                 </div>
               </div>
             </div>
@@ -153,7 +147,7 @@
               <div class="col px-0 px-sm-6 px-lg-3">
                 <div class="text-value-xl text-info card-font-ar" id="augmentationRate"></div>
                 <div data-tooltip-i18n="treatment-rate-tooltip" data-tippy-placement="bottom" aria-hidden="true"><span data-i18n="rate">Rate</span>
-                  <span class="fas fa-info-circle tooltip-info"></span>
+                  <span class="icon-info-circle tooltip-info"></span>
                 </div>
               </div>
             </div>
@@ -166,17 +160,17 @@
           <ul class="nav nav-tabs" id="tab" role="tablist">
             <li class="nav-item">
               <a class="nav-link active" id="map-tab" data-toggle="tab" href="#map-pane" role="tab" aria-controls="map" aria-selected="true">
-                <span class="fa fa-map pr-1"></span><span data-i18n="map">Map</span>
+                <span class="icon-map pr-1"></span><span data-i18n="map">Map</span>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="chart-tab" data-toggle="tab" href="#chart-pane" role="tab" aria-controls="chart" aria-selected="false">
-                <span class="fas fa-chart-bar pr-1"></span><span data-i18n="chart">Chart</span>
+                <span class="icon-chart-bar pr-1"></span><span data-i18n="chart">Chart</span>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="table-tab" data-toggle="tab" href="#table-pane" role="tab" aria-controls="table" aria-selected="false">
-                <span class="fas fa-table pr-1"></span><span data-i18n="table">Table</span>
+                <span class="icon-table pr-1"></span><span data-i18n="table">Table</span>
               </a>
             </li>
           </ul>
@@ -274,9 +268,9 @@
                   <span data-i18n="algeria-covid19-tracker" class="text-muted mx-2">Algeria Covid-19 Tracker</span></a>|
                 <span class="a2a_kit" data-a2a-url="https://corona-dz.live" data-a2a-title="Algeria Covid-19 Tracker">
                   <a class="a2a_dd text-muted mx-2" id="shareBtn" href="#share" role="button">
-                    <span class="fas fa-share mr-2" aria-hidden="true"></span><span data-i18n="share">Share</span></a>|</span>
-                <a class="text-muted" href="mailto:amineroukh@gmail.com"><span class="fas fa-envelope mx-2" aria-hidden="true"></span><span class="mr-2" data-i18n="contact" >Contact</span></a>|
-                <a class="text-muted" href="https://github.com/Amine27/covid-19-dz" target="_blank"><span class="fab fa-github mx-2" aria-hidden="true"></span><span data-i18n="github" >Github</span></a>
+                    <span class="icon-share mr-2" aria-hidden="true"></span><span data-i18n="share">Share</span></a>|</span>
+                <a class="text-muted" href="mailto:amineroukh@gmail.com"><span class="icon-envelope mx-2" aria-hidden="true"></span><span class="mr-2" data-i18n="contact" >Contact</span></a>|
+                <a class="text-muted" href="https://github.com/Amine27/covid-19-dz" target="_blank"><span class="icon-github mx-2" aria-hidden="true"></span><span data-i18n="github" >Github</span></a>
               </small>
             </p>
           </div>
@@ -284,24 +278,6 @@
       </footer>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1-lts/dist/umd/popper.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
-    <script src="https://unpkg.com/moment@2.24.0/min/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.28/moment-timezone-with-data-10-year-range.min.js"></script>
-    <script src="./js/momen-ar.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.1/locale/fr.min.js"></script>
-    <script src="https://unpkg.com/chart.js@2.9.3/dist/Chart.min.js" crossorigin=""></script>
-    <script src="https://unpkg.com/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js"></script>
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-v4-rtl@4.4.1-1/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
-    <script src="https://cdn.datatables.net/plug-ins/1.10.20/sorting/datetime-moment.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/19.4.4/i18next.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-i18next/1.2.1/jquery-i18next.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next-browser-languagedetector/4.1.1/i18nextBrowserLanguageDetector.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/i18next-http-backend@1.0.8/i18nextHttpBackend.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tippy.js/5.2.1/tippy-bundle.iife.min.js"></script>
     <script>
       if(navigator.share !== undefined) {
         document.getElementById("shareBtn").classList.remove("a2a_dd");
@@ -319,12 +295,5 @@
       gtag('js', new Date())
       gtag('config', 'UA-162515731-1')
     </script>
-
-    <script type="text/javascript" src="js/data.js?v=1589383682"></script>
-    <script type="text/javascript" src="js/utils.js"></script>
-    <script type="text/javascript" src="js/charts.js"></script>
-    <script type="text/javascript" src="js/algeria-provinces.js"></script>
-    <script type="text/javascript" src="js/map.js"></script>
-
   </body>
 </html>

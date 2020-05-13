@@ -1,5 +1,28 @@
+import 'bootstrap-v4-rtl'
+import jQuery from 'jquery'
+window.$ = window.jQuery = jQuery
+import moment from 'moment'
+import 'moment-timezone'
+import dt from 'datatables.net-bs4'
+import 'datatables.net-plugins/sorting/datetime-moment.js'
+import i18next from 'i18next'
+import jqueryI18next from 'jquery-i18next'
+import LanguageDetector from 'i18next-browser-languagedetector'
+import tippy from 'tippy.js'
+
+import resources from '../static/locales'
+import {
+  date, confirmed, recovered, deaths, treatment, gender, genderData, age, ageConfirmedData, ageDeathsData, lastUpdated, provinces
+} from './data.js'
+import {
+  dailyChart, initCharts, wilayaChart
+} from './charts.js'
+import {
+  initMap, setMapStatesBorderColor, setMapStyle
+} from './map.js'
+
 let tippyInstances = null
-const chartColors = {
+export const chartColors = {
   red: 'rgb(255, 99, 132)',
   orange: 'rgb(255, 159, 64)',
   yellow: 'rgb(255, 205, 86)',
@@ -17,7 +40,7 @@ function getTotalData(dataType) {
   return 0
 }
 
-function getDailyData(dataType) {
+export function getDailyData(dataType) {
   let dailyData = []
   for (let i = 0; i < dataType.length; ++i) {
     dailyData.push(dataType[i] - (dataType[i-1] === undefined ? 0 : dataType[i-1]))
@@ -25,7 +48,7 @@ function getDailyData(dataType) {
   return dailyData
 }
 
-function getAverageDailyData(dataType, days) {
+export function getAverageDailyData(dataType, days) {
   const dailyData = getDailyData(dataType).reverse()
   let averageDailyData = []
 
@@ -44,11 +67,11 @@ function getNewData(dataType) {
   return 0
 }
 
-function getDataPerWilayaName(provinces, dataType, filter) {
+export function getDataPerWilayaName(provinces, dataType, filter) {
   return getDataPerWilaya(provinces, dataType, filter).map((t, i) => (i+1)+' - '+ i18next.t("provinces."+t[0]))
 }
 
-function getDataPerWilayaValue(provinces, dataType, filter) {
+export function getDataPerWilayaValue(provinces, dataType, filter) {
   return getDataPerWilaya(provinces, dataType, filter).map(t => t[1])
 }
 
@@ -72,7 +95,7 @@ function getDataAugmentationRate(dataType) {
   return `${((getTotalData(dataType) - dataType[dataType.length-2]) / getTotalData(dataType) * 100).toFixed(2)}%`
 }
 
-function getDataLocalized(dataType) {
+export function getDataLocalized(dataType) {
   return dataType.map(e => i18next.t(e))
 }
 
@@ -96,7 +119,7 @@ function showData() {
   $('#augmentationRate').text(getDataAugmentationRate(treatment))
 }
 
-function setupTable(languageUrl) {
+function setupTable(languageArray) {
   $('#wilayaTable').DataTable().clear().destroy()
 
   let provincesData = []
@@ -142,50 +165,8 @@ function setupTable(languageUrl) {
       { title: i18next.t('last-reported'), className: "text-nowrap", targets: 5 },
       { title: i18next.t('first-reported'), className: "text-nowrap", targets: 6 }
     ],
-    language : {
-        url: languageUrl
-    }
+    language: languageArray
   })
-}
-
-function updateFromNow() {
-  $('#lastUpdated').text(`${moment(lastUpdated).fromNow()}`)
-
-  if(moment().diff(moment(lastUpdated), 'hours') < 1) {
-    $('#blink').removeClass('d-none')
-    $('#blink').addClass('d-inline-block')
-  }
-
-  // auto-reload page if new update is available (only between 15-19h)
-  if(moment().hours() < 20 && moment().hours() > 14) {
-    fetch("https://corona-dz.live/js/data.js").then((data) => {
-      data.text().then((text) => {
-        text.split("\n").some((line) => {
-          if(line.startsWith('const lastUpdated')) {
-            const newUpdate = line.substring(line.indexOf("'")+1, line.lastIndexOf("'"))
-            if(moment(lastUpdated) < moment(newUpdate)) {
-              // reload current page without using cache
-              document.location.reload(true)
-            }
-            return true
-          }
-        })
-      })
-    })
-  }
-}
-
-function checkYesterday() {
-  let tableHeader = []
-  if (moment(date[date.length-1], 'M/D/YY').isBefore(moment(), 'day')) {
-    $('#newConfirmedText, #newRecoveredText, #newDeathsText, #newTreatmentText').attr('data-i18n', 'yesterday')
-    tableHeader.push(i18next.t('yesterday-confirmed'))
-    tableHeader.push(i18next.t('yesterday-deaths'))
-  } else {
-    tableHeader.push(i18next.t('new-confirmed'))
-    tableHeader.push(i18next.t('new-deaths'))
-  }
-  return tableHeader
 }
 
 function setupTheme() {
@@ -202,34 +183,10 @@ function setupTheme() {
 
   $('#theme-switch').click(() => {
     let mode = 'light'
-    if($('#theme-switch').hasClass('fa-moon'))
+    if($('#theme-switch').hasClass('icon-moon'))
       mode = 'dark'
     updateTheme(mode)
-    initCharts()
-    initMap()
   })
-}
-
-function updateTheme(colorScheme) {
-  $('body').toggleClass('dark', colorScheme === 'dark')
-
-  if(colorScheme === 'dark') {
-    localStorage.setItem('theme', 'dark')
-    $('#theme-switch').removeClass('fa-moon text-muted')
-    $('#theme-switch').addClass('fa-sun text-warning')
-    Chart.defaults.global.defaultFontColor = '#e6e6e6'
-    chartColors.gridLinesColor = '#444'
-    mapStyle = 'dark-v10'
-    mapStatesBorderColor = '#444'
-  } else {
-    localStorage.setItem('theme', 'light')
-    $('#theme-switch').removeClass('fa-sun text-warning')
-    $('#theme-switch').addClass('fa-moon text-muted')
-    Chart.defaults.global.defaultFontColor = '#666'
-    chartColors.gridLinesColor = 'rgba(0, 0, 0, 0.1)'
-    mapStyle = 'light-v10'
-    mapStatesBorderColor = 'white'
-  }
 }
 
 function setupShare() {
@@ -250,18 +207,18 @@ function setupShare() {
 
 function i18nInit() {
   i18next
-    .use(i18nextHttpBackend)
-    .use(i18nextBrowserLanguageDetector)
+    .use(LanguageDetector)
     .init({
+      resources,
       // debug: true,
       // saveMissing: true,
       // saveMissingTo: "current",
       load: 'languageOnly',
-      fallbackLng: 'en',
-      backend: {
-        loadPath: 'locales/{{lng}}.json',
-        addPath: 'locales/{{lng}}.missing.json'
-      }
+      fallbackLng: 'en'//,
+      // backend: {
+      //   loadPath: 'locales/{{lng}}.json',
+      //   addPath: 'locales/{{lng}}.missing.json'
+      // }
     }, (err, t) => {
       jqueryI18next.init(i18next, $)
       $('body,html').localize()
@@ -273,16 +230,16 @@ function i18nInit() {
     })
 }
 
-i18next.on('initialized', (options) => {
-  initMap()
-})
+// i18next.on('initialized', (options) => {
+//   initMap()
+// })
 
 i18next.on('languageChanged', (lng) => {
   lng = lng.split('-')[0] // get only the lang part without locale
   updateLayoutDirection()
   moment.locale(lng)
   updateFromNow()
-  setupTable('locales/'+lng+'.json')
+  setupTable(resources[lng].translation)
   initCharts()
   updateTooltipLang()
 
@@ -321,10 +278,74 @@ function updateTooltipLang() {
   tippyInstances = tippy('[data-tippy-content]')
 }
 
+function updateTheme(colorScheme) {
+  $('body').toggleClass('dark', colorScheme === 'dark')
+
+  if(colorScheme === 'dark') {
+    localStorage.setItem('theme', 'dark')
+    $('#theme-switch').removeClass('icon-moon text-muted')
+    $('#theme-switch').addClass('icon-sun text-warning')
+    Chart.defaults.global.defaultFontColor = '#e6e6e6'
+    chartColors.gridLinesColor = '#444'
+    setMapStyle('dark-v10')
+    setMapStatesBorderColor('#444')
+  } else {
+    localStorage.setItem('theme', 'light')
+    $('#theme-switch').removeClass('icon-sun text-warning')
+    $('#theme-switch').addClass('icon-moon text-muted')
+    Chart.defaults.global.defaultFontColor = '#666'
+    chartColors.gridLinesColor = 'rgba(0, 0, 0, 0.1)'
+    setMapStyle('light-v10')
+    setMapStatesBorderColor('white')
+  }
+  initCharts()
+  initMap()
+}
+
+function updateFromNow() {
+  $('#lastUpdated').text(`${moment(lastUpdated).fromNow()}`)
+
+  if(moment().diff(moment(lastUpdated), 'hours') < 1) {
+    $('#blink').removeClass('d-none')
+    $('#blink').addClass('d-inline-block')
+  }
+
+  // auto-reload page if new update is available (only between 15-19h)
+  // if(moment().hours() < 20 && moment().hours() > 14) {
+  //   fetch("https://corona-dz.live/js/data.js").then((data) => {
+  //     data.text().then((text) => {
+  //       text.split("\n").some((line) => {
+  //         if(line.startsWith('const lastUpdated')) {
+  //           const newUpdate = line.substring(line.indexOf("'")+1, line.lastIndexOf("'"))
+  //           if(moment(lastUpdated) < moment(newUpdate)) {
+  //             // reload current page without using cache
+  //             document.location.reload(true)
+  //           }
+  //           return true
+  //         }
+  //       })
+  //     })
+  //   })
+  // }
+}
+
+function checkYesterday() {
+  let tableHeader = []
+  if (moment(date[date.length-1], 'M/D/YY').isBefore(moment(), 'day')) {
+    $('#newConfirmedText, #newRecoveredText, #newDeathsText, #newTreatmentText').attr('data-i18n', 'yesterday')
+    tableHeader.push(i18next.t('yesterday-confirmed'))
+    tableHeader.push(i18next.t('yesterday-deaths'))
+  } else {
+    tableHeader.push(i18next.t('new-confirmed'))
+    tableHeader.push(i18next.t('new-deaths'))
+  }
+  return tableHeader
+}
+
 $('#wilayaChartsList').change(() => {
   const chartData = $('#wilayaChartsList').val()
-  let filter = false
-  let dataset = wilayaChart.data.datasets[0]
+  const filter = false
+  const dataset = wilayaChart.data.datasets[0]
 
   if (chartData === 'confirmed') {
     dataset.label = i18next.t('confirmed')
@@ -357,9 +378,9 @@ $('#wilayaChartsList').change(() => {
 
 $('#dailyChartsList').change(() => {
   const dataType = $('#dailyChartsList').val()
-  let lineDataset = dailyChart.data.datasets[1]
-  let barDataset = dailyChart.data.datasets[0]
-  let days = 7
+  const lineDataset = dailyChart.data.datasets[1]
+  const barDataset = dailyChart.data.datasets[0]
+  const days = 7
 
   if (dataType === 'confirmed') {
     lineDataset.label = i18next.t('confirmed')
@@ -379,7 +400,7 @@ $('#dailyChartsList').change(() => {
     lineDataset.borderColor = chartColors.green
     barDataset.data = getAverageDailyData(recovered, days)
     lineDataset.data = getDailyData(recovered)
-  }  else if (dataType === 'treatment') {
+  } else if (dataType === 'treatment') {
     lineDataset.label = i18next.t(dataType)
     lineDataset.backgroundColor = chartColors.blue
     lineDataset.borderColor = chartColors.blue
@@ -392,7 +413,7 @@ $('#dailyChartsList').change(() => {
 
 $('#tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
   const activeTab = e.target.id
-  if(activeTab === 'table-tab') {
+  if (activeTab === 'table-tab') {
     $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust()
   }
 })
@@ -405,7 +426,7 @@ $(document).ready(() => {
   setInterval(updateFromNow, 60000) // 1 min
   setupShare()
 
-  if(document.referrer === 'https://amine27.github.io/covid-19-dz/') {
+  if (document.referrer === 'https://amine27.github.io/covid-19-dz/') {
     $('#alert').show()
   }
 })

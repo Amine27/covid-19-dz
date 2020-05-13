@@ -1,23 +1,38 @@
+import i18next from 'i18next'
+import Chart from 'chart.js'
+import datalabels from 'chartjs-plugin-datalabels'
+import {
+  age, ageConfirmedData, ageDeathsData, confirmed, date, deaths, gender, genderData, provinces, recovered
+} from './data.js'
+import {
+  chartColors, getAverageDailyData, getDailyData, getDataLocalized, getDataPerWilayaName, getDataPerWilayaValue
+} from './main.js'
+
 Chart.defaults.global.plugins.datalabels.display = false
 Chart.defaults.global.hover.events = ['mousemove', 'mouseout', 'click']
 
-let statsChart
-let genderChart
-let ageChart
-let dailyChart
-let wilayaChart
+export let statsChart
+export let genderChart
+export let ageChart
+export let dailyChart
+export let wilayaChart
 
-function initCharts() {
-  if(statsChart)
+export function initCharts() {
+  if (statsChart) {
     statsChart.destroy()
-  if(genderChart)
+  }
+  if (genderChart) {
     genderChart.destroy()
-  if(ageChart)
+  }
+  if (ageChart) {
     ageChart.destroy()
-  if(dailyChart)
+  }
+  if (dailyChart) {
     dailyChart.destroy()
-  if(wilayaChart)
+  }
+  if (wilayaChart) {
     wilayaChart.destroy()
+  }
 
   statsChart = new Chart($('#statsChart'), {
     type: 'line',
@@ -59,8 +74,8 @@ function initCharts() {
           type: 'time',
           time: {
             parser: 'M/D/YY',
-	    tooltipFormat: 'll'
-	  },
+            tooltipFormat: 'll'
+          },
           gridLines: {
             drawOnChartArea: false
           }
@@ -97,7 +112,12 @@ function initCharts() {
           backgroundColor: [
             chartColors.green,
             chartColors.blue
-          ]
+          ],
+          borderColor: [
+            chartColors.green,
+            chartColors.blue
+          ],
+          borderWidth: 2
         }
       ]
     },
@@ -106,7 +126,7 @@ function initCharts() {
       maintainAspectRatio: false,
       aspectRatio: 1,
       legend: {
-        position: 'top',
+        position: 'top'
       },
       title: {
         display: true,
@@ -121,16 +141,16 @@ function initCharts() {
           display: true,
           color: 'white',
           font: {
-	    weight: 'bold'
-	  },
+            weight: 'bold'
+          },
           formatter: (value, ctx) => {
             let sum = 0
-            let dataArr = ctx.chart.data.datasets[0].data
-            dataArr.map(data => {
+            const dataArr = ctx.chart.data.datasets[0].data
+            dataArr.map((data) => {
               sum += data
             })
-            return `${(value*100 / sum).toFixed(2)}%`
-          },
+            return `${(value * 100 / sum).toFixed(2)}%`
+          }
         }
       }
     }
@@ -226,8 +246,8 @@ function initCharts() {
           type: 'time',
           time: {
             parser: 'M/D/YY',
-	    tooltipFormat: 'll'
-	  },
+            tooltipFormat: 'll'
+          },
           gridLines: {
             drawOnChartArea: false
           }
@@ -307,7 +327,7 @@ function initCharts() {
         datalabels: {
           display: true,
           anchor: 'end',
-          align:'right',
+          align:'right'
         }
       }
     }

@@ -16,7 +16,7 @@ export const provinces = {
   "Alger": { id: 16, confirmed: 722, recovered: 11, deaths: 117, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-13", last_reported: "2020-05-14" },
   "Annaba": { id: 23, confirmed: 115, recovered: 3, deaths: 4, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-16", last_reported: "2020-05-14" },
   "Béchar": { id: 8, confirmed: 100, recovered: 0, deaths: 0, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-04-03", last_reported: "2020-05-14" },
-  "Béjaïa": { id: 6, confirmed: 191, recovered: 1, deaths: 17, new_confirmed: 0, new_recovered: 0, new_deaths: 1, reported: "2020-03-17", last_reported: "2020-05-14" },
+  "Béjaïa": { id: 6, confirmed: 191, recovered: 1, deaths: 17, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-17", last_reported: "2020-05-14" },
   "Batna": { id: 5, confirmed: 84, recovered: 0, deaths: 7, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-26", last_reported: "2020-05-14" },
   "Biskra": { id: 7, confirmed: 90, recovered: 2, deaths: 6, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-25", last_reported: "2020-05-14" },
   "Blida": { id: 9, confirmed: 969, recovered: 32, deaths: 116, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-01", last_reported: "2020-05-14" },

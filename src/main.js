@@ -252,13 +252,13 @@ function updateLayoutDirection() {
   if (dir === 'rtl') {
     $('html,#map').addClass('font-face-ar')
     $('#dropdownMenu').removeClass('dropdown-menu-right')
-    Chart.defaults.global.defaultFontFamily = 'Tajawal', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'
+    Chart.defaults.global.defaultFontFamily = "'Tajawal', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'"
     Chart.defaults.global.legend.rtl = true
     Chart.defaults.global.tooltips.rtl = true
   } else {
     $('html,#map').removeClass('font-face-ar')
     $('#dropdownMenu').addClass('dropdown-menu-right')
-    Chart.defaults.global.defaultFontFamily = 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'
+    Chart.defaults.global.defaultFontFamily = "'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'"
     Chart.defaults.global.legend.rtl = false
     Chart.defaults.global.tooltips.rtl = false
   }

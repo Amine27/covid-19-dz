@@ -49,7 +49,7 @@ def getWilayaStats():
                 totalCalculStats['recovered'] = totalOfficialStats['recovered']
                 totalCalculStats['treatment'] = totalOfficialStats['treatment']
         except KeyError:
-            print('getWilayaStats(): incorrect json file')
+            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'getWilayaStats(): incorrect json file')
             totalCalculStats['new_confirmed'] = newConfirmedOld
             totalCalculStats['new_deaths'] = newDeathsOld
             totalCalculStats['confirmed'] = totalOfficialStats['confirmed']
@@ -85,7 +85,7 @@ def getTotalStats():
                 })
                 break
         except KeyError:
-            print('getTotalStats(): incorrect json file')
+            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'getTotalStats(): incorrect json file')
             sys.exit(0)
 
     global totalOfficialStats
@@ -109,7 +109,7 @@ def getDeathStats():
                     'soixantedix': t['soixantedix']
                 })
         except KeyError:
-            print('getDeathStats(): incorrect json file')
+            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'getDeathStats(): incorrect json file')
             sys.exit(0)
 
     global deathsStats
@@ -185,13 +185,13 @@ def updateData():
         with open("src/data.js", "w") as dataFile:
             print("{}".format(finalData), file=dataFile)
 
-        print(datetime.datetime.now(), ': saved new data')
+        print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), ': saved new data')
         print('calcul\t confirmed:', totalCalculStats['confirmed'], 'deaths:', totalCalculStats['deaths'], 'recovered:', totalOfficialStats['recovered'], 'new_confirmed:', totalCalculStats['new_confirmed'], 'new_deaths:', totalCalculStats['new_deaths'])
 
         #updateIndex()
         gitPush()
     else:
-        print(datetime.datetime.now(), ': no new data')
+        print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), ': no new data')
 
 def updateIndex():
     newIndex = ''
@@ -214,7 +214,7 @@ def gitPush():
         origin = repo.remote(name='origin')
         origin.push()
     except exc.GitError as e:
-        print('Some error occured while pushing the code to github:', e)
+        print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'Some error occured while pushing the code to github:', e)
 
 def main():
     readData()

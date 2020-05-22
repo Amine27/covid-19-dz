@@ -31,7 +31,6 @@ totalOfficialStats = []
 provinces = {}
 
 token = ''
-PASSWORD = '&@WdY9CX6YUW3@D!xY'
 
 def login():
     data = {

@@ -31,7 +31,7 @@
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.5.3",
     "eslint": "^7.0.0",
-    "eslint-plugin-compat": "^3.5.1",
+    "eslint-plugin-compat": "^3.6.0",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
     "husky": "^4.2.5",
@@ -47,19 +47,19 @@
     "webpackbar": "^4.0.0"
   },
   "dependencies": {
-    "bootstrap-v4-rtl": "^4.4.1-1",
+    "bootstrap-v4-rtl": "^4.4.1-2",
     "chart.js": "^2.9.3",
     "chartjs-plugin-datalabels": "^0.7.0",
     "datatables.net-bs4": "^1.10.21",
     "datatables.net-plugins": "^1.10.20",
     "i18next": "^19.4.4",
-    "i18next-browser-languagedetector": "^4.1.1",
+    "i18next-browser-languagedetector": "^4.2.0",
     "jquery": "^3.5.1",
     "jquery-i18next": "^1.2.1",
     "leaflet": "^1.6.0",
     "leaflet-ajax": "^2.1.0",
-    "moment": "^2.25.3",
-    "moment-timezone": "^0.5.28",
+    "moment": "^2.26.0",
+    "moment-timezone": "^0.5.31",
     "popper.js": "^1.16.1",
     "tippy.js": "^5.2.1"
   }

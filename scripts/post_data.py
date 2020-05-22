@@ -260,6 +260,7 @@ def updateData(newDay):
     addProvince(newDay)
 
 def main():
+    global token
     token = login()
     newDay = checkNewDay()
     updateData(newDay)

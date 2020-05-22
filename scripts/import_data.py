@@ -216,6 +216,7 @@ def importData():
     addCountry()
 
 def main():
+    global token
     token = login()
     importData()
 

@@ -35,51 +35,54 @@ export const chartColors = {
 }
 
 function getTotalData(dataType) {
-  if (dataType.length > 0)
-    return dataType[dataType.length-1]
+  if (dataType.length > 0) {
+    return dataType[dataType.length - 1]
+  }
   return 0
 }
 
 export function getDailyData(dataType) {
-  let dailyData = []
+  const dailyData = []
   for (let i = 0; i < dataType.length; ++i) {
-    dailyData.push(dataType[i] - (dataType[i-1] === undefined ? 0 : dataType[i-1]))
+    dailyData.push(dataType[i] - (dataType[i - 1] === undefined ? 0 : dataType[i - 1]))
   }
   return dailyData
 }
 
 export function getAverageDailyData(dataType, days) {
   const dailyData = getDailyData(dataType).reverse()
-  let averageDailyData = []
+  const averageDailyData = []
 
   for (let i = 0; i < dailyData.length; i++) {
-    averageDailyData.push((dailyData.slice(i, i+days).reduce((a,b) => a + b, 0) / days).toFixed(2))
+    averageDailyData.push((dailyData.slice(i, i + days).reduce((a, b) => a + b, 0) / days).toFixed(2))
   }
   return averageDailyData.reverse()
 }
 
 function getNewData(dataType) {
-  if(dataType.length > 1) {
-    let newData = dataType[dataType.length-1] - dataType[dataType.length-2]
-    if (newData > 0)
+  if (dataType.length > 1) {
+    const newData = dataType[dataType.length - 1] - dataType[dataType.length - 2]
+    if (newData > 0) {
       return `+${newData}`
+    }
   }
   return 0
 }
 
 export function getDataPerWilayaName(provinces, dataType, filter) {
-  return getDataPerWilaya(provinces, dataType, filter).map((t, i) => (i+1)+' - '+ i18next.t("provinces."+t[0]))
+  return getDataPerWilaya(provinces, dataType, filter).map((t, i) => `${i + 1} - ` + i18next.t(`provinces.${t[0]}`))
 }
 
 export function getDataPerWilayaValue(provinces, dataType, filter) {
-  return getDataPerWilaya(provinces, dataType, filter).map(t => t[1])
+  return getDataPerWilaya(provinces, dataType, filter).map((t) => t[1])
 }
 
 function getDataPerWilaya(provinces, dataType, filter) {
-  let items = Object.keys(provinces).map(key => [key, provinces[key][dataType]])
+  let items = Object.keys(provinces).map((key) => [key, provinces[key][dataType]])
   items.sort((first, second) => second[1] - first[1])
-  if(filter)
-    items = items.filter(item => item[1] > 0)
+  if (filter) {
+    items = items.filter((item) => item[1] > 0)
+  }
   return items
 }
 
@@ -92,11 +95,11 @@ function getDataRate(confirmed, dataType) {
 }
 
 function getDataAugmentationRate(dataType) {
-  return `${((getTotalData(dataType) - dataType[dataType.length-2]) / getTotalData(dataType) * 100).toFixed(2)}%`
+  return `${((getTotalData(dataType) - dataType[dataType.length - 2]) / getTotalData(dataType) * 100).toFixed(2)}%`
 }
 
 export function getDataLocalized(dataType) {
-  return dataType.map(e => i18next.t(e))
+  return dataType.map((e) => i18next.t(e))
 }
 
 function showData() {
@@ -122,25 +125,25 @@ function showData() {
 function setupTable(languageArray) {
   $('#wilayaTable').DataTable().clear().destroy()
 
-  let provincesData = []
-  for (let key in provinces) {
-    let province = [i18next.t("provinces."+key),
-                    provinces[key].confirmed,
-                    provinces[key].new_confirmed > 0 ? '+'+provinces[key].new_confirmed : '',
-                    provinces[key].deaths, provinces[key].new_deaths > 0 ? '+'+provinces[key].new_deaths : '',
-                    moment(provinces[key].last_reported).isValid() ? moment(provinces[key].last_reported).calendar(moment(), {
-                      sameDay:  '['+i18next.t('today')+']',
-                      nextDay:  '['+i18next.t('tomorrow')+']',
-                      nextWeek: 'dddd',
-                      lastDay:  '['+i18next.t('yesterday')+']',
-                      lastWeek: () => {
-                        return "[" + i18next.t('day_count', {count: (moment().diff(moment(provinces[key].last_reported), 'days'))}) + "]"
-                      },
-                      sameElse: () => {
-                        return "[" + i18next.t('day_count', {count: (moment().diff(moment(provinces[key].last_reported), 'days'))}) + "]"
-                      }
-                    }) : '',
-                    moment(provinces[key].reported).isValid() ? moment(provinces[key].reported).format('ll') : '']
+  const provincesData = []
+  for (const key in provinces) {
+    const province = [i18next.t(`provinces.${key}`),
+                      provinces[key].confirmed,
+                      provinces[key].new_confirmed > 0 ? `+${provinces[key].new_confirmed}` : '',
+                      provinces[key].deaths, provinces[key].new_deaths > 0 ? `+${provinces[key].new_deaths}` : '',
+                      moment(provinces[key].last_reported).isValid() ? moment(provinces[key].last_reported).calendar(moment(), {
+                        sameDay: `[${i18next.t('today')}]`,
+                        nextDay: `[${i18next.t('tomorrow')}]`,
+                        nextWeek: 'dddd',
+                        lastDay:  `[${i18next.t('yesterday')}]`,
+                        lastWeek: () => {
+                          return '[' + i18next.t('day_count', { count: moment().diff(moment(provinces[key].last_reported), 'days')}) + ']'
+                        },
+                        sameElse: () => {
+                          return '[' + i18next.t('day_count', { count: moment().diff(moment(provinces[key].last_reported), 'days')}) + ']'
+                        }
+                      }) : '',
+                      moment(provinces[key].reported).isValid() ? moment(provinces[key].reported).format('ll') : '']
     provincesData.push(province)
   }
 
@@ -149,7 +152,7 @@ function setupTable(languageArray) {
 
   $('#wilayaTable').DataTable({
     data: provincesData,
-    order: [[ 1, 'desc' ]],
+    order: [[1, 'desc']],
     paging: false,
     info: false,
     scrollX: true,
@@ -157,13 +160,39 @@ function setupTable(languageArray) {
     scrollCollapse: true,
     columnDefs: [
       // { className: "table_cells", targets: "_all" },
-      { title: i18next.t('wilaya'), className: "province", targets: 0 },
-      { title: i18next.t('confirmed'), targets: 1 },
-      { title: newCasesHeader[0], className: "confirmed", targets: 2 },
-      { title: i18next.t('deaths'), targets: 3 },
-      { title: newCasesHeader[1], className: "deaths", targets: 4 },
-      { title: i18next.t('last-reported'), className: "text-nowrap", targets: 5 },
-      { title: i18next.t('first-reported'), className: "text-nowrap", targets: 6 }
+      {
+        title: i18next.t('wilaya'),
+        className: 'province',
+        targets: 0
+      },
+      {
+        title: i18next.t('confirmed'),
+        targets: 1
+      },
+      {
+        title: newCasesHeader[0],
+        className: 'confirmed',
+        targets: 2
+      },
+      {
+        title: i18next.t('deaths'),
+        targets: 3
+      },
+      {
+        title: newCasesHeader[1],
+        className: 'deaths',
+        targets: 4
+      },
+      {
+        title: i18next.t('last-reported'),
+        className: 'text-nowrap',
+        targets: 5
+      },
+      {
+        title: i18next.t('first-reported'),
+        className: 'text-nowrap',
+        targets: 6
+      }
     ],
     language: languageArray
   })
@@ -183,14 +212,15 @@ function setupTheme() {
 
   $('#theme-switch').click(() => {
     let mode = 'light'
-    if($('#theme-switch').hasClass('icon-moon'))
+    if ($('#theme-switch').hasClass('icon-moon')) {
       mode = 'dark'
+    }
     updateTheme(mode)
   })
 }
 
 function setupShare() {
-  $("#shareBtn").click(() => {
+  $('#shareBtn').click(() => {
     if (navigator.share) {
       navigator.share({
         title: $('meta[property="og:title"]').attr('content'),
@@ -198,7 +228,7 @@ function setupShare() {
         url: $('meta[property="og:url"]').attr('content')
       }).then(() => {
         // console.log('Thanks for sharing!')
-      }).catch(console.error);
+      }).catch(console.error)
     } else {
       // console.log('Error: Unsupported feature: navigator.share()')
     }
@@ -214,7 +244,7 @@ function i18nInit() {
       // saveMissing: true,
       // saveMissingTo: "current",
       load: 'languageOnly',
-      fallbackLng: 'en'//,
+      fallbackLng: 'en' //,
       // backend: {
       //   loadPath: 'locales/{{lng}}.json',
       //   addPath: 'locales/{{lng}}.missing.json'
@@ -243,7 +273,7 @@ i18next.on('languageChanged', (lng) => {
   initCharts()
   updateTooltipLang()
 
-  $(".preloader").fadeOut("slow")
+  $('.preloader').fadeOut('slow')
 })
 
 function updateLayoutDirection() {
@@ -264,7 +294,7 @@ function updateLayoutDirection() {
   }
   Chart.defaults.global.legend.textDirection = dir
   Chart.defaults.global.tooltips.textDirection = dir
-  $("tbody").attr("dir", dir)
+  $('tbody').attr('dir', dir)
 }
 
 function updateTooltipLang() {
@@ -272,8 +302,8 @@ function updateTooltipLang() {
     tippyInstances.forEach((instance) => instance.destroy())
   }
   // Set tooltip content to current language
-  $("[data-tooltip-i18n]").each(function(index) {
-    $(this).attr("data-tippy-content", i18next.t($(this).attr("data-tooltip-i18n")))
+  $('[data-tooltip-i18n]').each(function() {
+    $(this).attr('data-tippy-content', i18next.t($(this).attr('data-tooltip-i18n')))
   })
   tippyInstances = tippy('[data-tippy-content]')
 }
@@ -281,7 +311,7 @@ function updateTooltipLang() {
 function updateTheme(colorScheme) {
   $('body').toggleClass('dark', colorScheme === 'dark')
 
-  if(colorScheme === 'dark') {
+  if (colorScheme === 'dark') {
     localStorage.setItem('theme', 'dark')
     $('#theme-switch').removeClass('icon-moon text-muted')
     $('#theme-switch').addClass('icon-sun text-warning')
@@ -305,7 +335,7 @@ function updateTheme(colorScheme) {
 function updateFromNow() {
   $('#lastUpdated').text(`${moment(lastUpdated).fromNow()}`)
 
-  if(moment().diff(moment(lastUpdated), 'hours') < 1) {
+  if (moment().diff(moment(lastUpdated), 'hours') < 1) {
     $('#blink').removeClass('d-none')
     $('#blink').addClass('d-inline-block')
   }
@@ -330,8 +360,8 @@ function updateFromNow() {
 }
 
 function checkYesterday() {
-  let tableHeader = []
-  if (moment(date[date.length-1], 'M/D/YY').isBefore(moment(), 'day')) {
+  const tableHeader = []
+  if (moment(date[date.length - 1], 'M/D/YY').isBefore(moment(), 'day')) {
     $('#newConfirmedText, #newRecoveredText, #newDeathsText, #newTreatmentText').attr('data-i18n', 'yesterday')
     tableHeader.push(i18next.t('yesterday-confirmed'))
     tableHeader.push(i18next.t('yesterday-deaths'))
@@ -414,7 +444,10 @@ $('#dailyChartsList').change(() => {
 $('#tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
   const activeTab = e.target.id
   if (activeTab === 'table-tab') {
-    $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust()
+    $.fn.dataTable.tables({
+      visible: true,
+      api: true
+    }).columns.adjust()
   }
 })
 

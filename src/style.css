@@ -465,7 +465,7 @@ div.dataTables_filter {
 
 @font-face {
     font-family: 'icomoon';
-    src: url('../static/fonts/icomoon.ttf') format('truetype');
+    src: url('../static/fonts/icomoon.ttf?xk3myk') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: block;

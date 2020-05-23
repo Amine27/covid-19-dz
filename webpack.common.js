@@ -80,7 +80,7 @@ module.exports = {
       }
     ]),
     new MomentLocalesPlugin({
-      localesToKeep: ['fr', 'ar']
+      localesToKeep: ['fr', 'ar-dz']
     }),
     new WebpackBar()
   ],

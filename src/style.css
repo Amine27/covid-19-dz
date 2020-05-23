@@ -487,13 +487,13 @@ div.dataTables_filter {
 }
 
 .icon-chart-line:before {
-  content: "\1f4c8";
+  content: "\e900";
 }
 .icon-sitemap:before {
-  content: "\1f5a7";
+  content: "\e902";
 }
 .icon-cog:before {
-  content: "\1f5f8";
+  content: "\e901";
 }
 .icon-table:before {
   content: "\2630";

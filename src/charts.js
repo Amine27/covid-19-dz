@@ -16,6 +16,8 @@ export let genderChart
 export let ageChart
 export let dailyChart
 export let wilayaChart
+export let wilayaEvolutionChart
+export let wilayaDailyChart
 
 export function initCharts() {
   if (statsChart) {
@@ -329,6 +331,159 @@ export function initCharts() {
           anchor: 'end',
           align:'right'
         }
+      }
+    }
+  })
+}
+
+export function initWilayaEvolutionChart(date, confirmed, deaths) {
+  if (wilayaEvolutionChart) {
+    wilayaEvolutionChart.destroy()
+  }
+
+  wilayaEvolutionChart = new Chart($('#wilayaEvolutionChart'), {
+    type: 'line',
+    data: {
+      labels: date,
+      datasets: [
+        {
+          label: i18next.t('confirmed'),
+          backgroundColor: chartColors.orange,
+          borderColor: chartColors.orange,
+          fill: false,
+          borderWidth: 2,
+          data: confirmed
+        },
+        {
+          label: i18next.t('deaths'),
+          backgroundColor: chartColors.red,
+          borderColor: chartColors.red,
+          fill: false,
+          borderWidth: 2,
+          data: deaths
+        }
+      ]
+    },
+    options: {
+      response: true,
+      maintainAspectRatio: false,
+      aspectRatio: 1,
+      scales: {
+        xAxes: [{
+          type: 'time',
+          time: {
+            // parser: 'YYYY-MM-DDTHH:mm:ssZ',
+            tooltipFormat: 'll'
+          },
+          gridLines: {
+            drawOnChartArea: false
+          }
+        }],
+        yAxes: [{
+          gridLines: {
+            color: chartColors.gridLinesColor
+          }
+        }]
+      },
+      title: {
+        display: true,
+        text: i18next.t('cases-evolution')
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: false
+      }
+    }
+  })
+}
+
+export function initWilayaDailyChart(date, dataType, data, avg7Data) {
+  if (wilayaDailyChart) {
+    wilayaDailyChart.destroy()
+  }
+
+  let label
+  let backgroundColor
+  let borderColor
+
+  if (dataType === 'confirmed') {
+    label = i18next.t('confirmed')
+    backgroundColor = chartColors.orange
+    borderColor = chartColors.orange
+  } else if (dataType === 'deaths') {
+    label = i18next.t(dataType)
+    backgroundColor = chartColors.red
+    borderColor = chartColors.red
+  }
+
+  wilayaDailyChart = new Chart($('#wilayaDailyChart'), {
+    type: 'bar',
+    data: {
+      labels: date,
+      datasets: [
+        {
+          type: 'line',
+          label: i18next.t('7-day-average'),
+          backgroundColor: chartColors.purple,
+          borderColor: chartColors.purple,
+          borderWidth: 2,
+          fill: false,
+          data: avg7Data
+        },
+        {
+          label,
+          backgroundColor,
+          borderColor,
+          borderWidth: 2,
+          data
+        }
+      ]
+    },
+    options: {
+      response: true,
+      maintainAspectRatio: false,
+      aspectRatio: 1,
+      legend: {
+        display: true
+      },
+      scales: {
+        xAxes: [{
+          offset: true,
+          type: 'time',
+          time: {
+            // parser: 'YYYY-MM-DDTHH:mm:ssZ',
+            tooltipFormat: 'll'
+          },
+          gridLines: {
+            drawOnChartArea: false
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          },
+          gridLines: {
+            color: chartColors.gridLinesColor
+          }
+        }]
+      },
+      title: {
+        display: true,
+        text: i18next.t('daily-cases')
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: false
       }
     }
   })

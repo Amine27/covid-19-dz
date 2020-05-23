@@ -15,11 +15,14 @@ import {
   date, confirmed, recovered, deaths, treatment, gender, genderData, age, ageConfirmedData, ageDeathsData, lastUpdated, provinces
 } from './data.js'
 import {
-  dailyChart, initCharts, wilayaChart
+  dailyChart, initCharts, initWilayaDailyChart, initWilayaEvolutionChart, wilayaChart
 } from './charts.js'
 import {
   initMap, setMapStatesBorderColor, setMapStyle
 } from './map.js'
+import {
+  getProvinceData
+} from './api.js'
 
 let tippyInstances = null
 export const chartColors = {
@@ -33,6 +36,12 @@ export const chartColors = {
   pink: 'rgb(255, 192, 203)',
   gridLinesColor: 'rgba(0, 0, 0, 0.1)'
 }
+
+let provinceDailyDateList = []
+let provinceDailyConfirmedList = []
+let provinceDailyDeathsList = []
+let provinceAvg7ConfirmedList = []
+let provinceAvg7DeathsList = []
 
 function getTotalData(dataType) {
   if (dataType.length > 0) {
@@ -235,6 +244,15 @@ function setupShare() {
   })
 }
 
+function setupWilayaSelect() {
+  $('#wilayaList').empty()
+  for (const key in provinces) {
+    const province = [i18next.t(`provinces.${key}`)]
+    const id = provinces[key].id
+    $('#wilayaList').append($('<option></option>').attr('value', id).text(province))
+  }
+}
+
 function i18nInit() {
   i18next
     .use(LanguageDetector)
@@ -244,7 +262,7 @@ function i18nInit() {
       // saveMissing: true,
       // saveMissingTo: "current",
       load: 'languageOnly',
-      fallbackLng: 'en' //,
+      fallbackLng: 'en' // ,
       // backend: {
       //   loadPath: 'locales/{{lng}}.json',
       //   addPath: 'locales/{{lng}}.missing.json'
@@ -267,12 +285,16 @@ function i18nInit() {
 i18next.on('languageChanged', (lng) => {
   lng = lng.split('-')[0] // get only the lang part without locale
   updateLayoutDirection()
-  moment.locale(lng)
+  moment.locale(lng === 'ar' ? 'ar-dz' : lng)
   updateFromNow()
   setupTable(resources[lng].translation)
   initCharts()
   updateTooltipLang()
+  setupWilayaSelect()
 
+  if (provinceDailyDateList.length > 0) { // already initialized? translate it
+    $('#wilayaList').change()
+  }
   $('.preloader').fadeOut('slow')
 })
 
@@ -441,6 +463,41 @@ $('#dailyChartsList').change(() => {
   dailyChart.update() // Twice to take effect!
 })
 
+$('#wilayaList').change(() => {
+  const provinceId = $('#wilayaList').val()
+  const confirmed = []
+  const deaths = []
+  provinceDailyDateList = []
+  provinceDailyConfirmedList = []
+  provinceDailyDeathsList = []
+  provinceAvg7ConfirmedList = []
+  provinceAvg7DeathsList = []
+
+  getProvinceData(provinceId).then((data) => {
+    for (const d in data) {
+      provinceDailyDateList.push(data[d].date)
+      confirmed.push(data[d].confirmed)
+      deaths.push(data[d].deaths)
+      provinceDailyConfirmedList.push(data[d].newConfirmed)
+      provinceDailyDeathsList.push(data[d].newDeaths)
+      provinceAvg7ConfirmedList.push(data[d].avg7Confirmed)
+      provinceAvg7DeathsList.push(data[d].avg7Deaths)
+    }
+    initWilayaEvolutionChart(provinceDailyDateList, confirmed, deaths)
+    $('#wilayaDailyList').val($('#wilayaDailyList').val()).change()
+  })
+})
+
+$('#wilayaDailyList').change(() => {
+  const dataType = $('#wilayaDailyList').val()
+
+  if (dataType === 'confirmed') {
+    initWilayaDailyChart(provinceDailyDateList, dataType, provinceDailyConfirmedList, provinceAvg7ConfirmedList)
+  } else if (dataType === 'deaths') {
+    initWilayaDailyChart(provinceDailyDateList, dataType, provinceDailyDeathsList, provinceAvg7DeathsList)
+  }
+})
+
 $('#tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
   const activeTab = e.target.id
   if (activeTab === 'table-tab') {
@@ -448,6 +505,10 @@ $('#tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
       visible: true,
       api: true
     }).columns.adjust()
+  } else if (activeTab === 'evolution-tab') {
+    if (provinceDailyDateList.length === 0) { // not initialized? initilize it
+      $('#wilayaList').change()
+    }
   }
 })
 

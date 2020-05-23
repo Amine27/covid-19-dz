@@ -173,6 +173,11 @@
                 <span class="icon-table pr-1"></span><span data-i18n="table">Table</span>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" id="evolution-tab" data-toggle="tab" href="#evolution-pane" role="tab" aria-controls="evolution" aria-selected="false">
+                <span class="icon-chart-line pr-1"></span><span data-i18n="evolution">Evolution</span>
+              </a>
+            </li>
           </ul>
           <div class="tab-content shadow-sm" id="tabContent">
             <div class="tab-pane fade show active border border-top-0" id="map-pane" role="tabpanel" aria-labelledby="map-tab">
@@ -211,6 +216,26 @@
                 <tbody>
                 </tbody>
               </table>
+            </div>
+            <div class="tab-pane fade border border-top-0" id="evolution-pane" role="tabpanel" aria-labelledby="evolution-tab">
+              <div class="row mb-4">
+                <div class="col mt-3 mx-4 mb-4">
+                  <select class="form-control form-control-sm w-auto float-right" id="wilayaList" name="wilayaList">
+                  </select>
+                  <div style='height:300px;width:100%'>
+                    <canvas id="wilayaEvolutionChart" dir="ltr"></canvas>
+                  </div>
+                </div>
+                <div class="col mt-3 mx-3 mb-4">
+                  <select class="form-control form-control-sm w-auto float-right" id="wilayaDailyList" name="wilayaDailyList">
+                    <option data-i18n="confirmed" value="confirmed">Confirmed</option>
+                    <option data-i18n="deaths" value="deaths">Deaths</option>
+                  </select>
+                  <div style='height:300px;width:100%'>
+                    <canvas id="wilayaDailyChart" dir="ltr"></canvas>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -254,6 +279,19 @@
               <div style='height:auto;width:100%'>
                 <canvas id='dailyChart'></canvas>
               </div>
+              <!-- <div class="text-center"> -->
+              <!--   <div class="btn-group btn-group-toggle mt-3" data-toggle="buttons"> -->
+              <!--     <label class="btn btn-sm btn-outline-secondary active"> -->
+              <!--       <input type="radio" name="options" id="option1" autocomplete="off" checked=""> Beginning -->
+              <!--     </label> -->
+              <!--     <label class="btn btn-sm btn-outline-secondary"> -->
+              <!--       <input type="radio" name="options" id="option2" autocomplete="off"> 1 Month -->
+              <!--     </label> -->
+              <!--     <label class="btn btn-sm btn-outline-secondary"> -->
+              <!--       <input type="radio" name="options" id="option3" autocomplete="off"> 2 Weeks -->
+              <!--     </label> -->
+              <!--   </div> -->
+              <!-- </div> -->
             </div>
           </div>
         </div>

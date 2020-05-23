@@ -374,6 +374,12 @@ div.dataTables_filter {
     }
 }
 
+@media screen and (max-width: 767px) {
+    .nav-link {
+        padding: .5rem 0.5rem !important;
+    }
+}
+
 .preloader {
     align-items: center;
     background: white;
@@ -480,33 +486,42 @@ div.dataTables_filter {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-chart-line:before {
+  content: "\1f4c8";
+}
+.icon-sitemap:before {
+  content: "\1f5a7";
+}
+.icon-cog:before {
+  content: "\1f5f8";
+}
 .icon-table:before {
-    content: "\e900";
+  content: "\2630";
 }
 .icon-sun:before {
-    content: "\e901";
+  content: "\1f31e";
 }
 .icon-share:before {
-    content: "\e902";
+  content: "\1f44d";
 }
 .icon-moon:before {
-    content: "\e903";
+  content: "\1f31a";
 }
 .icon-map:before {
-    content: "\e904";
+  content: "\1f30e";
 }
 .icon-info-circle:before {
-    content: "\e905";
+  content: "\1f4ac";
 }
 .icon-globe:before {
-    content: "\e906";
+  content: "\1f310";
 }
 .icon-github:before {
-    content: "\e907";
+  content: "\1f5a5";
 }
 .icon-envelope:before {
-    content: "\e908";
+  content: "\1f4e8";
 }
 .icon-chart-bar:before {
-    content: "\e909";
+  content: "\1f4ca";
 }

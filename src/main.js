@@ -465,6 +465,7 @@ $('#dailyChartsList').change(() => {
 
 $('#wilayaList').change(() => {
   const provinceId = $('#wilayaList').val()
+  localStorage.setItem('provinceId', provinceId)
   const confirmed = []
   const deaths = []
   provinceDailyDateList = []
@@ -507,7 +508,12 @@ $('#tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
     }).columns.adjust()
   } else if (activeTab === 'evolution-tab') {
     if (provinceDailyDateList.length === 0) { // not initialized? initilize it
-      $('#wilayaList').change()
+      const savedWilaya = localStorage.getItem('provinceId')
+      if (savedWilaya) {
+        $('#wilayaList').val(savedWilaya).change()
+      } else {
+        $('#wilayaList').change()
+      }
     }
   }
 })

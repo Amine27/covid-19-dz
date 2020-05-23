@@ -15,6 +15,7 @@
     "map": "Carte",
     "chart": "Diagramme",
     "table": "Tableau",
+    "evolution": "Évolution",
     "new-confirmed": "Nouveaux cas",
     "new-deaths": "Nouveaux décès",
     "yesterday-confirmed": "Confirmés d'hier",

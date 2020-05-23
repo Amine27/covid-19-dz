@@ -31,6 +31,7 @@ totalOfficialStats = []
 provinces = {}
 
 token = ''
+URL = 'https://api.corona-dz.live'
 
 def login():
     data = {
@@ -161,14 +162,11 @@ def readData(f, country=False):
                 provinces[pId]['new_confirmed'] = p['new_confirmed']
                 provinces[pId]['new_recovered'] = p['new_recovered']
                 provinces[pId]['new_deaths'] = p['new_deaths']
-                # provinces[pId]['avg7_confirmed'] = p['avg7_confirmed']
-                # provinces[pId]['avg7_recovered'] = p['avg7_recovered']
-                # provinces[pId]['avg7_deaths'] = p['avg7_deaths']
+                provinces[pId]['avg7_confirmed'] = p['avg7_confirmed']
+                provinces[pId]['avg7_recovered'] = p['avg7_recovered']
+                provinces[pId]['avg7_deaths'] = p['avg7_deaths']
                 provinces[pId]['reported'] = p['reported']
                 provinces[pId]['last_reported'] = p['last_reported']
-                # newConfirmedOld += int(p['new_confirmed'])
-                # newRecoveredOld += int(p['new_recovered'])
-                # newDeathsOld += int(p['new_deaths'])
     if country:
         newConfirmedList = getDailyData(confirmedOld)
         newRecoveredList = getDailyData(recoveredOld)

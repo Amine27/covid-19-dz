@@ -104,7 +104,9 @@ function getDataRate(confirmed, dataType) {
 }
 
 function getDataAugmentationRate(dataType) {
-  return `${((getTotalData(dataType) - dataType[dataType.length - 2]) / getTotalData(dataType) * 100).toFixed(2)}%`
+  let rate = ((getTotalData(dataType) - dataType[dataType.length - 2]) / getTotalData(dataType) * 100).toFixed(2)
+  rate = rate > 0 ? `${rate}%` : '0%'
+  return rate
 }
 
 export function getDataLocalized(dataType) {

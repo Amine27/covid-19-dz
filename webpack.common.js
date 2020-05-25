@@ -1,9 +1,11 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const {
+  CleanWebpackPlugin
+} = require('clean-webpack-plugin')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 const WebpackBar = require('webpackbar')
 
@@ -53,7 +55,7 @@ module.exports = {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]',
+          name: '[name].[hash].[ext]',
           outputPath: 'fonts/'
         }
       }
@@ -67,8 +69,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].[chunkhash].css'
     }),
-    new OptimizeCSSAssetsPlugin({
-    }),
+    new OptimizeCSSAssetsPlugin({}),
     new CopyWebpackPlugin([
       {
         from: './static/img',

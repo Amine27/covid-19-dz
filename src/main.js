@@ -15,7 +15,7 @@ import {
   date, confirmed, recovered, deaths, treatment, gender, genderData, age, ageConfirmedData, ageDeathsData, lastUpdated, provinces
 } from './data.js'
 import {
-  dailyChart, initCharts, initWilayaDailyChart, initWilayaEvolutionChart, wilayaChart
+  dailyChart, initCharts, initCumulChart, initDailyChart, initWilayaDailyChart, initWilayaEvolutionChart, wilayaChart
 } from './charts.js'
 import {
   initMap, setMapStatesBorderColor, setMapStyle
@@ -301,6 +301,8 @@ i18next.on('languageChanged', (lng) => {
   updateFromNow()
   setupTable(resources[lng].translation)
   initCharts()
+  initDailyChart()
+  initCumulChart()
   updateTooltipLang()
   setupWilayaSelect()
 
@@ -363,6 +365,8 @@ function updateTheme(colorScheme) {
     setMapStatesBorderColor('white')
   }
   initCharts()
+  initDailyChart()
+  initCumulChart()
   initMap()
 }
 
@@ -442,37 +446,8 @@ $('#wilayaChartsList').change(() => {
 
 $('#dailyChartsList').change(() => {
   const dataType = $('#dailyChartsList').val()
-  const lineDataset = dailyChart.data.datasets[1]
-  const barDataset = dailyChart.data.datasets[0]
-  const days = 7
-
-  if (dataType === 'confirmed') {
-    lineDataset.label = i18next.t('confirmed')
-    lineDataset.backgroundColor = chartColors.orange
-    lineDataset.borderColor = chartColors.orange
-    barDataset.data = getAverageDailyData(confirmed, days)
-    lineDataset.data = getDailyData(confirmed)
-  } else if (dataType === 'deaths') {
-    lineDataset.label = i18next.t(dataType)
-    lineDataset.backgroundColor = chartColors.red
-    lineDataset.borderColor = chartColors.red
-    barDataset.data = getAverageDailyData(deaths, days)
-    lineDataset.data = getDailyData(deaths)
-  } else if (dataType === 'recovered') {
-    lineDataset.label = i18next.t(dataType)
-    lineDataset.backgroundColor = chartColors.green
-    lineDataset.borderColor = chartColors.green
-    barDataset.data = getAverageDailyData(recovered, days)
-    lineDataset.data = getDailyData(recovered)
-  } else if (dataType === 'treatment') {
-    lineDataset.label = i18next.t(dataType)
-    lineDataset.backgroundColor = chartColors.blue
-    lineDataset.borderColor = chartColors.blue
-    barDataset.data = getAverageDailyData(treatment, days)
-    lineDataset.data = getDailyData(treatment)
-  }
-  dailyChart.update()
-  dailyChart.update() // Twice to take effect!
+  const dataRange = $('#dailyDataRange label.active input').val()
+  initDailyChart(dataType, dataRange)
 })
 
 $('#wilayaList').change(() => {
@@ -503,12 +478,22 @@ $('#wilayaList').change(() => {
 
 $('#wilayaDailyList').change(() => {
   const dataType = $('#wilayaDailyList').val()
-
   if (dataType === 'confirmed') {
     initWilayaDailyChart(provinceDailyDateList, dataType, provinceDailyConfirmedList, provinceAvg7ConfirmedList)
   } else if (dataType === 'deaths') {
     initWilayaDailyChart(provinceDailyDateList, dataType, provinceDailyDeathsList, provinceAvg7DeathsList)
   }
+})
+
+$('#dailyDataRange input:radio').on('change', (e) => {
+  const dataRange = e.target.value
+  const dataType = $('#dailyChartsList').val()
+  initDailyChart(dataType, dataRange)
+})
+
+$('#cumulDataRange input:radio').on('change', (e) => {
+  const dataRange = e.target.value
+  initCumulChart(dataRange)
 })
 
 $('#tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {

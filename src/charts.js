@@ -2,7 +2,7 @@ import i18next from 'i18next'
 import Chart from 'chart.js'
 import datalabels from 'chartjs-plugin-datalabels'
 import {
-  age, ageConfirmedData, ageDeathsData, confirmed, date, deaths, gender, genderData, provinces, recovered
+  age, ageConfirmedData, ageDeathsData, confirmed, date, deaths, gender, genderData, provinces, recovered, treatment
 } from './data.js'
 import {
   chartColors, getAverageDailyData, getDailyData, getDataLocalized, getDataPerWilayaName, getDataPerWilayaValue
@@ -11,7 +11,7 @@ import {
 Chart.defaults.global.plugins.datalabels.display = false
 Chart.defaults.global.hover.events = ['mousemove', 'mouseout', 'click']
 
-export let statsChart
+export let cumulChart
 export let genderChart
 export let ageChart
 export let dailyChart
@@ -20,89 +20,15 @@ export let wilayaEvolutionChart
 export let wilayaDailyChart
 
 export function initCharts() {
-  if (statsChart) {
-    statsChart.destroy()
-  }
   if (genderChart) {
     genderChart.destroy()
   }
   if (ageChart) {
     ageChart.destroy()
   }
-  if (dailyChart) {
-    dailyChart.destroy()
-  }
   if (wilayaChart) {
     wilayaChart.destroy()
   }
-
-  statsChart = new Chart($('#statsChart'), {
-    type: 'line',
-    data: {
-      labels: date,
-      datasets: [
-        {
-          label: i18next.t('confirmed'),
-          backgroundColor: chartColors.orange,
-          borderColor: chartColors.orange,
-          fill: false,
-          borderWidth: 2,
-          data: confirmed
-        },
-        {
-          label: i18next.t('recovered'),
-          backgroundColor: chartColors.green,
-          borderColor: chartColors.green,
-          fill: false,
-          borderWidth: 2,
-          data: recovered
-        },
-        {
-          label: i18next.t('deaths'),
-          backgroundColor: chartColors.red,
-          borderColor: chartColors.red,
-          fill: false,
-          borderWidth: 2,
-          data: deaths
-        }
-      ]
-    },
-    options: {
-      response: true,
-      maintainAspectRatio: false,
-      aspectRatio: 1,
-      scales: {
-        xAxes: [{
-          type: 'time',
-          time: {
-            parser: 'M/D/YY',
-            tooltipFormat: 'll'
-          },
-          gridLines: {
-            drawOnChartArea: false
-          }
-        }],
-        yAxes: [{
-          gridLines: {
-            color: chartColors.gridLinesColor
-          }
-        }]
-      },
-      title: {
-        display: true,
-        text: i18next.t('cases-evolution')
-      },
-      elements: {
-        point: {
-          radius: 0
-        }
-      },
-      tooltips: {
-        mode: 'index',
-        intersect: false
-      }
-    }
-  })
 
   genderChart = new Chart($('#genderChart'), {
     type: 'doughnut',
@@ -212,73 +138,6 @@ export function initCharts() {
     }
   })
 
-  dailyChart = new Chart($('#dailyChart'), {
-    type: 'bar',
-    data: {
-      labels: date,
-      datasets: [
-        {
-          type: 'line',
-          label: i18next.t('7-day-average'),
-          backgroundColor: chartColors.purple,
-          borderColor: chartColors.purple,
-          borderWidth: 2,
-          fill: false,
-          data: getAverageDailyData(confirmed, 7)
-        },
-        {
-          label: i18next.t('confirmed'),
-          backgroundColor: chartColors.orange,
-          borderColor: chartColors.orange,
-          borderWidth: 2,
-          data: getDailyData(confirmed)
-        }
-      ]
-    },
-    options: {
-      response: true,
-      maintainAspectRatio: false,
-      aspectRatio: 1,
-      legend: {
-        display: true
-      },
-      scales: {
-        xAxes: [{
-          offset: true,
-          type: 'time',
-          time: {
-            parser: 'M/D/YY',
-            tooltipFormat: 'll'
-          },
-          gridLines: {
-            drawOnChartArea: false
-          }
-        }],
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          },
-          gridLines: {
-            color: chartColors.gridLinesColor
-          }
-        }]
-      },
-      title: {
-        display: true,
-        text: i18next.t('daily-cases')
-      },
-      elements: {
-        point: {
-          radius: 0
-        }
-      },
-      tooltips: {
-        mode: 'index',
-        intersect: false
-      }
-    }
-  })
-
   wilayaChart = new Chart($('#wilayaChart'), {
     type: 'horizontalBar',
     data: {
@@ -331,6 +190,186 @@ export function initCharts() {
           anchor: 'end',
           align:'right'
         }
+      }
+    }
+  })
+}
+
+export function initCumulChart(dataRange = 0) {
+  if (cumulChart) {
+    cumulChart.destroy()
+  }
+
+  cumulChart = new Chart($('#cumulChart'), {
+    type: 'line',
+    data: {
+      labels: date.slice(dataRange),
+      datasets: [
+        {
+          label: i18next.t('confirmed'),
+          backgroundColor: chartColors.orange,
+          borderColor: chartColors.orange,
+          fill: false,
+          borderWidth: 2,
+          data: confirmed.slice(dataRange)
+        },
+        {
+          label: i18next.t('recovered'),
+          backgroundColor: chartColors.green,
+          borderColor: chartColors.green,
+          fill: false,
+          borderWidth: 2,
+          data: recovered.slice(dataRange)
+        },
+        {
+          label: i18next.t('deaths'),
+          backgroundColor: chartColors.red,
+          borderColor: chartColors.red,
+          fill: false,
+          borderWidth: 2,
+          data: deaths.slice(dataRange)
+        }
+      ]
+    },
+    options: {
+      response: true,
+      maintainAspectRatio: false,
+      aspectRatio: 1,
+      scales: {
+        xAxes: [{
+          type: 'time',
+          time: {
+            parser: 'M/D/YY',
+            tooltipFormat: 'll'
+          },
+          gridLines: {
+            drawOnChartArea: false
+          }
+        }],
+        yAxes: [{
+          gridLines: {
+            color: chartColors.gridLinesColor
+          }
+        }]
+      },
+      title: {
+        display: true,
+        text: i18next.t('cases-evolution')
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: false
+      }
+    }
+  })
+}
+
+export function initDailyChart(dataType = 'confirmed', dataRange = 0) {
+  if (dailyChart) {
+    dailyChart.destroy()
+  }
+
+  const days = 7
+  let label
+  let backgroundColor
+  let borderColor
+  let barData
+  let lineData
+
+  if (dataType === 'confirmed') {
+    label = i18next.t('confirmed')
+    backgroundColor = chartColors.orange
+    borderColor = chartColors.orange
+    barData = getDailyData(confirmed).slice(dataRange)
+    lineData = getAverageDailyData(confirmed, days).slice(dataRange)
+  } else if (dataType === 'deaths') {
+    label = i18next.t(dataType)
+    backgroundColor = chartColors.red
+    borderColor = chartColors.red
+    barData = getDailyData(deaths).slice(dataRange)
+    lineData = getAverageDailyData(deaths, days).slice(dataRange)
+  } else if (dataType === 'recovered') {
+    label = i18next.t(dataType)
+    backgroundColor = chartColors.green
+    borderColor = chartColors.green
+    barData = getDailyData(recovered).slice(dataRange)
+    lineData = getAverageDailyData(recovered, days).slice(dataRange)
+  } else if (dataType === 'treatment') {
+    label = i18next.t(dataType)
+    backgroundColor = chartColors.blue
+    borderColor = chartColors.blue
+    barData = getDailyData(treatment).slice(dataRange)
+    lineData = getAverageDailyData(treatment, days).slice(dataRange)
+  }
+
+  dailyChart = new Chart($('#dailyChart'), {
+    type: 'bar',
+    data: {
+      labels: date.slice(dataRange),
+      datasets: [
+        {
+          type: 'line',
+          label: i18next.t('7-day-average'),
+          backgroundColor: chartColors.purple,
+          borderColor: chartColors.purple,
+          borderWidth: 2,
+          fill: false,
+          data: lineData
+        },
+        {
+          label,
+          backgroundColor,
+          borderColor,
+          borderWidth: 2,
+          data: barData
+        }
+      ]
+    },
+    options: {
+      response: true,
+      maintainAspectRatio: false,
+      aspectRatio: 1,
+      legend: {
+        display: true
+      },
+      scales: {
+        xAxes: [{
+          offset: true,
+          type: 'time',
+          time: {
+            parser: 'M/D/YY',
+            tooltipFormat: 'll'
+          },
+          gridLines: {
+            drawOnChartArea: false
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          },
+          gridLines: {
+            color: chartColors.gridLinesColor
+          }
+        }]
+      },
+      title: {
+        display: true,
+        text: i18next.t('daily-cases')
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: false
       }
     }
   })

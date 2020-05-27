@@ -257,7 +257,20 @@
           <div class="card shadow-sm mb-4">
             <div class="card-body pt-lg-5">
               <div style='height:auto;width:100%'>
-                <canvas id='statsChart'></canvas>
+                <canvas id='cumulChart'></canvas>
+              </div>
+              <div class="text-center">
+                <div id="cumulDataRange" class="btn-group btn-group-toggle mt-3" data-toggle="buttons">
+                  <label class="btn btn-sm btn-outline-secondary active">
+                    <input type="radio" name="options" value="0" autocomplete="off" checked=""><span data-i18n="beginning">Beginning</span>
+                  </label>
+                  <label class="btn btn-sm btn-outline-secondary">
+                    <input type="radio" name="options" value="-30" autocomplete="off"><span data-i18n="1-month">1 Month</span>
+                  </label>
+                  <label class="btn btn-sm btn-outline-secondary">
+                    <input type="radio" name="options" value="-14" autocomplete="off"><span data-i18n="2-weeks">2 Weeks</span>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
@@ -279,19 +292,19 @@
               <div style='height:auto;width:100%'>
                 <canvas id='dailyChart'></canvas>
               </div>
-              <!-- <div class="text-center"> -->
-              <!--   <div class="btn-group btn-group-toggle mt-3" data-toggle="buttons"> -->
-              <!--     <label class="btn btn-sm btn-outline-secondary active"> -->
-              <!--       <input type="radio" name="options" id="option1" autocomplete="off" checked=""> Beginning -->
-              <!--     </label> -->
-              <!--     <label class="btn btn-sm btn-outline-secondary"> -->
-              <!--       <input type="radio" name="options" id="option2" autocomplete="off"> 1 Month -->
-              <!--     </label> -->
-              <!--     <label class="btn btn-sm btn-outline-secondary"> -->
-              <!--       <input type="radio" name="options" id="option3" autocomplete="off"> 2 Weeks -->
-              <!--     </label> -->
-              <!--   </div> -->
-              <!-- </div> -->
+              <div class="text-center">
+                <div id="dailyDataRange" class="btn-group btn-group-toggle mt-3" data-toggle="buttons">
+                  <label class="btn btn-sm btn-outline-secondary active">
+                    <input type="radio" name="options" value="0" autocomplete="off" checked=""><span data-i18n="beginning">Beginning</span>
+                  </label>
+                  <label class="btn btn-sm btn-outline-secondary">
+                    <input type="radio" name="options" value="-30" autocomplete="off"><span data-i18n="1-month">1 Month</span>
+                  </label>
+                  <label class="btn btn-sm btn-outline-secondary">
+                    <input type="radio" name="options" value="-14" autocomplete="off"><span data-i18n="2-weeks">2 Weeks</span>
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
         </div>

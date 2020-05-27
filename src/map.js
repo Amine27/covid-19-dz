@@ -9,6 +9,7 @@ let geojson
 let previousTarget = null
 let mapStyle = 'light-v10'
 let mapStatesBorderColor = 'white'
+const grades = [0, 50, 100, 200, 300, 400, 500]
 
 export function setMapStatesBorderColor(val) {
   mapStatesBorderColor = val
@@ -19,13 +20,12 @@ export function setMapStyle(val) {
 }
 
 export function initMap() {
-
   if (mapInstance && mapInstance.remove) {
     mapInstance.off()
     mapInstance.remove()
   }
 
-  mapInstance = L.map('map').setView([33, 3], 5.8);
+  mapInstance = L.map('map').setView([33, 3], 5.8)
 
   L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW1pbmVyb3VraCIsImEiOiJjazgwanNndWIwMjVjM21tdzFqb2d0Z3g2In0.pl24-pEleZ_3DywYNIZ8vA', {
     maxZoom: 18,
@@ -45,17 +45,16 @@ export function initMap() {
   }
 
   info.update = function (props) {
-    this._div.innerHTML = (props ?
-                           '<div class="province">' + i18next.t('provinces.'+props.NAME) + '</div>'
-                           + '<div class="confirmed spacing">'+i18next.t("confirmed")+': ' + provinces[props.NAME].confirmed + (provinces[props.NAME].new_confirmed > 0 ? ' <sup>+'+provinces[props.NAME].new_confirmed+'</sup>' : '') + '</div>'
-                           + '<div class="recovered spacing">'+i18next.t("recovered")+': ' + provinces[props.NAME].recovered + (provinces[props.NAME].new_recovered > 0 ? ' <sup>+'+provinces[props.NAME].new_recovered+'</sup>' : '') + '</div>'
-                           + '<div class="deaths">'+i18next.t("deaths")+': ' + provinces[props.NAME].deaths + (provinces[props.NAME].new_deaths > 0 ? ' <sup>+'+provinces[props.NAME].new_deaths+'</sup>' : '') + '</div>'
-                           : i18next.t("hover-city-map")+'<br>')
+    this._div.innerHTML = props
+      ? `<div class='province'>${i18next.t(`provinces.${props.NAME}`)}</div>`
+      + '<div class="confirmed spacing">'+i18next.t("confirmed")+': ' + provinces[props.NAME].confirmed + (provinces[props.NAME].new_confirmed > 0 ? ' <sup>+'+provinces[props.NAME].new_confirmed+'</sup>' : '') + '</div>'
+      + '<div class="recovered spacing">'+i18next.t("recovered")+': ' + provinces[props.NAME].recovered + (provinces[props.NAME].new_recovered > 0 ? ' <sup>+'+provinces[props.NAME].new_recovered+'</sup>' : '') + '</div>'
+      + '<div class="deaths">'+i18next.t("deaths")+': ' + provinces[props.NAME].deaths + (provinces[props.NAME].new_deaths > 0 ? ' <sup>+'+provinces[props.NAME].new_deaths+'</sup>' : '') + '</div>' : i18next.t("hover-city-map")+'<br>'
   }
 
   info.addTo(mapInstance)
 
-  geojson = new L.geoJson.ajax("./map/algeria.json", {
+  geojson = new L.geoJson.ajax('./map/algeria.json', {
     style: (feature) => {
       return {
         weight: 2,
@@ -76,23 +75,23 @@ export function initMap() {
     }
   }).addTo(mapInstance)
 
-  mapInstance.attributionControl.addAttribution(i18next.t('data')+': <a href="http://covid19.sante.gov.dz/">MSP</a>')
+  mapInstance.attributionControl.addAttribution(`${i18next.t('data')}: <a href="http://covid19.sante.gov.dz/">MSP</a>`)
 
-  let legend = L.control({position: 'bottomright'})
+  const legend = L.control({
+    position: 'bottomright'
+  })
   legend.onAdd = function (map) {
-
-    let div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 25, 50, 75, 100, 150, 200],
-        labels = []
+    const div = L.DomUtil.create('div', 'info legend')
+    const labels = []
 
     for (let i = 0; i < grades.length; i++) {
-      labels.push('<span style="background:' + getColor(grades[i] + 1) + '"></span> ')
+      labels.push(`<span style="background:${getColor(grades[i] + 1)}"></span>`)
     }
 
     labels.push('<br>')
 
     for (let i = 0; i < grades.length; i++) {
-      labels.push('<label>' + grades[i] + (grades[i + 1] ? '-' + grades[i + 1] : '+') + '</label> ')
+      labels.push(`<label>${grades[i]}${grades[i + 1] ? `-${grades[i + 1]}` : '+'}</label>`)
     }
 
     div.innerHTML = labels.join('')
@@ -100,25 +99,24 @@ export function initMap() {
   }
 
   legend.addTo(mapInstance)
-
 }
 
 // get color depending on population density value
 function getColor(d) {
-  return d > 200 ? '#800026' :
-    d > 150 ? '#BD0026' :
-    d > 100 ? '#E31A1C' :
-    d > 75 ? '#FC4E2A' :
-    d > 50 ? '#FD8D3C' :
-    d > 25 ? '#FEB24C' :
-    d > 0 ? '#FED976' :
-    '#fff8db'
+  return d > grades[6] ? '#800026'
+    : d > grades[5] ? '#BD0026'
+    : d > grades[4] ? '#E31A1C'
+    : d > grades[3] ? '#FC4E2A'
+    : d > grades[2] ? '#FD8D3C'
+    : d > grades[1] ? '#FEB24C'
+    : d > grades[0] ? '#FED976'
+    : '#fff8db'
 }
 
 function highlightFeature(e) {
   resetHighlight(previousTarget)
   previousTarget = e
-  let layer = e.target
+  const layer = e.target
 
   layer.setStyle({
     weight: 3,

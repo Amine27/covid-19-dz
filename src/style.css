@@ -288,11 +288,11 @@ body, body .card {
     font-weight: bold;
 }
 
-.table_style {
+.table-style {
     width: 100% !important;
 }
 
-.table_style thead th {
+.table-style thead th {
     vertical-align: middle !important;
 }
 

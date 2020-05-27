@@ -30,6 +30,9 @@ export function initCharts() {
     wilayaChart.destroy()
   }
 
+  initDailyChart()
+  initCumulChart()
+
   genderChart = new Chart($('#genderChart'), {
     type: 'doughnut',
     data: {

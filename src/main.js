@@ -171,9 +171,9 @@ function setupTable(languageArray) {
     order: [[1, 'desc']],
     paging: false,
     info: false,
-    scrollX: true,
-    scrollY: 400,
-    scrollCollapse: true,
+    // scrollX: true,
+    // scrollY: 400,
+    // scrollCollapse: true,
     columns: [
       // { className: "table_cells", targets: "_all" },
       {
@@ -212,7 +212,7 @@ function setupTable(languageArray) {
           if (type === 'display' || type === 'filter') {
             return data.display
           }
-          // Otherwise the data type requested type or sort, return sort
+          // Otherwise the data type requested type or sort, return days
           return data.days
         },
         className: 'text-nowrap',
@@ -301,8 +301,6 @@ i18next.on('languageChanged', (lng) => {
   updateFromNow()
   setupTable(resources[lng].translation)
   initCharts()
-  initDailyChart()
-  initCumulChart()
   updateTooltipLang()
   setupWilayaSelect()
 
@@ -365,8 +363,6 @@ function updateTheme(colorScheme) {
     setMapStatesBorderColor('white')
   }
   initCharts()
-  initDailyChart()
-  initCumulChart()
   initMap()
 }
 

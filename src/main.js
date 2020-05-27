@@ -261,14 +261,8 @@ function i18nInit() {
     .init({
       resources,
       // debug: true,
-      // saveMissing: true,
-      // saveMissingTo: "current",
       load: 'languageOnly',
-      fallbackLng: 'en' // ,
-      // backend: {
-      //   loadPath: 'locales/{{lng}}.json',
-      //   addPath: 'locales/{{lng}}.missing.json'
-      // }
+      fallbackLng: 'en'
     }, (err, t) => {
       jqueryI18next.init(i18next, $)
       $('body,html').localize()
@@ -279,10 +273,6 @@ function i18nInit() {
       })
     })
 }
-
-// i18next.on('initialized', (options) => {
-//   initMap()
-// })
 
 i18next.on('languageChanged', (lng) => {
   lng = lng.split('-')[0] // get only the lang part without locale

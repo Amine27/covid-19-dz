@@ -138,24 +138,29 @@ function setupTable(languageArray) {
 
   const provincesData = []
   for (const key in provinces) {
-    const province = [i18next.t(`provinces.${key}`),
-                      provinces[key].confirmed,
-                      provinces[key].new_confirmed > 0 ? `+${provinces[key].new_confirmed}` : '',
-                      provinces[key].deaths, provinces[key].new_deaths > 0 ? `+${provinces[key].new_deaths}` : '',
-                      moment(provinces[key].last_reported).isValid() ? moment(provinces[key].last_reported).calendar(moment(), {
-                        sameDay: `[${i18next.t('today')}]`,
-                        nextDay: `[${i18next.t('tomorrow')}]`,
-                        nextWeek: 'dddd',
-                        lastDay:  `[${i18next.t('yesterday')}]`,
-                        lastWeek: () => {
-                          return '[' + i18next.t('day_count', { count: moment().diff(moment(provinces[key].last_reported), 'days')}) + ']'
-                        },
-                        sameElse: () => {
-                          return '[' + i18next.t('day_count', { count: moment().diff(moment(provinces[key].last_reported), 'days')}) + ']'
-                        }
-                      }) : '',
-                      moment(provinces[key].reported).isValid() ? moment(provinces[key].reported).format('ll') : '']
-    provincesData.push(province)
+    provincesData.push({
+      province: i18next.t(`provinces.${key}`),
+      confirmed: provinces[key].confirmed,
+      newConfirmed: provinces[key].new_confirmed > 0 ? `+${provinces[key].new_confirmed}` : '',
+      deaths: provinces[key].deaths,
+      newDeaths: provinces[key].new_deaths > 0 ? `+${provinces[key].new_deaths}` : '',
+      lastReported: {
+        display: moment(provinces[key].last_reported).isValid() ? moment(provinces[key].last_reported).calendar(moment(), {
+          sameDay: `[${i18next.t('today')}]`,
+          nextDay: `[${i18next.t('tomorrow')}]`,
+          nextWeek: 'dddd',
+          lastDay:  `[${i18next.t('yesterday')}]`,
+          lastWeek: () => {
+            return '[' + i18next.t('day_count', { count: moment().diff(moment(provinces[key].last_reported), 'days')}) + ']'
+          },
+          sameElse: () => {
+            return '[' + i18next.t('day_count', { count: moment().diff(moment(provinces[key].last_reported), 'days')}) + ']'
+          }
+        }) : '',
+        days: moment().diff(moment(provinces[key].last_reported), 'days')
+      },
+      firstReported: moment(provinces[key].reported).isValid() ? moment(provinces[key].reported).format('ll') : ''
+    })
   }
 
   $.fn.dataTable.moment('ll')
@@ -169,38 +174,53 @@ function setupTable(languageArray) {
     scrollX: true,
     scrollY: 400,
     scrollCollapse: true,
-    columnDefs: [
+    columns: [
       // { className: "table_cells", targets: "_all" },
       {
         title: i18next.t('wilaya'),
+        data: 'province',
         className: 'province',
         targets: 0
       },
       {
         title: i18next.t('confirmed'),
+        data: 'confirmed',
         targets: 1
       },
       {
         title: newCasesHeader[0],
+        data: 'newConfirmed',
         className: 'confirmed',
         targets: 2
       },
       {
         title: i18next.t('deaths'),
+        data: 'deaths',
         targets: 3
       },
       {
         title: newCasesHeader[1],
+        data: 'newDeaths',
         className: 'deaths',
         targets: 4
       },
       {
         title: i18next.t('last-reported'),
+        data: 'lastReported',
+        render: function (data, type, row) {
+          // If display or filter data is requested, return display
+          if (type === 'display' || type === 'filter') {
+            return data.display
+          }
+          // Otherwise the data type requested type or sort, return sort
+          return data.days
+        },
         className: 'text-nowrap',
         targets: 5
       },
       {
         title: i18next.t('first-reported'),
+        data: 'firstReported',
         className: 'text-nowrap',
         targets: 6
       }

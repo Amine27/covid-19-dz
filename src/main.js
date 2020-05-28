@@ -171,6 +171,7 @@ function setupTable(languageArray) {
     order: [[1, 'desc']],
     paging: false,
     info: false,
+    filter: false,
     // scrollX: true,
     // scrollY: 400,
     // scrollCollapse: true,

@@ -296,6 +296,23 @@ body, body .card {
     vertical-align: middle !important;
 }
 
+table.dataTable {
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+}
+
+.dataTables_wrapper {
+    height: 500px;
+    overflow-y: auto;
+}
+
+.dataTables_wrapper thead th {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0;
+    z-index: 99;
+}
+
 .card-confirmed {
     border-top: 4px solid rgb(255, 193, 7) !important;
 }
@@ -361,17 +378,6 @@ body, body .card {
 .link-unstyled, .link-unstyled:link, .link-unstyled:hover {
     color: inherit;
     text-decoration: inherit;
-}
-
-div.dataTables_filter {
-    margin-top: 1rem!important;
-    margin-right: 14px;
-}
-
-@media screen and (max-width: 767px) {
-    div.dataTables_filter {
-        margin-right: 0px;
-    }
 }
 
 @media screen and (max-width: 767px) {

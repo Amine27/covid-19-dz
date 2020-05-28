@@ -34,8 +34,10 @@ def getWilayaStats():
             data = json.load(file)['features']
             for wilaya_dict in data:
                 w = wilaya_dict['attributes']
+                if w['WILAYA'] < 1 or w['WILAYA'] > 48:
+                    continue
                 provinces[w['WILAYA']]['confirmed'] = w['Cas_confirm']
-                provinces[w['WILAYA']]['recovered'] = w['Récupér']
+                provinces[w['WILAYA']]['recovered'] = 0 # w['Récupér'] or 0
                 provinces[w['WILAYA']]['deaths'] = w['Décés']
                 provinces[w['WILAYA']]['new_confirmed'] = w['new_cases'] or 0
                 provinces[w['WILAYA']]['new_recovered'] = 0 # w['new_recovred'] or 0

@@ -178,6 +178,10 @@ body, body .card {
     border-color: var(--dark-border-color);
 }
 
+.dark .province {
+    background: var(--dark-bg-color);
+}
+
 .dark .form-control {
     color: var(--dark-color);
     background-color: var(--dark-bg-color-card);
@@ -286,6 +290,11 @@ body, body .card {
 
 .province {
     font-weight: bold;
+    position: sticky !important;
+    position: -webkit-sticky !important;
+    background: white;
+    left: 0;
+    z-index: 98;
 }
 
 .table-style {
@@ -311,6 +320,10 @@ table.dataTable {
     position: sticky !important;
     top: 0;
     z-index: 99;
+}
+
+.dataTables_wrapper thead th:first-child {
+    z-index: 100 !important;
 }
 
 .card-confirmed {

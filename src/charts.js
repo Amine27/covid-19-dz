@@ -5,7 +5,7 @@ import {
   age, ageConfirmedData, ageDeathsData, confirmed, date, deaths, gender, genderData, provinces, recovered, treatment
 } from './data.js'
 import {
-  chartColors, getAverageDailyData, getDailyData, getDataLocalized, getDataPerWilayaName, getDataPerWilayaValue
+  chartColors, getActiveCases, getAverageDailyData, getDailyData, getDataLocalized, getDataPerWilayaName, getDataPerWilayaValue
 } from './main.js'
 
 Chart.defaults.global.plugins.datalabels.display = false
@@ -231,6 +231,14 @@ export function initCumulChart(dataRange = 0) {
           fill: false,
           borderWidth: 2,
           data: deaths.slice(dataRange)
+        },
+        {
+          label: i18next.t('active'),
+          backgroundColor: chartColors.grey,
+          borderColor: chartColors.grey,
+          fill: false,
+          borderWidth: 2,
+          data: getActiveCases().slice(dataRange)
         }
       ]
     },

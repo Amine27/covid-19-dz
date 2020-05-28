@@ -95,6 +95,14 @@ function getDataPerWilaya(provinces, dataType, filter) {
   return items
 }
 
+export function getActiveCases() {
+  const activeCases = []
+  for (let i = 0; i < confirmed.length; ++i) {
+    activeCases.push(confirmed[i] - (recovered[i] + deaths[i]))
+  }
+  return activeCases
+}
+
 function getTotalDays(date) {
   return date.length
 }

@@ -192,7 +192,7 @@ def updateData():
         print('calcul\t confirmed:', totalCalculStats['confirmed'], 'deaths:', totalCalculStats['deaths'], 'recovered:', totalOfficialStats['recovered'], 'new_confirmed:', totalCalculStats['new_confirmed'], 'new_deaths:', totalCalculStats['new_deaths'])
 
         #updateIndex()
-        gitPush()
+        #gitPush()
     else:
         print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), ': no new data')
 

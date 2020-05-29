@@ -27,14 +27,14 @@ totalCalculStats = { 'new_confirmed': 0,
 provinces = {}
 
 def getWilayaStats():
-    url = 'https://services8.arcgis.com/yhz7DEAMzdabE4ro/arcgis/rest/services/Cas_confirme_view/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Cas_confirm%20desc&resultOffset=0&resultRecordCount=48&cacheHint=true'
+    url = 'https://services8.arcgis.com/yhz7DEAMzdabE4ro/arcgis/rest/services/Cas_confirme_view/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Cas_confirm%20desc&resultOffset=0&resultRecordCount=49&cacheHint=true'
 
     with urlopen(url) as file:
         try:
             data = json.load(file)['features']
             for wilaya_dict in data:
                 w = wilaya_dict['attributes']
-                if w['WILAYA'] < 1 or w['WILAYA'] > 48:
+                if w['WILAYA'] is None or w['WILAYA'] < 1 or w['WILAYA'] > 48:
                     continue
                 provinces[w['WILAYA']]['confirmed'] = w['Cas_confirm']
                 provinces[w['WILAYA']]['recovered'] = 0 # w['Récupér'] or 0
@@ -50,8 +50,8 @@ def getWilayaStats():
                 totalCalculStats['deaths'] += w['Décés']
                 totalCalculStats['recovered'] = totalOfficialStats['recovered']
                 totalCalculStats['treatment'] = totalOfficialStats['treatment']
-        except KeyError:
-            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'getWilayaStats(): incorrect json file')
+        except KeyError as e:
+            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'getWilayaStats(): incorrect json file', e)
             totalCalculStats['new_confirmed'] = newConfirmedOld
             totalCalculStats['new_deaths'] = newDeathsOld
             totalCalculStats['confirmed'] = totalOfficialStats['confirmed']
@@ -87,8 +87,8 @@ def getTotalStats():
                     'new_confirmed': t['New_cases'] or 0
                 })
                 break
-        except KeyError:
-            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'getTotalStats(): incorrect json file')
+        except KeyError as e:
+            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'getTotalStats(): incorrect json file', e)
             sys.exit(0)
 
     global totalOfficialStats
@@ -111,8 +111,8 @@ def getDeathStats():
                     'cinquanteneuf': t['cinquanteneuf'],
                     'soixantedix': t['soixantedix']
                 })
-        except KeyError:
-            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'getDeathStats(): incorrect json file')
+        except KeyError as e :
+            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'getDeathStats(): incorrect json file', e)
             sys.exit(0)
 
     global deathsStats

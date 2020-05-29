@@ -527,8 +527,4 @@ $(document).ready(() => {
   setupTheme()
   setInterval(updateFromNow, 60000) // 1 min
   setupShare()
-
-  if (document.referrer === 'https://amine27.github.io/covid-19-dz/') {
-    $('#alert').show()
-  }
 })

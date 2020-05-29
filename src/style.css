@@ -393,8 +393,9 @@ table.dataTable {
     text-decoration: inherit;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 414px) {
     .nav-link {
+        font-size: 0.79rem;
         padding: .5rem 0.5rem !important;
     }
 }

@@ -48,7 +48,6 @@ export function initMap() {
     this._div.innerHTML = props
       ? `<div class='province'>${i18next.t(`provinces.${props.NAME}`)}</div>`
       + '<div class="confirmed spacing">'+i18next.t("confirmed")+': ' + provinces[props.NAME].confirmed + (provinces[props.NAME].new_confirmed > 0 ? ' <sup>+'+provinces[props.NAME].new_confirmed+'</sup>' : '') + '</div>'
-      + '<div class="recovered spacing">'+i18next.t("recovered")+': ' + provinces[props.NAME].recovered + (provinces[props.NAME].new_recovered > 0 ? ' <sup>+'+provinces[props.NAME].new_recovered+'</sup>' : '') + '</div>'
       + '<div class="deaths">'+i18next.t("deaths")+': ' + provinces[props.NAME].deaths + (provinces[props.NAME].new_deaths > 0 ? ' <sup>+'+provinces[props.NAME].new_deaths+'</sup>' : '') + '</div>' : i18next.t("hover-city-map")+'<br>'
   }
 

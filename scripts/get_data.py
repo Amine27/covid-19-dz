@@ -7,6 +7,7 @@ import time
 from urllib.request import urlopen
 from dateutil import parser
 from git import Repo, exc
+import unidecode
 
 dateOld = []
 confirmedOld = []
@@ -34,16 +35,16 @@ def getWilayaStats():
             data = json.load(file)['features']
             for wilaya_dict in data:
                 w = wilaya_dict['attributes']
-                if w['WILAYA'] is None or w['WILAYA'] < 1 or w['WILAYA'] > 48:
+                if w['NOM_WILAYA'] is None or w['NOM_WILAYA'] == 'National':
                     continue
-                provinces[w['WILAYA']]['confirmed'] = w['Cas_confirm']
-                provinces[w['WILAYA']]['recovered'] = 0 # w['Récupér'] or 0
-                provinces[w['WILAYA']]['deaths'] = w['Décés']
-                provinces[w['WILAYA']]['new_confirmed'] = w['new_cases'] or 0
-                provinces[w['WILAYA']]['new_recovered'] = 0 # w['new_recovred'] or 0
-                provinces[w['WILAYA']]['new_deaths'] = w['New_case_death'] or 0
+                provinces[w['NOM_WILAYA']]['confirmed'] = w['Cas_confirm']
+                provinces[w['NOM_WILAYA']]['recovered'] = 0 # w['Récupér'] or 0
+                provinces[w['NOM_WILAYA']]['deaths'] = w['Décés']
+                provinces[w['NOM_WILAYA']]['new_confirmed'] = w['new_cases'] or 0
+                provinces[w['NOM_WILAYA']]['new_recovered'] = 0 # w['new_recovred'] or 0
+                provinces[w['NOM_WILAYA']]['new_deaths'] = w['New_case_death'] or 0
                 if(w['new_cases']):
-                    provinces[w['WILAYA']]['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+                    provinces[w['NOM_WILAYA']]['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
                 totalCalculStats['new_confirmed'] += w['new_cases']
                 totalCalculStats['new_deaths'] += w['New_case_death']
                 totalCalculStats['confirmed'] +=  w['Cas_confirm']
@@ -134,17 +135,26 @@ def readData():
                 treatmentOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
             elif(line.startswith('  "')):
                 p = json.loads('{'+line[line.find("{")+1:line.find("}")].replace(': ', '": "').replace(', ', '", "').replace('""', '"').replace(' id', ' "id')+'}')
-                pId = int(p['id'])
-                provinces[pId] = {}
-                provinces[pId]['name'] = line[line.find('"')+1:line.find('":')]
-                provinces[pId]['confirmed'] = p['confirmed']
-                provinces[pId]['recovered'] = p['recovered']
-                provinces[pId]['deaths'] = p['deaths']
-                provinces[pId]['new_confirmed'] = 0
-                provinces[pId]['new_recovered'] = 0
-                provinces[pId]['new_deaths'] = 0
-                provinces[pId]['reported'] = p['reported']
-                provinces[pId]['last_reported'] = p['last_reported']
+                pName = unidecode.unidecode(line[line.find('"')+1:line.find('":')]).upper()
+                if pName == 'SOUK AHRAS':
+                    pName = 'SOUK-AHRAS'
+                elif pName == 'EL TARF':
+                    pName = 'EL-TARF'
+                elif pName == 'AIN TEMOUCHENT':
+                    pName = 'AIN-TEMOUCHENT'
+                elif pName == 'TAMANGHASSET':
+                    pName = 'TAMENGHASSET'
+                provinces[pName] = {}
+                provinces[pName]['id'] = int(p['id'])
+                provinces[pName]['name'] = line[line.find('"')+1:line.find('":')]
+                provinces[pName]['confirmed'] = p['confirmed']
+                provinces[pName]['recovered'] = p['recovered']
+                provinces[pName]['deaths'] = p['deaths']
+                provinces[pName]['new_confirmed'] = 0
+                provinces[pName]['new_recovered'] = 0
+                provinces[pName]['new_deaths'] = 0
+                provinces[pName]['reported'] = p['reported']
+                provinces[pName]['last_reported'] = p['last_reported']
                 newConfirmedOld += int(p['new_confirmed'])
                 newRecoveredOld += int(p['new_recovered'])
                 newDeathsOld += int(p['new_deaths'])
@@ -182,7 +192,7 @@ def updateData():
                      + '\nexport const provinces = {\n'
         )
         for p_id, p in provinces.items():
-            finalData += '  "'+p['name']+'": { id: '+str(p_id)+', confirmed: '+str(p['confirmed'])+', recovered: '+str(p['recovered'])+', deaths: '+str(p['deaths'])+', new_confirmed: '+str(p['new_confirmed'])+', new_recovered: '+str(p['new_recovered'])+', new_deaths: '+str(p['new_deaths'])+', reported: "'+str(p['reported'])+'", last_reported: "'+str(p['last_reported'])+'" },\n'
+            finalData += '  "'+p['name']+'": { id: '+str(p['id'])+', confirmed: '+str(p['confirmed'])+', recovered: '+str(p['recovered'])+', deaths: '+str(p['deaths'])+', new_confirmed: '+str(p['new_confirmed'])+', new_recovered: '+str(p['new_recovered'])+', new_deaths: '+str(p['new_deaths'])+', reported: "'+str(p['reported'])+'", last_reported: "'+str(p['last_reported'])+'" },\n'
 
         finalData = finalData[:-2] + '\n}'
         with open("src/data.js", "w") as dataFile:

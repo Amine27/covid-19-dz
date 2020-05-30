@@ -26,6 +26,7 @@ totalCalculStats = { 'new_confirmed': 0,
                      'recovered': 0,
                      'deaths': 0}
 provinces = {}
+genderOld = []
 
 def getWilayaStats():
     url = 'https://services8.arcgis.com/yhz7DEAMzdabE4ro/arcgis/rest/services/Cas_confirme_view/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Cas_confirm%20desc&resultOffset=0&resultRecordCount=49&cacheHint=true'
@@ -76,8 +77,8 @@ def getTotalStats():
                     'deaths': t['Death_cumul'] or deathsOld[-1],
                     # 'treatment': t['Straitem'] or treatmentOld[-1],
                     'treatment': treatmentOld[-1],
-                    'man': t['Masculin'],
-                    'woman': t['Féminin'],
+                    'man': t['Masculin'] or genderOld[0],
+                    'woman': t['Féminin'] or genderOld[1],
                     'an': t['an'],
                     'unquatorze': t['unquatorze'],
                     'vingtquatre': t['vingtquatre'],
@@ -120,7 +121,7 @@ def getDeathStats():
     deathsStats = usefulData[0]
 
 def readData():
-    global dateOld, confirmedOld, recoveredOld, deathsOld, treatmentOld, newConfirmedOld, newRecoveredOld, newDeathsOld, provinces
+    global dateOld, confirmedOld, recoveredOld, deathsOld, treatmentOld, newConfirmedOld, newRecoveredOld, newDeathsOld, provinces, genderOld
     with open('src/data.js') as f:
         for line in f:
             if(line.startswith('export const date')):
@@ -133,6 +134,8 @@ def readData():
                 deathsOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
             elif(line.startswith('export const treatment')):
                 treatmentOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
+            elif(line.startswith('export const genderData')):
+                genderOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
             elif(line.startswith('  "')):
                 p = json.loads('{'+line[line.find("{")+1:line.find("}")].replace(': ', '": "').replace(', ', '", "').replace('""', '"').replace(' id', ' "id')+'}')
                 pName = unidecode.unidecode(line[line.find('"')+1:line.find('":')]).upper()

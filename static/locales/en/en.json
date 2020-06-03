@@ -28,6 +28,7 @@
     "share": "Share",
     "contact": "Contact",
     "github": "Github",
+    "api": "API",
     "hover-city-map": "Hover over a city",
     "data": "Data",
     "confirmed-days-tooltip": "Days since first case (Feb 25, 2020)",

@@ -48,6 +48,8 @@
     "2-weeks": "2 Weeks",
     "day_count": "{{count}} day",
     "day_count_plural": "{{count}} days",
+    "totalDay_count": "Day",
+    "totalDay_count_plural": "Days",
     "provinces": {
       "Aïn Defla": "Aïn Defla",
       "Aïn Témouchent": "Aïn Témouchent",

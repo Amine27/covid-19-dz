@@ -73,6 +73,12 @@
     "day_count_3": "{{count}} أيام",
     "day_count_4": "{{count}} يوما",
     "day_count_5": "{{count}} يوم",
+    "totalDay_count_0": "يوم",
+    "totalDay_count_1": "يوم واحد",
+    "totalDay_count_2": "يومين",
+    "totalDay_count_3": "أيام",
+    "totalDay_count_4": "يوما",
+    "totalDay_count_5": "يوم",
     "provinces": {
       "Aïn Defla": "عين الدفلى",
       "Aïn Témouchent": "عين تموشنت",

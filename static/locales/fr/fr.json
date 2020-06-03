@@ -76,6 +76,8 @@
     },
     "day_count": "{{count}} jour",
     "day_count_plural": "{{count}} jours",
+    "totalDay_count": "Jour",
+    "totalDay_count_plural": "Jours",
     "provinces": {
       "Aïn Defla": "Aïn Defla",
       "Aïn Témouchent": "Aïn Témouchent",

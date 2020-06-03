@@ -136,6 +136,7 @@ function showData() {
   $('#newTreatment').text(getNewData(treatment))
 
   $('#totalDays').text(getTotalDays(date))
+  $('#totalDaysText').text(i18next.t('totalDay_count', { count: getTotalDays(date) }))
   $('#fatalityRate').text(getDataRate(confirmed, deaths))
   $('#recoveryRate').text(getDataRate(confirmed, recovered))
   $('#augmentationRate').text(getDataAugmentationRate(treatment))
@@ -312,6 +313,8 @@ i18next.on('languageChanged', (lng) => {
   initCharts()
   updateTooltipLang()
   setupWilayaSelect()
+
+  $('#totalDaysText').text(i18next.t('totalDay_count', { count: getTotalDays(date) }))
 
   if (provinceDailyDateList.length > 0) { // already initialized? translate it
     $('#wilayaList').change()

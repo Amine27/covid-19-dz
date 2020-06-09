@@ -310,6 +310,13 @@ export function initDailyChart(dataType = 'confirmed', dataRange = 0) {
     borderColor = chartColors.green
     barData = getDailyData(recovered).slice(dataRange)
     lineData = getAverageDailyData(recovered, days).slice(dataRange)
+  } else if (dataType === 'active') {
+    const active  = getActiveCases()
+    label = i18next.t(dataType)
+    backgroundColor = chartColors.grey
+    borderColor = chartColors.grey
+    barData = getDailyData(active).slice(dataRange)
+    lineData = getAverageDailyData(active, days).slice(dataRange)
   } else if (dataType === 'treatment') {
     label = i18next.t(dataType)
     backgroundColor = chartColors.blue

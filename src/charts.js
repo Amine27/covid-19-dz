@@ -286,39 +286,34 @@ export function initDailyChart(dataType = 'confirmed', dataRange = 0) {
   }
 
   const days = 7
-  let label
+  const label = i18next.t(dataType)
   let backgroundColor
   let borderColor
   let barData
   let lineData
 
   if (dataType === 'confirmed') {
-    label = i18next.t('confirmed')
     backgroundColor = chartColors.orange
     borderColor = chartColors.orange
     barData = getDailyData(confirmed).slice(dataRange)
     lineData = getAverageDailyData(confirmed, days).slice(dataRange)
   } else if (dataType === 'deaths') {
-    label = i18next.t(dataType)
     backgroundColor = chartColors.red
     borderColor = chartColors.red
     barData = getDailyData(deaths).slice(dataRange)
     lineData = getAverageDailyData(deaths, days).slice(dataRange)
   } else if (dataType === 'recovered') {
-    label = i18next.t(dataType)
     backgroundColor = chartColors.green
     borderColor = chartColors.green
     barData = getDailyData(recovered).slice(dataRange)
     lineData = getAverageDailyData(recovered, days).slice(dataRange)
   } else if (dataType === 'active') {
     const active  = getActiveCases()
-    label = i18next.t(dataType)
     backgroundColor = chartColors.grey
     borderColor = chartColors.grey
     barData = getDailyData(active).slice(dataRange)
     lineData = getAverageDailyData(active, days).slice(dataRange)
   } else if (dataType === 'treatment') {
-    label = i18next.t(dataType)
     backgroundColor = chartColors.blue
     borderColor = chartColors.blue
     barData = getDailyData(treatment).slice(dataRange)
@@ -464,16 +459,14 @@ export function initWilayaDailyChart(date, dataType, data, avg7Data) {
     wilayaDailyChart.destroy()
   }
 
-  let label
+  const label = i18next.t(dataType)
   let backgroundColor
   let borderColor
 
   if (dataType === 'confirmed') {
-    label = i18next.t('confirmed')
     backgroundColor = chartColors.orange
     borderColor = chartColors.orange
   } else if (dataType === 'deaths') {
-    label = i18next.t(dataType)
     backgroundColor = chartColors.red
     borderColor = chartColors.red
   }

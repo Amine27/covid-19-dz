@@ -12,10 +12,10 @@ import tippy from 'tippy.js'
 
 import resources from '../static/locales'
 import {
-  date, confirmed, recovered, deaths, treatment, gender, genderData, age, ageConfirmedData, ageDeathsData, lastUpdated, provinces
+  date, confirmed, recovered, deaths, treatment, lastUpdated, provinces
 } from './data.js'
 import {
-  dailyChart, initCharts, initCumulChart, initDailyChart, initWilayaDailyChart, initWilayaEvolutionChart, wilayaChart
+  initCharts, initCumulChart, initDailyChart, initWilayaDailyChart, initWilayaEvolutionChart, wilayaChart
 } from './charts.js'
 import {
   initMap, setMapStatesBorderColor, setMapStyle

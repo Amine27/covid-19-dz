@@ -8,14 +8,14 @@ export const genderData = [5960, 4850]
 export const age = ['< 1', '1 - 14', '15 - 24', '25 - 49', '50 - 59', '+60', 'N/A']
 export const ageConfirmedData = [16, 316, 507, 4469, 1847, 3161, 494]
 export const ageDeathsData = [0, 2, 1, 67, 117, 573, 0]
-export const lastUpdated = '2020-06-13 18:20'
+export const lastUpdated = '2020-06-13 18:34'
 export const provinces = {
   "Aïn Defla": { id: 44, confirmed: 412, recovered: 0, deaths: 9, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-27", last_reported: "2020-06-11" },
   "Aïn Témouchent": { id: 46, confirmed: 120, recovered: 0, deaths: 5, new_confirmed: 2, new_recovered: 0, new_deaths: 0, reported: "2020-03-23", last_reported: "2020-06-13" },
   "Adrar": { id: 1, confirmed: 143, recovered: 0, deaths: 6, new_confirmed: 2, new_recovered: 0, new_deaths: 0, reported: "2020-03-15", last_reported: "2020-06-13" },
   "Alger": { id: 16, confirmed: 1203, recovered: 0, deaths: 143, new_confirmed: 14, new_recovered: 0, new_deaths: 2, reported: "2020-03-13", last_reported: "2020-06-13" },
   "Annaba": { id: 23, confirmed: 207, recovered: 0, deaths: 7, new_confirmed: 1, new_recovered: 0, new_deaths: 0, reported: "2020-03-16", last_reported: "2020-06-13" },
-  "Béchar": { id: 8, confirmed: 170, recovered: 0, deaths: 3, new_confirmed: 1, new_recovered: 0, new_deaths: 1, reported: "2020-04-03", last_reported: "2020-06-13" },
+  "Béchar": { id: 8, confirmed: 170, recovered: 0, deaths: 3, new_confirmed: 1, new_recovered: 0, new_deaths: 0, reported: "2020-04-03", last_reported: "2020-06-13" },
   "Béjaïa": { id: 6, confirmed: 317, recovered: 0, deaths: 22, new_confirmed: 1, new_recovered: 0, new_deaths: 0, reported: "2020-03-17", last_reported: "2020-06-13" },
   "Batna": { id: 5, confirmed: 191, recovered: 0, deaths: 12, new_confirmed: 1, new_recovered: 0, new_deaths: 0, reported: "2020-03-26", last_reported: "2020-06-13" },
   "Biskra": { id: 7, confirmed: 152, recovered: 0, deaths: 10, new_confirmed: 2, new_recovered: 0, new_deaths: 0, reported: "2020-03-25", last_reported: "2020-06-13" },

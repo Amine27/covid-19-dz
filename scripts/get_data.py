@@ -49,7 +49,7 @@ def getWilayaStats():
                 totalCalculStats['new_confirmed'] += w['new_cases']
                 totalCalculStats['new_deaths'] += w['New_case_death']
                 totalCalculStats['confirmed'] +=  w['Cas_confirm']
-                totalCalculStats['deaths'] += w['Décés']
+                totalCalculStats['deaths'] = totalOfficialStats['deaths']
                 totalCalculStats['recovered'] = totalOfficialStats['recovered']
                 totalCalculStats['treatment'] = totalOfficialStats['treatment']
         except KeyError as e:

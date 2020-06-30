@@ -362,6 +362,15 @@ table.dataTable {
     background: rgba(23, 162, 184, 0.2);
 }
 
+.card-active {
+    border-top: 4px solid rgb(108, 117, 125) !important;
+}
+
+.card-new-active {
+    border-radius: 32px;
+    background: rgba(108, 117, 125, 0.2);
+}
+
 /* Hack for Tajwal font */
 [dir="rtl"] .card-font-ar {
     height: 36px;

@@ -5,7 +5,7 @@ import {
   age, ageConfirmedData, ageDeathsData, confirmed, date, deaths, gender, genderData, provinces, recovered, treatment
 } from './data.js'
 import {
-  chartColors, getActiveCases, getAverageDailyData, getDailyData, getDataLocalized, getDataPerWilayaName, getDataPerWilayaValue
+  active, chartColors, getAverageDailyData, getDailyData, getDataLocalized, getDataPerWilayaName, getDataPerWilayaValue
 } from './main.js'
 
 Chart.defaults.global.plugins.datalabels.display = false
@@ -238,7 +238,7 @@ export function initCumulChart(dataRange = 0) {
           borderColor: chartColors.grey,
           fill: false,
           borderWidth: 2,
-          data: getActiveCases().slice(dataRange)
+          data: active.slice(dataRange)
         }
       ]
     },
@@ -308,7 +308,6 @@ export function initDailyChart(dataType = 'confirmed', dataRange = 0) {
     barData = getDailyData(recovered).slice(dataRange)
     lineData = getAverageDailyData(recovered, days).slice(dataRange)
   } else if (dataType === 'active') {
-    const active  = getActiveCases()
     backgroundColor = chartColors.grey
     borderColor = chartColors.grey
     barData = getDailyData(active).slice(dataRange)

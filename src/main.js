@@ -32,11 +32,12 @@ export const chartColors = {
   green: 'rgb(75, 192, 192)',
   blue: 'rgb(54, 162, 235)',
   purple: 'rgb(153, 102, 255)',
-  grey: 'rgb(201, 203, 207)',
+  grey: 'rgb(108, 117, 125)',
   pink: 'rgb(255, 192, 203)',
   gridLinesColor: 'rgba(0, 0, 0, 0.1)'
 }
 
+export const active = []
 let provinceDailyDateList = []
 let provinceDailyConfirmedList = []
 let provinceDailyDeathsList = []
@@ -73,6 +74,8 @@ function getNewData(dataType) {
     const newData = dataType[dataType.length - 1] - dataType[dataType.length - 2]
     if (newData > 0) {
       return `+${newData}`
+    } else if (newData < 0) {
+      return `${newData}`
     }
   }
   return 0
@@ -95,12 +98,18 @@ function getDataPerWilaya(provinces, dataType, filter) {
   return items
 }
 
-export function getActiveCases() {
-  const activeCases = []
+// export function getActiveCases() {
+//   const activeCases = []
+//   for (let i = 0; i < confirmed.length; ++i) {
+//     activeCases.push(confirmed[i] - (recovered[i] + deaths[i]))
+//   }
+//   return activeCases
+// }
+
+function calcActiveCases() {
   for (let i = 0; i < confirmed.length; ++i) {
-    activeCases.push(confirmed[i] - (recovered[i] + deaths[i]))
+    active.push(confirmed[i] - (recovered[i] + deaths[i]))
   }
-  return activeCases
 }
 
 function getTotalDays(date) {
@@ -129,17 +138,20 @@ function showData() {
   $('#totalRecovered').text(getTotalData(recovered))
   $('#totalDeaths').text(getTotalData(deaths))
   $('#totalTreatment').text(getTotalData(treatment))
+  $('#totalActive').text(getTotalData(active))
 
   $('#newConfirmed').text(getNewData(confirmed))
   $('#newRecovered').text(getNewData(recovered))
   $('#newDeaths').text(getNewData(deaths))
   $('#newTreatment').text(getNewData(treatment))
+  $('#newActive').text(getNewData(active))
 
   $('#totalDays').text(getTotalDays(date))
   $('#totalDaysText').text(i18next.t('totalDay_count', { count: getTotalDays(date) }))
   $('#fatalityRate').text(getDataRate(confirmed, deaths))
   $('#recoveryRate').text(getDataRate(confirmed, recovered))
   $('#augmentationRate').text(getDataAugmentationRate(treatment))
+  $('#activeRate').text(getDataRate(confirmed, active))
 }
 
 function setupTable(languageArray) {
@@ -526,6 +538,7 @@ $('#tab a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
 $(document).ready(() => {
   i18nInit()
   moment.tz.setDefault('Europe/Brussels')
+  calcActiveCases()
   showData()
   setupTheme()
   setInterval(updateFromNow, 60000) // 1 min

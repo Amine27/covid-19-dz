@@ -35,6 +35,7 @@
     "recovery-rate-tooltip": "Recovery rate",
     "deaths-rate-tooltip": "Fatality rate",
     "treatment-rate-tooltip": "Increasing rate",
+    "active-rate-tooltip": "Active cases rate",
     "cases-evolution": "Cases evolution",
     "cases-gender": "Cases by gender",
     "cases-age": "Cases by age",

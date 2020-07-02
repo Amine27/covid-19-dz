@@ -234,8 +234,8 @@ export function initCumulChart(dataRange = 0) {
         },
         {
           label: i18next.t('active'),
-          backgroundColor: chartColors.grey,
-          borderColor: chartColors.grey,
+          backgroundColor: chartColors.blue,
+          borderColor: chartColors.blue,
           fill: false,
           borderWidth: 2,
           data: active.slice(dataRange)
@@ -308,13 +308,13 @@ export function initDailyChart(dataType = 'confirmed', dataRange = 0) {
     barData = getDailyData(recovered).slice(dataRange)
     lineData = getAverageDailyData(recovered, days).slice(dataRange)
   } else if (dataType === 'active') {
-    backgroundColor = chartColors.grey
-    borderColor = chartColors.grey
+    backgroundColor = chartColors.blue
+    borderColor = chartColors.blue
     barData = getDailyData(active).slice(dataRange)
     lineData = getAverageDailyData(active, days).slice(dataRange)
   } else if (dataType === 'treatment') {
-    backgroundColor = chartColors.blue
-    borderColor = chartColors.blue
+    backgroundColor = chartColors.grey
+    borderColor = chartColors.grey
     barData = getDailyData(treatment).slice(dataRange)
     lineData = getAverageDailyData(treatment, days).slice(dataRange)
   }

@@ -354,21 +354,21 @@ table.dataTable {
 }
 
 .card-treatment {
-    border-top: 4px solid rgb(23, 162, 184) !important;
+    border-top: 4px solid rgb(108, 117, 125) !important;
 }
 
 .card-new-treatment {
     border-radius: 32px;
-    background: rgba(23, 162, 184, 0.2);
+    background: rgba(108, 117, 125, 0.2);
 }
 
 .card-active {
-    border-top: 4px solid rgb(108, 117, 125) !important;
+    border-top: 4px solid rgb(23, 162, 184) !important;
 }
 
 .card-new-active {
     border-radius: 32px;
-    background: rgba(108, 117, 125, 0.2);
+    background: rgba(23, 162, 184, 0.2);
 }
 
 /* Hack for Tajwal font */

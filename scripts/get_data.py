@@ -77,6 +77,7 @@ def getTotalStats():
                     'deaths': t['Death_cumul'] or deathsOld[-1],
                     # 'treatment': t['Straitem'] or treatmentOld[-1],
                     'treatment': treatmentOld[-1],
+                    'critical': t['Straitem'],
                     'man': t['Masculin'] or genderOld[0],
                     'woman': t['Féminin'] or genderOld[1],
                     'an': t['an'],
@@ -186,6 +187,7 @@ def updateData():
                      + '\nexport const recovered = ' + str(recoveredOld)
                      + '\nexport const deaths = ' + str(deathsOld)
                      + '\nexport const treatment = ' + str(treatmentOld)
+                     + '\nexport const critical = ' + str(totalOfficialStats['critical'])
                      + "\nexport const gender = ['Male', 'Female']"
                      + '\nexport const genderData = ['+str(totalOfficialStats['man'])+', '+ str(totalOfficialStats['woman'])+']'
                      + "\nexport const age = ['< 1', '1 - 14', '15 - 24', '25 - 49', '50 - 59', '+60', 'N/A']"

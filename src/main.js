@@ -420,7 +420,7 @@ function updateFromNow() {
 function checkYesterday() {
   const tableHeader = []
   if (moment(date[date.length - 1], 'M/D/YY').isBefore(moment(), 'day')) {
-    $('#newConfirmedText, #newRecoveredText, #newDeathsText, #newTreatmentText').attr('data-i18n', 'yesterday')
+    $('#newConfirmedText, #newRecoveredText, #newDeathsText, #newActiveText').attr('data-i18n', 'yesterday')
     tableHeader.push(i18next.t('yesterday-confirmed'))
     tableHeader.push(i18next.t('yesterday-deaths'))
   } else {

@@ -353,15 +353,6 @@ table.dataTable {
     background: rgba(220, 53, 69, 0.2);
 }
 
-.card-treatment {
-    border-top: 4px solid rgb(108, 117, 125) !important;
-}
-
-.card-new-treatment {
-    border-radius: 32px;
-    background: rgba(108, 117, 125, 0.2);
-}
-
 .card-active {
     border-top: 4px solid rgb(23, 162, 184) !important;
 }

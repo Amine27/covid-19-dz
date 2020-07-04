@@ -2,7 +2,7 @@ import i18next from 'i18next'
 import Chart from 'chart.js'
 import datalabels from 'chartjs-plugin-datalabels'
 import {
-  age, ageConfirmedData, ageDeathsData, confirmed, date, deaths, gender, genderData, provinces, recovered, treatment
+  age, ageConfirmedData, ageDeathsData, confirmed, date, deaths, gender, genderData, provinces, recovered
 } from './data.js'
 import {
   active, chartColors, getAverageDailyData, getDailyData, getDataLocalized, getDataPerWilayaName, getDataPerWilayaValue
@@ -312,11 +312,6 @@ export function initDailyChart(dataType = 'confirmed', dataRange = 0) {
     borderColor = chartColors.blue
     barData = getDailyData(active).slice(dataRange)
     lineData = getAverageDailyData(active, days).slice(dataRange)
-  } else if (dataType === 'treatment') {
-    backgroundColor = chartColors.grey
-    borderColor = chartColors.grey
-    barData = getDailyData(treatment).slice(dataRange)
-    lineData = getAverageDailyData(treatment, days).slice(dataRange)
   }
 
   dailyChart = new Chart($('#dailyChart'), {

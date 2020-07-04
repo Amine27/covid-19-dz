@@ -51,7 +51,6 @@ def getWilayaStats():
                 totalCalculStats['confirmed'] +=  w['Cas_confirm']
                 totalCalculStats['deaths'] = totalOfficialStats['deaths']
                 totalCalculStats['recovered'] = totalOfficialStats['recovered']
-                totalCalculStats['treatment'] = totalOfficialStats['treatment']
         except KeyError as e:
             print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'getWilayaStats(): incorrect json file', e)
             totalCalculStats['new_confirmed'] = newConfirmedOld
@@ -59,7 +58,6 @@ def getWilayaStats():
             totalCalculStats['confirmed'] = totalOfficialStats['confirmed']
             totalCalculStats['deaths'] = totalOfficialStats['deaths']
             totalCalculStats['recovered'] = totalOfficialStats['recovered']
-            totalCalculStats['treatment'] = totalOfficialStats['treatment']
             # sys.exit(0)
 
 def getTotalStats():
@@ -75,8 +73,6 @@ def getTotalStats():
                     'confirmed': t['Cumul'] or confirmedOld[-1],
                     'recovered': t['gueris'] or recoveredOld[-1],
                     'deaths': t['Death_cumul'] or deathsOld[-1],
-                    # 'treatment': t['Straitem'] or treatmentOld[-1],
-                    'treatment': treatmentOld[-1],
                     'critical': t['Straitem'],
                     'man': t['Masculin'] or genderOld[0],
                     'woman': t['Féminin'] or genderOld[1],
@@ -174,13 +170,11 @@ def updateData():
             confirmedOld.append(totalCalculStats['confirmed'])
             recoveredOld.append(totalCalculStats['recovered'])
             deathsOld.append(totalCalculStats['deaths'])
-            treatmentOld.append(totalCalculStats['treatment'])
         else:
             print('modifying day:', lastDate)
             confirmedOld[-1] = totalCalculStats['confirmed']
             recoveredOld[-1] = totalOfficialStats['recovered']
             deathsOld[-1] = totalCalculStats['deaths']
-            treatmentOld[-1] = totalCalculStats['treatment']
 
         finalData = ('export const date = ' + str(dateOld)
                      + '\nexport const confirmed = ' + str(confirmedOld)

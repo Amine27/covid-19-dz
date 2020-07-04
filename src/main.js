@@ -12,7 +12,7 @@ import tippy from 'tippy.js'
 
 import resources from '../static/locales'
 import {
-  date, confirmed, recovered, deaths, treatment, critical, lastUpdated, provinces
+  date, confirmed, recovered, deaths, critical, lastUpdated, provinces
 } from './data.js'
 import {
   initCharts, initCumulChart, initDailyChart, initWilayaDailyChart, initWilayaEvolutionChart, wilayaChart
@@ -137,20 +137,17 @@ function showData() {
   $('#totalConfirmed').text(getTotalData(confirmed))
   $('#totalRecovered').text(getTotalData(recovered))
   $('#totalDeaths').text(getTotalData(deaths))
-  $('#totalTreatment').text(getTotalData(treatment))
   $('#totalActive').text(getTotalData(active))
 
   $('#newConfirmed').text(getNewData(confirmed))
   $('#newRecovered').text(getNewData(recovered))
   $('#newDeaths').text(getNewData(deaths))
-  $('#newTreatment').text(getNewData(treatment))
   $('#newActive').text(getNewData(active))
 
   $('#totalDays').text(getTotalDays(date))
   $('#totalDaysText').text(i18next.t('totalDay_count', { count: getTotalDays(date) }))
   $('#fatalityRate').text(getDataRate(confirmed, deaths))
   $('#recoveryRate').text(getDataRate(confirmed, recovered))
-  $('#augmentationRate').text(getDataAugmentationRate(treatment))
   $('#critical').text(critical)
 }
 

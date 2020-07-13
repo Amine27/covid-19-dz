@@ -285,6 +285,29 @@ function setupShare() {
   })
 }
 
+function setupFB() {
+  $.ajaxSetup({
+    cache: true
+  })
+  let lang
+  if (i18next.language === 'en') {
+    lang = 'en_US'
+  } else if (i18next.language === 'fr') {
+    lang = 'fr_FR'
+  } else if (i18next.language === 'ar') {
+    lang = 'ar_AR'
+  }
+  const url = `https://connect.facebook.net/${lang}/sdk.js`
+  $.getScript(url, () => {
+    FB.init({
+      appId: '271477604181906',
+      version: 'v7.0',
+      autoLogAppEvents: 'true',
+      xfbml: 'true'
+    })
+  })
+}
+
 function setupWilayaSelect() {
   $('#wilayaList').empty()
   for (const key in provinces) {
@@ -322,6 +345,7 @@ i18next.on('languageChanged', (lng) => {
   initCharts()
   updateTooltipLang()
   setupWilayaSelect()
+  setupFB()
 
   $('#totalDaysText').text(i18next.t('totalDay_count', { count: getTotalDays(date) }))
 
@@ -374,6 +398,7 @@ function updateTheme(colorScheme) {
     chartColors.gridLinesColor = '#444'
     setMapStyle('dark-v10')
     setMapStatesBorderColor('#444')
+    $('#fb-comments').attr('data-colorscheme', 'dark')
   } else {
     localStorage.setItem('theme', 'light')
     $('#theme-switch').removeClass('icon-sun text-warning')
@@ -382,6 +407,7 @@ function updateTheme(colorScheme) {
     chartColors.gridLinesColor = 'rgba(0, 0, 0, 0.1)'
     setMapStyle('light-v10')
     setMapStatesBorderColor('white')
+    $('#fb-comments').attr('data-colorscheme', 'light')
   }
   initCharts()
   initMap()

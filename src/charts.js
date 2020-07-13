@@ -158,7 +158,8 @@ export function initCharts() {
     options: {
       layout: {
         padding: {
-          right: 30
+          right: 30,
+          left: 130
         }
       },
       response: true,
@@ -182,6 +183,10 @@ export function initCharts() {
           }
         }],
         yAxes: [{
+          ticks: {
+            mirror: true,
+            padding: 130
+          },
           gridLines: {
             color: chartColors.gridLinesColor
           }

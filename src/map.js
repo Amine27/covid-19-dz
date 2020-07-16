@@ -9,7 +9,8 @@ let geojson
 let previousTarget = null
 let mapStyle = 'light-v10'
 let mapStatesBorderColor = 'white'
-const grades = [0, 50, 100, 200, 300, 400, 500]
+const grades = [0, 100, 200, 300, 400, 500, 1000]
+const gradesText = ['0', '100', '200', '300', '400', '500', '1k']
 
 export function setMapStatesBorderColor(val) {
   mapStatesBorderColor = val
@@ -89,8 +90,8 @@ export function initMap() {
 
     labels.push('<br>')
 
-    for (let i = 0; i < grades.length; i++) {
-      labels.push(`<label>${grades[i]}${grades[i + 1] ? `-${grades[i + 1]}` : '+'}</label>`)
+    for (let i = 0; i < gradesText.length; i++) {
+      labels.push(`<label>${gradesText[i]}${gradesText[i + 1] ? `-${gradesText[i + 1]}` : '+'}</label>`)
     }
 
     div.innerHTML = labels.join('')

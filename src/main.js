@@ -40,9 +40,7 @@ export const chartColors = {
 export const active = []
 let provinceDailyDateList = []
 let provinceDailyConfirmedList = []
-let provinceDailyDeathsList = []
 let provinceAvg7ConfirmedList = []
-let provinceAvg7DeathsList = []
 
 function getTotalData(dataType) {
   if (dataType.length > 0) {
@@ -160,8 +158,6 @@ function setupTable(languageArray) {
       province: i18next.t(`provinces.${key}`),
       confirmed: provinces[key].confirmed,
       newConfirmed: provinces[key].new_confirmed > 0 ? `+${provinces[key].new_confirmed}` : '',
-      deaths: provinces[key].deaths,
-      newDeaths: provinces[key].new_deaths > 0 ? `+${provinces[key].new_deaths}` : '',
       lastReported: {
         display: moment(provinces[key].last_reported).isValid() ? moment(provinces[key].last_reported).calendar(moment(), {
           sameDay: `[${i18next.t('today')}]`,
@@ -213,17 +209,6 @@ function setupTable(languageArray) {
         targets: 2
       },
       {
-        title: i18next.t('deaths'),
-        data: 'deaths',
-        targets: 3
-      },
-      {
-        title: newCasesHeader[1],
-        data: 'newDeaths',
-        className: 'deaths',
-        targets: 4
-      },
-      {
         title: i18next.t('last-reported'),
         data: 'lastReported',
         render: function (data, type, row) {
@@ -235,13 +220,13 @@ function setupTable(languageArray) {
           return data.days
         },
         className: 'text-nowrap',
-        targets: 5
+        targets: 3
       },
       {
         title: i18next.t('first-reported'),
         data: 'firstReported',
         className: 'text-nowrap',
-        targets: 6
+        targets: 4
       }
     ],
     language: languageArray
@@ -445,10 +430,8 @@ function checkYesterday() {
   if (moment(date[date.length - 1], 'M/D/YY').isBefore(moment(), 'day')) {
     $('#newConfirmedText, #newRecoveredText, #newDeathsText, #newActiveText').attr('data-i18n', 'yesterday')
     tableHeader.push(i18next.t('yesterday-confirmed'))
-    tableHeader.push(i18next.t('yesterday-deaths'))
   } else {
     tableHeader.push(i18next.t('new-confirmed'))
-    tableHeader.push(i18next.t('new-deaths'))
   }
   return tableHeader
 }
@@ -497,35 +480,20 @@ $('#wilayaList').change(() => {
   const provinceId = $('#wilayaList').val()
   localStorage.setItem('provinceId', provinceId)
   const confirmed = []
-  const deaths = []
   provinceDailyDateList = []
   provinceDailyConfirmedList = []
-  provinceDailyDeathsList = []
   provinceAvg7ConfirmedList = []
-  provinceAvg7DeathsList = []
 
   getProvinceData(provinceId).then((data) => {
     for (const d in data) {
       provinceDailyDateList.push(data[d].date)
       confirmed.push(data[d].confirmed)
-      deaths.push(data[d].deaths)
       provinceDailyConfirmedList.push(data[d].newConfirmed)
-      provinceDailyDeathsList.push(data[d].newDeaths)
       provinceAvg7ConfirmedList.push(data[d].avg7Confirmed)
-      provinceAvg7DeathsList.push(data[d].avg7Deaths)
     }
-    initWilayaEvolutionChart(provinceDailyDateList, confirmed, deaths)
-    $('#wilayaDailyList').val($('#wilayaDailyList').val()).change()
+    initWilayaEvolutionChart(provinceDailyDateList, confirmed)
+    initWilayaDailyChart(provinceDailyDateList, confirmed, provinceDailyConfirmedList, provinceAvg7ConfirmedList)
   })
-})
-
-$('#wilayaDailyList').change(() => {
-  const dataType = $('#wilayaDailyList').val()
-  if (dataType === 'confirmed') {
-    initWilayaDailyChart(provinceDailyDateList, dataType, provinceDailyConfirmedList, provinceAvg7ConfirmedList)
-  } else if (dataType === 'deaths') {
-    initWilayaDailyChart(provinceDailyDateList, dataType, provinceDailyDeathsList, provinceAvg7DeathsList)
-  }
 })
 
 $('#dailyDataRange input:radio').on('change', (e) => {

@@ -387,7 +387,7 @@ export function initDailyChart(dataType = 'confirmed', dataRange = 0) {
   })
 }
 
-export function initWilayaEvolutionChart(date, confirmed, deaths) {
+export function initWilayaEvolutionChart(date, confirmed) {
   if (wilayaEvolutionChart) {
     wilayaEvolutionChart.destroy()
   }
@@ -404,14 +404,6 @@ export function initWilayaEvolutionChart(date, confirmed, deaths) {
           fill: false,
           borderWidth: 2,
           data: confirmed
-        },
-        {
-          label: i18next.t('deaths'),
-          backgroundColor: chartColors.red,
-          borderColor: chartColors.red,
-          fill: false,
-          borderWidth: 2,
-          data: deaths
         }
       ]
     },

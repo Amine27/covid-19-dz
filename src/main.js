@@ -492,7 +492,7 @@ $('#wilayaList').change(() => {
       provinceAvg7ConfirmedList.push(data[d].avg7Confirmed)
     }
     initWilayaEvolutionChart(provinceDailyDateList, confirmed)
-    initWilayaDailyChart(provinceDailyDateList, confirmed, provinceDailyConfirmedList, provinceAvg7ConfirmedList)
+    initWilayaDailyChart(provinceDailyDateList, 'confirmed', provinceDailyConfirmedList, provinceAvg7ConfirmedList)
   })
 })
 

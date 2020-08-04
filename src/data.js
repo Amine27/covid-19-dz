@@ -9,14 +9,14 @@ export const genderData = [17354, 14618]
 export const age = ['< 1', '1 - 14', '15 - 24', '25 - 49', '50 - 59', '+60', 'N/A']
 export const ageConfirmedData = [41, 528, 1162, 12581, 5482, 9798, 2380]
 export const ageDeathsData = [0, 2, 1, 74, 138, 637, 0]
-export const lastUpdated = '2020-08-04 17:41'
+export const lastUpdated = '2020-08-04 17:42'
 export const provinces = {
   "Aïn Defla": { id: 44, confirmed: 527, recovered: 0, deaths: 9, new_confirmed: 5, new_recovered: 0, new_deaths: 0, reported: "2020-03-27", last_reported: "2020-08-04" },
   "Aïn Témouchent": { id: 46, confirmed: 451, recovered: 0, deaths: 5, new_confirmed: 23, new_recovered: 0, new_deaths: 0, reported: "2020-03-23", last_reported: "2020-08-04" },
   "Adrar": { id: 1, confirmed: 500, recovered: 0, deaths: 8, new_confirmed: 21, new_recovered: 0, new_deaths: 0, reported: "2020-03-15", last_reported: "2020-08-04" },
   "Alger": { id: 16, confirmed: 3289, recovered: 0, deaths: 145, new_confirmed: 79, new_recovered: 0, new_deaths: 0, reported: "2020-03-13", last_reported: "2020-08-04" },
   "Annaba": { id: 23, confirmed: 536, recovered: 0, deaths: 10, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-16", last_reported: "2020-08-01" },
-  "Béchar": { id: 8, confirmed: 296, recovered: 0, deaths: 3, new_confirmed: 1, new_recovered: 0, new_deaths: 0, reported: "2020-04-03", last_reported: "2020-08-04" },
+  "Béchar": { id: 8, confirmed: 296, recovered: 0, deaths: 3, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-04-03", last_reported: "2020-08-04" },
   "Béjaïa": { id: 6, confirmed: 909, recovered: 0, deaths: 28, new_confirmed: 48, new_recovered: 0, new_deaths: 0, reported: "2020-03-17", last_reported: "2020-08-04" },
   "Batna": { id: 5, confirmed: 1056, recovered: 0, deaths: 17, new_confirmed: 3, new_recovered: 0, new_deaths: 0, reported: "2020-03-26", last_reported: "2020-08-04" },
   "Biskra": { id: 7, confirmed: 832, recovered: 0, deaths: 12, new_confirmed: 57, new_recovered: 0, new_deaths: 0, reported: "2020-03-25", last_reported: "2020-08-04" },

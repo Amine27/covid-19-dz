@@ -9,7 +9,7 @@ export const genderData = [28477, 24327]
 export const age = ['< 1', '1 - 14', '15 - 24', '25 - 49', '50 - 59', '+60', 'N/A']
 export const ageConfirmedData = [78, 682, 1800, 20502, 8863, 17339, 3540]
 export const ageDeathsData = [0, 2, 1, 74, 138, 637, 0]
-export const lastUpdated = '2020-10-10 17:21'
+export const lastUpdated = '2020-10-10 17:26'
 export const provinces = {
   "Aïn Defla": { id: 44, confirmed: 776, recovered: 0, deaths: 9, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-27", last_reported: "2020-10-05" },
   "Aïn Témouchent": { id: 46, confirmed: 693, recovered: 0, deaths: 5, new_confirmed: 1, new_recovered: 0, new_deaths: 0, reported: "2020-03-23", last_reported: "2020-10-10" },
@@ -45,7 +45,7 @@ export const provinces = {
   "Oran": { id: 31, confirmed: 4066, recovered: 0, deaths: 22, new_confirmed: 12, new_recovered: 0, new_deaths: 0, reported: "2020-03-19", last_reported: "2020-10-10" },
   "Ouargla": { id: 30, confirmed: 1302, recovered: 0, deaths: 26, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-02-25", last_reported: "2020-10-08" },
   "Oum el Bouaghi": { id: 4, confirmed: 741, recovered: 0, deaths: 10, new_confirmed: 2, new_recovered: 0, new_deaths: 0, reported: "2020-03-26", last_reported: "2020-10-10" },
-  "Relizane": { id: 48, confirmed: 215, recovered: 0, deaths: 3, new_confirmed: 1, new_recovered: 0, new_deaths: 0, reported: "2020-03-21", last_reported: "2020-10-10" },
+  "Relizane": { id: 48, confirmed: 215, recovered: 0, deaths: 3, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-21", last_reported: "2020-10-10" },
   "Sétif": { id: 19, confirmed: 3282, recovered: 0, deaths: 41, new_confirmed: 8, new_recovered: 0, new_deaths: 0, reported: "2020-03-19", last_reported: "2020-10-10" },
   "Saïda": { id: 20, confirmed: 72, recovered: 0, deaths: 0, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-04-10", last_reported: "2020-09-14" },
   "Sidi Bel Abbès": { id: 22, confirmed: 422, recovered: 0, deaths: 16, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-23", last_reported: "2020-10-08" },

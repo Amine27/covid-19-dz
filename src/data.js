@@ -9,7 +9,7 @@ export const genderData = [29930, 25700]
 export const age = ['< 1', '1 - 14', '15 - 24', '25 - 49', '50 - 59', '+60', 'N/A']
 export const ageConfirmedData = [79, 697, 1882, 21582, 9384, 18388, 3618]
 export const ageDeathsData = [0, 2, 1, 74, 138, 637, 0]
-export const lastUpdated = '2021-01-16 18:335'
+export const lastUpdated = '2021-01-16 18:35'
 export const provinces = {
   "Aïn Defla": { id: 44, confirmed: 777, recovered: 0, deaths: 9, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-27", last_reported: "2020-10-13" },
   "Aïn Témouchent": { id: 46, confirmed: 714, recovered: 0, deaths: 5, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-23", last_reported: "2020-10-22" },

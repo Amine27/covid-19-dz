@@ -6,119 +6,298 @@ import datetime
 import time
 from urllib.request import urlopen
 from dateutil import parser
-from git import Repo, exc
 import unidecode
+import re
 
 dateOld = []
 confirmedOld = []
 recoveredOld = []
 deathsOld = []
 treatmentOld = []
-newConfirmedOld = 0
-newRecoveredOld = 0
-newDeathsOld = 0
-totalOfficialStats = []
-deathsStats = []
-totalCalculStats = { 'new_confirmed': 0,
-                     'new_recovered': 0,
-                     'new_deaths': 0,
-                     'confirmed': 0,
-                     'recovered': 0,
-                     'deaths': 0}
-provinces = {}
 genderOld = []
+totalOfficialStats = []
+provinces = {}
+totalDate = ''
+provincesDate = ''
 
 def getWilayaStats():
-    url = 'https://services8.arcgis.com/yhz7DEAMzdabE4ro/arcgis/rest/services/Cas_confirme_view/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Cas_confirm%20desc&resultOffset=0&resultRecordCount=49&cacheHint=true'
+    global provincesDate
+    with open('src/data-wilaya.txt') as f:
+        for lineNumber, line in enumerate(f):
+            if lineNumber == 0:
+                provincesDate = datetime.datetime.strptime(line.strip(), '%Y-%m-%d').date()
+                continue
+            wilaya = line.strip().split(':')
+            pName = wilaya[0].replace('📌', '').strip()
+            pStats = re.findall(r'\d+', wilaya[1])
+            pConfirmed = int(pStats[0])
+            pNewConfirmed = int(pStats[1])
+            # print(pName, pConfirmed, pNewConfirmed)
+            if pName == 'عين الدفلى':
+                provinces['AIN DEFLA']['confirmed'] = pConfirmed
+                provinces['AIN DEFLA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['AIN DEFLA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'عين تموشنت':
+                provinces['AIN TEMOUCHENT']['confirmed'] = pConfirmed
+                provinces['AIN TEMOUCHENT']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['AIN TEMOUCHENT']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'أدرار':
+                provinces['ADRAR']['confirmed'] = pConfirmed
+                provinces['ADRAR']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['ADRAR']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'الجزائر':
+                provinces['ALGER']['confirmed'] = pConfirmed
+                provinces['ALGER']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['ALGER']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'عنابة':
+                provinces['ANNABA']['confirmed'] = pConfirmed
+                provinces['ANNABA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['ANNABA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'بشار':
+                provinces['BECHAR']['confirmed'] = pConfirmed
+                provinces['BECHAR']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['BECHAR']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'بجاية':
+                provinces['BEJAIA']['confirmed'] = pConfirmed
+                provinces['BEJAIA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['BEJAIA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'باتنة':
+                provinces['BATNA']['confirmed'] = pConfirmed
+                provinces['BATNA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['BATNA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'بسكرة':
+                provinces['BISKRA']['confirmed'] = pConfirmed
+                provinces['BISKRA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['BISKRA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'البليدة':
+                provinces['BLIDA']['confirmed'] = pConfirmed
+                provinces['BLIDA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['BLIDA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'برج بوعريريج':
+                provinces['BORDJ BOU ARRERIDJ']['confirmed'] = pConfirmed
+                provinces['BORDJ BOU ARRERIDJ']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['BORDJ BOU ARRERIDJ']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'البويرۃ':
+                provinces['BOUIRA']['confirmed'] = pConfirmed
+                provinces['BOUIRA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['BOUIRA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'بومرداس':
+                provinces['BOUMERDES']['confirmed'] = pConfirmed
+                provinces['BOUMERDES']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['BOUMERDES']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'الشلف':
+                provinces['CHLEF']['confirmed'] = pConfirmed
+                provinces['CHLEF']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['CHLEF']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'قسنطينة':
+                provinces['CONSTANTINE']['confirmed'] = pConfirmed
+                provinces['CONSTANTINE']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['CONSTANTINE']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'الجلفة':
+                provinces['DJELFA']['confirmed'] = pConfirmed
+                provinces['DJELFA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['DJELFA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'البيض':
+                provinces['EL BAYADH']['confirmed'] = pConfirmed
+                provinces['EL BAYADH']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['EL BAYADH']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'الوادي':
+                provinces['EL OUED']['confirmed'] = pConfirmed
+                provinces['EL OUED']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['EL OUED']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'الطارف':
+                provinces['EL TARF']['confirmed'] = pConfirmed
+                provinces['EL TARF']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['EL TARF']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'غرداية':
+                provinces['GHARDAIA']['confirmed'] = pConfirmed
+                provinces['GHARDAIA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['GHARDAIA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'قالمة':
+                provinces['GUELMA']['confirmed'] = pConfirmed
+                provinces['GUELMA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['GUELMA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'إيليزي':
+                provinces['ILLIZI']['confirmed'] = pConfirmed
+                provinces['ILLIZI']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['ILLIZI']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'جيجل':
+                provinces['JIJEL']['confirmed'] = pConfirmed
+                provinces['JIJEL']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['JIJEL']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'خنشلة':
+                provinces['KHENCHELA']['confirmed'] = pConfirmed
+                provinces['KHENCHELA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['KHENCHELA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'الأغواط':
+                provinces['LAGHOUAT']['confirmed'] = pConfirmed
+                provinces['LAGHOUAT']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['LAGHOUAT']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'المسيلة':
+                provinces["M'SILA"]['confirmed'] = pConfirmed
+                provinces["M'SILA"]['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces["M'SILA"]['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'المدية':
+                provinces['MEDEA']['confirmed'] = pConfirmed
+                provinces['MEDEA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['MEDEA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'معسكر':
+                provinces['MASCARA']['confirmed'] = pConfirmed
+                provinces['MASCARA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['MASCARA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'ميلة':
+                provinces['MILA']['confirmed'] = pConfirmed
+                provinces['MILA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['MILA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'مستغانم':
+                provinces['MOSTAGANEM']['confirmed'] = pConfirmed
+                provinces['MOSTAGANEM']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['MOSTAGANEM']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'النعامة':
+                provinces['NAAMA']['confirmed'] = pConfirmed
+                provinces['NAAMA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['NAAMA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'وهران':
+                provinces['ORAN']['confirmed'] = pConfirmed
+                provinces['ORAN']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['ORAN']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'ورقلة':
+                provinces['OUARGLA']['confirmed'] = pConfirmed
+                provinces['OUARGLA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['OUARGLA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'أم البواقي':
+                provinces['OUM EL BOUAGHI']['confirmed'] = pConfirmed
+                provinces['OUM EL BOUAGHI']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['OUM EL BOUAGHI']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'غليزان':
+                provinces['RELIZANE']['confirmed'] = pConfirmed
+                provinces['RELIZANE']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['RELIZANE']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'سطيف':
+                provinces['SETIF']['confirmed'] = pConfirmed
+                provinces['SETIF']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['SETIF']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'سعيدة':
+                provinces['SAIDA']['confirmed'] = pConfirmed
+                provinces['SAIDA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['SAIDA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'سيدي بلعباس':
+                provinces['SIDI BEL ABBES']['confirmed'] = pConfirmed
+                provinces['SIDI BEL ABBES']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['SIDI BEL ABBES']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'سكيكدة':
+                provinces['SKIKDA']['confirmed'] = pConfirmed
+                provinces['SKIKDA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['SKIKDA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'سوق أهراس':
+                provinces['SOUK AHRAS']['confirmed'] = pConfirmed
+                provinces['SOUK AHRAS']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['SOUK AHRAS']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'تبسة':
+                provinces['TEBESSA']['confirmed'] = pConfirmed
+                provinces['TEBESSA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['TEBESSA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'تمنراست':
+                provinces['TAMANGHASSET']['confirmed'] = pConfirmed
+                provinces['TAMANGHASSET']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['TAMANGHASSET']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'تيارت':
+                provinces['TIARET']['confirmed'] = pConfirmed
+                provinces['TIARET']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['TIARET']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'تندوف':
+                provinces['TINDOUF']['confirmed'] = pConfirmed
+                provinces['TINDOUF']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['TINDOUF']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'تيبازة':
+                provinces['TIPAZA']['confirmed'] = pConfirmed
+                provinces['TIPAZA']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['TIPAZA']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'تيسمسيلت':
+                provinces['TISSEMSILT']['confirmed'] = pConfirmed
+                provinces['TISSEMSILT']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['TISSEMSILT']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'تيزي وزو':
+                provinces['TIZI OUZOU']['confirmed'] = pConfirmed
+                provinces['TIZI OUZOU']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['TIZI OUZOU']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
+            elif pName == 'تلمسان':
+                provinces['TLEMCEN']['confirmed'] = pConfirmed
+                provinces['TLEMCEN']['new_confirmed'] = pNewConfirmed
+                if pNewConfirmed > 0:
+                    provinces['TLEMCEN']['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
 
-    with urlopen(url) as file:
-        try:
-            data = json.load(file)['features']
-            for wilaya_dict in data:
-                w = wilaya_dict['attributes']
-                if w['NOM_WILAYA'] is None or w['NOM_WILAYA'] == 'National':
-                    continue
-                provinces[w['NOM_WILAYA']]['confirmed'] = w['Cas_confirm']
-                provinces[w['NOM_WILAYA']]['recovered'] = 0 # w['Récupér'] or 0
-                provinces[w['NOM_WILAYA']]['deaths'] = w['Décés']
-                provinces[w['NOM_WILAYA']]['new_confirmed'] = w['new_cases'] or 0
-                provinces[w['NOM_WILAYA']]['new_recovered'] = 0 # w['new_recovred'] or 0
-                provinces[w['NOM_WILAYA']]['new_deaths'] = w['New_case_death'] or 0
-                if(w['new_cases']):
-                    provinces[w['NOM_WILAYA']]['last_reported'] = datetime.datetime.now().strftime('%Y-%m-%d')
-                totalCalculStats['new_confirmed'] += w['new_cases']
-                totalCalculStats['new_deaths'] += w['New_case_death']
-                totalCalculStats['confirmed'] +=  w['Cas_confirm']
-                totalCalculStats['deaths'] = totalOfficialStats['deaths']
-                totalCalculStats['recovered'] = totalOfficialStats['recovered']
-        except KeyError as e:
-            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'getWilayaStats(): incorrect json file', e)
-            totalCalculStats['new_confirmed'] = newConfirmedOld
-            totalCalculStats['new_deaths'] = newDeathsOld
-            totalCalculStats['confirmed'] = totalOfficialStats['confirmed']
-            totalCalculStats['deaths'] = totalOfficialStats['deaths']
-            totalCalculStats['recovered'] = totalOfficialStats['recovered']
-            # sys.exit(0)
 
 def getTotalStats():
-    url = 'https://services8.arcgis.com/yhz7DEAMzdabE4ro/arcgis/rest/services/COVID_Death_Cumul/FeatureServer/2/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Report%20asc&resultOffset=0&resultRecordCount=1000&cacheHint=true'
+    global totalDate
+    with open('src/data-total.txt') as f:
+        lines = f.readlines()
+    usefulData = []
+    usefulData.append({
+        'new_confirmed': int(lines[1]),
+        'new_recovered': int(lines[2]),
+        'new_deaths': int(lines[3]),
+        'critical': int(lines[4]),
+        'man': genderOld[0],
+        'woman': genderOld[1]
+    })
+    totalDate = datetime.datetime.strptime(lines[0].strip(), '%Y-%m-%d').date()
 
-    with urlopen(url) as file:
-        try:
-            data = json.load(file)['features']
-            usefulData = []
-            for totalDict in reversed(data):
-                t = totalDict['attributes']
-                usefulData.append({
-                    'confirmed': t['Cumul'] or confirmedOld[-1],
-                    'recovered': t['gueris'] or recoveredOld[-1],
-                    'deaths': t['Death_cumul'] or deathsOld[-1],
-                    'critical': t['Straitem'],
-                    'man': t['Masculin'] or genderOld[0],
-                    'woman': t['Féminin'] or genderOld[1],
-                    'an': t['an'],
-                    'unquatorze': t['unquatorze'],
-                    'vingtquatre': t['vingtquatre'],
-                    'quaranteneuf': t['quaranteneuf'],
-                    'cinquanteneuf': t['cinquanteneuf'],
-                    'soixante': t['soixante'],
-                    'NP': t['NP'],
-                    'new_confirmed': t['New_cases'] or 0
-                })
-                break
-        except KeyError as e:
-            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'getTotalStats(): incorrect json file', e)
-            sys.exit(0)
+    # print(usefulData, totalDate)
 
     global totalOfficialStats
     totalOfficialStats = usefulData[0]
 
-def getDeathStats():
-    url = 'https://services8.arcgis.com/yhz7DEAMzdabE4ro/arcgis/rest/services/COVID_Death_Cumul/FeatureServer/1/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22quatorz%22%2C%22outStatisticFieldName%22%3A%22quatorz%22%7D%2C%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22vingquatre%22%2C%22outStatisticFieldName%22%3A%22vingquatre%22%7D%2C%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22trentequatre%22%2C%22outStatisticFieldName%22%3A%22trentequatre%22%7D%2C%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22quarantequatre%22%2C%22outStatisticFieldName%22%3A%22quarantequatre%22%7D%2C%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22cinquanteneuf%22%2C%22outStatisticFieldName%22%3A%22cinquanteneuf%22%7D%2C%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22soixantedix%22%2C%22outStatisticFieldName%22%3A%22soixantedix%22%7D%5D&outSR=102100&cacheHint=true'
-
-    with urlopen(url) as file:
-        try:
-            data = json.load(file)['features']
-            usefulData = []
-            for totalDict in reversed(data):
-                t = totalDict['attributes']
-                usefulData.append({
-                    'quatorz': t['quatorz'],
-                    'vingquatre': t['vingquatre'],
-                    'trentequatre': t['trentequatre'],
-                    'quarantequatre': t['quarantequatre'],
-                    'cinquanteneuf': t['cinquanteneuf'],
-                    'soixantedix': t['soixantedix']
-                })
-        except KeyError as e :
-            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'getDeathStats(): incorrect json file', e)
-            sys.exit(0)
-
-    global deathsStats
-    deathsStats = usefulData[0]
 
 def readData():
-    global dateOld, confirmedOld, recoveredOld, deathsOld, treatmentOld, newConfirmedOld, newRecoveredOld, newDeathsOld, provinces, genderOld
+    global dateOld, confirmedOld, recoveredOld, deathsOld, treatmentOld, provinces, genderOld, ageConfirmedOld, ageDeathsOld
     with open('src/data.js') as f:
         for line in f:
             if(line.startswith('export const date')):
@@ -133,17 +312,13 @@ def readData():
                 treatmentOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
             elif(line.startswith('export const genderData')):
                 genderOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
+            elif(line.startswith('export const ageConfirmedData')):
+                ageConfirmedOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
+            elif(line.startswith('export const ageDeathsData')):
+                ageDeathsOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
             elif(line.startswith('  "')):
                 p = json.loads('{'+line[line.find("{")+1:line.find("}")].replace(': ', '": "').replace(', ', '", "').replace('""', '"').replace(' id', ' "id')+'}')
                 pName = unidecode.unidecode(line[line.find('"')+1:line.find('":')]).upper()
-                if pName == 'SOUK AHRAS':
-                    pName = 'SOUK-AHRAS'
-                elif pName == 'EL TARF':
-                    pName = 'EL-TARF'
-                elif pName == 'AIN TEMOUCHENT':
-                    pName = 'AIN-TEMOUCHENT'
-                elif pName == 'TAMANGHASSET':
-                    pName = 'TAMENGHASSET'
                 provinces[pName] = {}
                 provinces[pName]['id'] = int(p['id'])
                 provinces[pName]['name'] = line[line.find('"')+1:line.find('":')]
@@ -155,83 +330,54 @@ def readData():
                 provinces[pName]['new_deaths'] = 0
                 provinces[pName]['reported'] = p['reported']
                 provinces[pName]['last_reported'] = p['last_reported']
-                newConfirmedOld += int(p['new_confirmed'])
-                newRecoveredOld += int(p['new_recovered'])
-                newDeathsOld += int(p['new_deaths'])
+
 
 def updateData():
-    if(int(confirmedOld[-1]) != totalCalculStats['confirmed'] or int(deathsOld[-1]) != totalCalculStats['deaths'] or int(recoveredOld[-1]) != totalCalculStats['recovered'] or newConfirmedOld != totalCalculStats['new_confirmed'] or newDeathsOld != totalCalculStats['new_deaths']):
-        print(datetime.datetime.now(), ': new data')
-        lastDate = parser.parse(dateOld[-1]).date()
-        today = datetime.date.today()
-        if(lastDate < today):
-            print('new day:', today)
-            dateOld.append(today.strftime('%-m/%-d/%y'))
-            confirmedOld.append(totalCalculStats['confirmed'])
-            recoveredOld.append(totalCalculStats['recovered'])
-            deathsOld.append(totalCalculStats['deaths'])
-        else:
-            print('modifying day:', lastDate)
-            confirmedOld[-1] = totalCalculStats['confirmed']
-            recoveredOld[-1] = totalOfficialStats['recovered']
-            deathsOld[-1] = totalCalculStats['deaths']
+    # print(totalDate, provincesDate)
 
-        finalData = ('export const date = ' + str(dateOld)
-                     + '\nexport const confirmed = ' + str(confirmedOld)
-                     + '\nexport const recovered = ' + str(recoveredOld)
-                     + '\nexport const deaths = ' + str(deathsOld)
-                     + '\nexport const treatment = ' + str(treatmentOld)
-                     + '\nexport const critical = ' + str(totalOfficialStats['critical'])
-                     + "\nexport const gender = ['Male', 'Female']"
-                     + '\nexport const genderData = ['+str(totalOfficialStats['man'])+', '+ str(totalOfficialStats['woman'])+']'
-                     + "\nexport const age = ['< 1', '1 - 14', '15 - 24', '25 - 49', '50 - 59', '+60', 'N/A']"
-                     + '\nexport const ageConfirmedData = ['+str(totalOfficialStats['an'])+', '+str(totalOfficialStats['unquatorze'])+', '+str(totalOfficialStats['vingtquatre'])+', '+str(totalOfficialStats['quaranteneuf'])+', '+str(totalOfficialStats['cinquanteneuf'])+', '+str(totalOfficialStats['soixante'])+', '+str(totalOfficialStats['NP'])+']'
-                     + '\nexport const ageDeathsData = ['+str(deathsStats['quatorz'])+', '+str(deathsStats['vingquatre'])+', '+str(deathsStats['trentequatre'])+', '+str(deathsStats['quarantequatre'])+', '+str(deathsStats['cinquanteneuf'])+', '+str(deathsStats['soixantedix'])+', '+str(0)+']'
-                     + "\nexport const lastUpdated = '" + datetime.datetime.now().strftime('%Y-%m-%d %H:%M') + "'"
-                     + '\nexport const provinces = {\n'
-        )
-        for p_id, p in provinces.items():
-            finalData += '  "'+p['name']+'": { id: '+str(p['id'])+', confirmed: '+str(p['confirmed'])+', recovered: '+str(p['recovered'])+', deaths: '+str(p['deaths'])+', new_confirmed: '+str(p['new_confirmed'])+', new_recovered: '+str(p['new_recovered'])+', new_deaths: '+str(p['new_deaths'])+', reported: "'+str(p['reported'])+'", last_reported: "'+str(p['last_reported'])+'" },\n'
-
-        finalData = finalData[:-2] + '\n}'
-        with open("src/data.js", "w") as dataFile:
-            print("{}".format(finalData), file=dataFile)
-
-        print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), ': saved new data')
-        print('calcul\t confirmed:', totalCalculStats['confirmed'], 'deaths:', totalCalculStats['deaths'], 'recovered:', totalOfficialStats['recovered'], 'new_confirmed:', totalCalculStats['new_confirmed'], 'new_deaths:', totalCalculStats['new_deaths'])
-
-        #updateIndex()
-        #gitPush()
+    print(datetime.datetime.now(), ': update data')
+    lastDate = parser.parse(dateOld[-1]).date()
+    # today = datetime.date.today()
+    if(lastDate < totalDate or lastDate < provincesDate):
+        print('new day:', totalDate)
+        dateOld.append(totalDate.strftime('%-m/%-d/%y'))
+        confirmedOld.append(confirmedOld[-1] + totalOfficialStats['new_confirmed'])
+        recoveredOld.append(recoveredOld[-1] + totalOfficialStats['new_recovered'])
+        deathsOld.append(deathsOld[-1] + totalOfficialStats['new_deaths'])
     else:
-        print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), ': no new data')
+        print('modifying day:', lastDate)
+        confirmedOld[-1] = confirmedOld[-2] + totalOfficialStats['new_confirmed']
+        recoveredOld[-1] = recoveredOld[-2] + totalOfficialStats['new_recovered']
+        deathsOld[-1] = deathsOld[-2] + totalOfficialStats['new_deaths']
 
-def updateIndex():
-    newIndex = ''
-    with open('index.html') as f:
-        for line in f:
-            if(line.startswith('    <script type="text/javascript" src="js/data.js')):
-                newIndex += '    <script type="text/javascript" src="js/data.js?v='+ str(int(time.time())) +'"></script>\n'
-            else:
-                newIndex += line
+    finalData = ('export const date = ' + str(dateOld)
+                 + '\nexport const confirmed = ' + str(confirmedOld)
+                 + '\nexport const recovered = ' + str(recoveredOld)
+                 + '\nexport const deaths = ' + str(deathsOld)
+                 + '\nexport const treatment = ' + str(treatmentOld)
+                 + '\nexport const critical = ' + str(totalOfficialStats['critical'])
+                 + "\nexport const gender = ['Male', 'Female']"
+                 + '\nexport const genderData = ['+str(totalOfficialStats['man'])+', ' + str(totalOfficialStats['woman'])+']'
+                 + "\nexport const age = ['< 1', '1 - 14', '15 - 24', '25 - 49', '50 - 59', '+60', 'N/A']"
+                 + '\nexport const ageConfirmedData = ' + str(ageConfirmedOld)
+                 + '\nexport const ageDeathsData = ' + str(ageDeathsOld)
+                 + "\nexport const lastUpdated = '" + datetime.datetime.now().strftime('%Y-%m-%d %H:%M') + "'"
+                 + '\nexport const provinces = {\n')
 
-    with open("src/index.html", "w") as indexFile:
-        print("{}".format(newIndex.strip()), file=indexFile)
+    for p_id, p in provinces.items():
+        finalData += '  "'+p['name']+'": { id: '+str(p['id'])+', confirmed: '+str(p['confirmed'])+', recovered: '+str(p['recovered'])+', deaths: '+str(p['deaths'])+', new_confirmed: '+str(p['new_confirmed'])+', new_recovered: '+str(p['new_recovered'])+', new_deaths: '+str(p['new_deaths'])+', reported: "'+str(p['reported'])+'", last_reported: "'+str(p['last_reported'])+'" },\n'
 
-def gitPush():
-    try:
-        repo = Repo('.')
-        #repo.index.add(['src/data.js', 'src/index.html'])
-        repo.index.add(['src/data.js'])
-        repo.index.commit('[Bot] Update stats')
-        origin = repo.remote(name='origin')
-        origin.push()
-    except exc.GitError as e:
-        print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 'Some error occured while pushing the code to github:', e)
+    finalData = finalData[:-2] + '\n}'
+    with open("src/data.js", "w") as dataFile:
+        print("{}".format(finalData), file=dataFile)
+
+    print('confirmed:', confirmedOld[-1], 'deaths:', deathsOld[-1], 'recovered:', recoveredOld[-1], 'new_confirmed:', totalOfficialStats['new_confirmed'], 'new_deaths:', totalOfficialStats['new_deaths'])
+    print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), ': data updated')
+
 
 def main():
     readData()
     getTotalStats()
-    getDeathStats()
     getWilayaStats()
     updateData()
 

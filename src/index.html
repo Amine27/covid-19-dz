@@ -153,7 +153,7 @@
         <div class="col-md-12 col-lg-12 py-1 pb-4">
           <ul class="nav nav-tabs" id="tab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active" id="map-tab" data-toggle="tab" href="#map-pane" role="tab" aria-controls="map" aria-selected="true">
+              <a class="nav-link" id="map-tab" data-toggle="tab" href="#map-pane" role="tab" aria-controls="map" aria-selected="false">
                 <span class="icon-map pr-1"></span><span data-i18n="map">Map</span>
               </a>
             </li>
@@ -163,7 +163,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="table-tab" data-toggle="tab" href="#table-pane" role="tab" aria-controls="table" aria-selected="false">
+              <a class="nav-link active" id="table-tab" data-toggle="tab" href="#table-pane" role="tab" aria-controls="table" aria-selected="true">
                 <span class="icon-table pr-1"></span><span data-i18n="table">Table</span>
               </a>
             </li>
@@ -174,7 +174,7 @@
             </li>
           </ul>
           <div class="tab-content shadow-sm" id="tabContent">
-            <div class="tab-pane fade show active border border-top-0" id="map-pane" role="tabpanel" aria-labelledby="map-tab">
+            <div class="tab-pane fade border border-top-0" id="map-pane" role="tabpanel" aria-labelledby="map-tab">
               <div id='map'></div>
             </div>
             <div class="tab-pane fade border border-top-0" id="chart-pane" role="tabpanel" aria-labelledby="chart-tab">
@@ -191,7 +191,7 @@
                 <canvas id="wilayaChart" dir="ltr"></canvas>
               </div>
             </div>
-            <div class="tab-pane fade border border-top-0" id="table-pane" role="tabpanel" aria-labelledby="table-tab">
+            <div class="tab-pane fade show active border border-top-0" id="table-pane" role="tabpanel" aria-labelledby="table-tab">
               <table id="wilayaTable" class="table table-sm table-hover table-bordered table-style">
                 <thead class="thead-light">
                   <tr>

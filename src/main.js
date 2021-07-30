@@ -12,7 +12,7 @@ import tippy from 'tippy.js'
 
 import resources from '../static/locales'
 import {
-  date, confirmed, recovered, deaths, critical, lastUpdated, provinces
+  date, confirmed, recovered, deaths, critical, lastUpdated, provinces, vaccinatedPartly, vaccinatedFully, populationTotal
 } from './data.js'
 import {
   initCharts, initCumulChart, initDailyChart, initWilayaDailyChart, initWilayaEvolutionChart, wilayaChart
@@ -42,14 +42,14 @@ let provinceDailyDateList = []
 let provinceDailyConfirmedList = []
 let provinceAvg7ConfirmedList = []
 
-function getTotalData(dataType) {
+const getTotalData = (dataType) => {
   if (dataType.length > 0) {
     return dataType[dataType.length - 1]
   }
   return 0
 }
 
-export function getDailyData(dataType) {
+export const getDailyData = (dataType) => {
   const dailyData = []
   for (let i = 0; i < dataType.length; ++i) {
     dailyData.push(dataType[i] - (dataType[i - 1] === undefined ? 0 : dataType[i - 1]))
@@ -57,7 +57,7 @@ export function getDailyData(dataType) {
   return dailyData
 }
 
-export function getAverageDailyData(dataType, days) {
+export const getAverageDailyData = (dataType, days) => {
   const dailyData = getDailyData(dataType).reverse()
   const averageDailyData = []
 
@@ -67,7 +67,7 @@ export function getAverageDailyData(dataType, days) {
   return averageDailyData.reverse()
 }
 
-function getNewData(dataType) {
+const getNewData = (dataType) => {
   if (dataType.length > 1) {
     const newData = dataType[dataType.length - 1] - dataType[dataType.length - 2]
     if (newData > 0) {
@@ -79,15 +79,15 @@ function getNewData(dataType) {
   return 0
 }
 
-export function getDataPerWilayaName(provinces, dataType, filter) {
+export const getDataPerWilayaName = (provinces, dataType, filter) => {
   return getDataPerWilaya(provinces, dataType, filter).map((t, i) => `${i + 1} - ` + i18next.t(`provinces.${t[0]}`))
 }
 
-export function getDataPerWilayaValue(provinces, dataType, filter) {
+export const getDataPerWilayaValue = (provinces, dataType, filter) => {
   return getDataPerWilaya(provinces, dataType, filter).map((t) => t[1])
 }
 
-function getDataPerWilaya(provinces, dataType, filter) {
+const getDataPerWilaya = (provinces, dataType, filter) => {
   let items = Object.keys(provinces).map((key) => [key, provinces[key][dataType]])
   items.sort((first, second) => second[1] - first[1])
   if (filter) {
@@ -96,7 +96,7 @@ function getDataPerWilaya(provinces, dataType, filter) {
   return items
 }
 
-// export function getActiveCases() {
+// export const getActiveCases = () => {
 //   const activeCases = []
 //   for (let i = 0; i < confirmed.length; ++i) {
 //     activeCases.push(confirmed[i] - (recovered[i] + deaths[i]))
@@ -104,52 +104,58 @@ function getDataPerWilaya(provinces, dataType, filter) {
 //   return activeCases
 // }
 
-function calcActiveCases() {
+const calcActiveCases = () => {
   for (let i = 0; i < confirmed.length; ++i) {
     active.push(confirmed[i] - (recovered[i] + deaths[i]))
   }
 }
 
-function getTotalDays(date) {
-  return date.length
-}
+const getTotalDays = (date) => date.length
 
-function getDataRate(confirmed, dataType) {
-  return `${(getTotalData(dataType) / getTotalData(confirmed) * 100).toFixed(2)}%`
-}
+const getDataRate = (confirmed, dataType) => getTotalData(dataType) / getTotalData(confirmed)
 
-function getDataAugmentationRate(dataType) {
+const getVaccinatedRate = (dataType) => getTotalData(dataType) / populationTotal
+
+const getDataAugmentationRate = (dataType) => {
   let rate = ((getTotalData(dataType) - dataType[dataType.length - 2]) / getTotalData(dataType) * 100).toFixed(2)
   rate = rate > 0 ? `${rate}%` : '0%'
   return rate
 }
 
-export function getDataLocalized(dataType) {
-  return dataType.map((e) => i18next.t(e))
-}
+export const getDataLocalized = (dataType) => dataType.map((e) => i18next.t(e))
 
-function showData() {
+const showData = () => {
+  const lang = i18next.language
+  const nFormater = new Intl.NumberFormat(lang)
+  const nFormaterCompact = new Intl.NumberFormat(lang, { notation: 'compact' })
+  const nFormaterPercent = new Intl.NumberFormat(lang, { style: 'percent', minimumFractionDigits: 2 })
+
   $('#lastUpdated').attr('datetime', moment(lastUpdated).toISOString())
   $('#lastUpdated').attr('title', moment(lastUpdated).format('LLLL'))
 
-  $('#totalConfirmed').text(getTotalData(confirmed))
-  $('#totalRecovered').text(getTotalData(recovered))
-  $('#totalDeaths').text(getTotalData(deaths))
-  $('#totalActive').text(getTotalData(active))
+  $('#totalConfirmed').text(nFormater.format(getTotalData(confirmed)))
+  $('#totalRecovered').text(nFormater.format(getTotalData(recovered)))
+  $('#totalDeaths').text(nFormater.format(getTotalData(deaths)))
+  $('#vaccinatedFully').text(nFormaterCompact.format(getTotalData(vaccinatedFully)))
+  $('#vaccinatedPartly').text(nFormaterCompact.format(getTotalData(vaccinatedPartly)))
+  // $('#totalActive').text(nFormater.format(getTotalData(active)))
 
-  $('#newConfirmed').text(getNewData(confirmed))
-  $('#newRecovered').text(getNewData(recovered))
-  $('#newDeaths').text(getNewData(deaths))
-  $('#newActive').text(getNewData(active))
+  $('#newConfirmed').text(nFormater.format(getNewData(confirmed)))
+  $('#newRecovered').text(nFormater.format(getNewData(recovered)))
+  $('#newDeaths').text(nFormater.format(getNewData(deaths)))
+  // $('#newActive').text(getNewData(active))
 
   $('#totalDays').text(getTotalDays(date))
   $('#totalDaysText').text(i18next.t('totalDay_count', { count: getTotalDays(date) }))
-  $('#fatalityRate').text(getDataRate(confirmed, deaths))
-  $('#recoveryRate').text(getDataRate(confirmed, recovered))
-  $('#critical').text(critical)
+  $('#fatalityRate').text(nFormaterPercent.format(getDataRate(confirmed, deaths)))
+  $('#recoveryRate').text(nFormaterPercent.format(getDataRate(confirmed, recovered)))
+  $('#critical').text(nFormater.format(critical))
+
+  document.querySelector('#vaccinatedFullyTooltip')._tippy.setContent(i18next.t('vaccinated-fully-tooltip', { count: nFormaterPercent.format(getVaccinatedRate(vaccinatedFully)) }))
+  document.querySelector('#vaccinatedPartlyTooltip')._tippy.setContent(i18next.t('vaccinated-partly-tooltip', { count: nFormaterPercent.format(getVaccinatedRate(vaccinatedPartly)) }))
 }
 
-function setupTable(languageArray) {
+const setupTable = (languageArray) => {
   $('#wilayaTable').DataTable().clear().destroy()
 
   const provincesData = []
@@ -211,7 +217,7 @@ function setupTable(languageArray) {
       {
         title: i18next.t('last-reported'),
         data: 'lastReported',
-        render: function (data, type, row) {
+        render: (data, type, _) => {
           // If display or filter data is requested, return display
           if (type === 'display' || type === 'filter') {
             return data.display
@@ -233,7 +239,7 @@ function setupTable(languageArray) {
   })
 }
 
-function setupTheme() {
+const setupTheme = () => {
   const savedTheme = localStorage.getItem('theme')
   let mode = 'light'
   if (savedTheme === 'dark') {
@@ -254,7 +260,7 @@ function setupTheme() {
   })
 }
 
-function setupShare() {
+const setupShare = () => {
   $('#shareBtn').click(() => {
     if (navigator.share) {
       navigator.share({
@@ -270,7 +276,7 @@ function setupShare() {
   })
 }
 
-function setupFB() {
+const setupFB = () => {
   $.ajaxSetup({
     cache: true
   })
@@ -293,7 +299,7 @@ function setupFB() {
   })
 }
 
-function setupWilayaSelect() {
+const setupWilayaSelect = () => {
   $('#wilayaList').empty()
   for (const key in provinces) {
     const province = [i18next.t(`provinces.${key}`)]
@@ -302,7 +308,7 @@ function setupWilayaSelect() {
   }
 }
 
-function i18nInit() {
+const i18nInit = () => {
   i18next
     .use(LanguageDetector)
     .init({
@@ -329,6 +335,7 @@ i18next.on('languageChanged', (lng) => {
   setupTable(resources[lng].translation)
   initCharts()
   updateTooltipLang()
+  showData()
   setupWilayaSelect()
   setupFB()
 
@@ -340,7 +347,7 @@ i18next.on('languageChanged', (lng) => {
   $('.preloader').fadeOut('slow')
 })
 
-function updateLayoutDirection() {
+const updateLayoutDirection = () => {
   const dir = i18next.dir()
   document.body.dir = dir
   if (dir === 'rtl') {
@@ -361,7 +368,7 @@ function updateLayoutDirection() {
   $('tbody').attr('dir', dir)
 }
 
-function updateTooltipLang() {
+const updateTooltipLang = () => {
   if (Array.isArray(tippyInstances)) {
     tippyInstances.forEach((instance) => instance.destroy())
   }
@@ -372,7 +379,7 @@ function updateTooltipLang() {
   tippyInstances = tippy('[data-tippy-content]')
 }
 
-function updateTheme(colorScheme) {
+const updateTheme = (colorScheme) => {
   $('body').toggleClass('dark', colorScheme === 'dark')
 
   if (colorScheme === 'dark') {
@@ -398,34 +405,16 @@ function updateTheme(colorScheme) {
   initMap()
 }
 
-function updateFromNow() {
+const updateFromNow = () => {
   $('#lastUpdated').text(`${moment(lastUpdated).fromNow()}`)
 
   if (moment().diff(moment(lastUpdated), 'hours') < 1) {
     $('#blink').removeClass('d-none')
     $('#blink').addClass('d-inline-block')
   }
-
-  // auto-reload page if new update is available (only between 15-19h)
-  // if(moment().hours() < 20 && moment().hours() > 14) {
-  //   fetch("https://corona-dz.live/js/data.js").then((data) => {
-  //     data.text().then((text) => {
-  //       text.split("\n").some((line) => {
-  //         if(line.startsWith('const lastUpdated')) {
-  //           const newUpdate = line.substring(line.indexOf("'")+1, line.lastIndexOf("'"))
-  //           if(moment(lastUpdated) < moment(newUpdate)) {
-  //             // reload current page without using cache
-  //             document.location.reload(true)
-  //           }
-  //           return true
-  //         }
-  //       })
-  //     })
-  //   })
-  // }
 }
 
-function checkYesterday() {
+const checkYesterday = () => {
   const tableHeader = []
   if (moment(date[date.length - 1], 'M/D/YY').isBefore(moment(), 'day')) {
     $('#newConfirmedText, #newRecoveredText, #newDeathsText, #newActiveText').attr('data-i18n', 'yesterday')
@@ -530,7 +519,6 @@ $(document).ready(() => {
   i18nInit()
   moment.tz.setDefault('Europe/Brussels')
   calcActiveCases()
-  showData()
   setupTheme()
   setInterval(updateFromNow, 60000) // 1 min
   setupShare()

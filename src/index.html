@@ -1,368 +1,397 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title data-i18n="algeria-covid19">Algeria COVID-19 Coronavirus Tracker</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <title data-i18n="algeria-covid19">Algeria COVID-19 Coronavirus Tracker</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-config" content="/img/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
-    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
-    <link rel="manifest" href="img/site.webmanifest">
-    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
-    <link rel="shortcut icon" href="img/favicon.ico">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-config" content="/img/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+        <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+        <link rel="manifest" href="img/site.webmanifest">
+        <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="img/favicon.ico">
 
-    <meta name="description" content="Live updates of the Coronavirus COVID-19 outbreak in Algeria" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://corona-dz.live/" />
-    <meta name="twitter:title" content="Algeria COVID-19 Coronavirus Tracker" />
-    <meta name="twitter:description" content="Live updates of the Coronavirus COVID-19 outbreak in Algeria" />
-    <meta property="og:title" content="Algeria COVID-19 Coronavirus Tracker" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://corona-dz.live/" />
-    <meta property="og:image" content="https://corona-dz.live/img/screenshot.png" />
-    <meta property="og:description" content="Live updates of the Coronavirus COVID-19 outbreak in Algeria" />
-    <meta property="fb:app_id" content="271477604181906" />
+        <meta name="description" content="Live updates of the Coronavirus COVID-19 outbreak in Algeria" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://corona-dz.live/" />
+        <meta name="twitter:title" content="Algeria COVID-19 Coronavirus Tracker" />
+        <meta name="twitter:description" content="Live updates of the Coronavirus COVID-19 outbreak in Algeria" />
+        <meta property="og:title" content="Algeria COVID-19 Coronavirus Tracker" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://corona-dz.live/" />
+        <meta property="og:image" content="https://corona-dz.live/img/screenshot.png" />
+        <meta property="og:description" content="Live updates of the Coronavirus COVID-19 outbreak in Algeria" />
+        <meta property="fb:app_id" content="271477604181906" />
 
-  </head>
-  <body>
+    </head>
+    <body>
 
-    <div class="preloader" dir="ltr">
-      <div class="spinner">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="row my-3">
-        <div class="col-9">
-          <h5 data-i18n="algeria-covid19">Algeria Covid-19</h5>
-          <sup><div id="blink" class="blink mr-2 d-none"></div><span data-i18n="updated">Updated </span><time id='lastUpdated'></time></sup>
+        <div class="preloader" dir="ltr">
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
         </div>
 
-        <div class="col d-flex align-items-end flex-column">
-          <div class="row">
-            <div class="dropdown">
-              <i class="icon-globe btn-lg text-muted" type="button" id="dropdownMenuIcon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              </i>
-              <div id="dropdownMenu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuIcon">
-                <a class="dropdown-item" href="#" data-lang-picker='en'>English</a>
-                <a class="dropdown-item" href="#" data-lang-picker='ar'>العربية</a>
-                <a class="dropdown-item" href="#" data-lang-picker='fr'>Français</a>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <a id="theme-switch" class="icon-moon btn-lg text-muted" href="#"></a>
-          </div>
-        </div>
-      </div>
+        <div class="container">
+            <div class="row my-3">
+                <div class="col-9">
+                    <h5 data-i18n="algeria-covid19">Algeria Covid-19</h5>
+                    <sup><div id="blink" class="blink mr-2 d-none"></div><span data-i18n="updated">Updated </span><time id='lastUpdated'></time></sup>
+                </div>
 
-      <div class="row">
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-confirmed text-secondary shadow-sm mb-4">
-            <div class="card-body row text-center">
-              <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-warning card-font-ar" id="totalConfirmed"></div>
-                <div data-i18n="confirmed">Confirmed</div>
-              </div>
-              <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-warning px-lg-3 card-new-confirmed card-font-ar" id="newConfirmed"></div>
-                <div data-i18n="today" id="newConfirmedText">Today</div>
-              </div>
-              <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-warning card-font-ar" id="totalDays"> </div>
-                <div data-tooltip-i18n="confirmed-days-tooltip" data-tippy-placement="bottom"><span id="totalDaysText"></span>
-                  <span class="icon-info-circle tooltip-info" aria-hidden="true"></span>
+                <div class="col d-flex align-items-end flex-column">
+                    <div class="row">
+                        <div class="dropdown">
+                            <i class="icon-globe btn-lg text-muted" type="button" id="dropdownMenuIcon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </i>
+                            <div id="dropdownMenu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuIcon">
+                                <a class="dropdown-item" href="#" data-lang-picker='en'>English</a>
+                                <a class="dropdown-item" href="#" data-lang-picker='ar'>العربية</a>
+                                <a class="dropdown-item" href="#" data-lang-picker='fr'>Français</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <a id="theme-switch" class="icon-moon btn-lg text-muted" href="#"></a>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-lg-3 px-lg-1">
+                    <div class="card card-confirmed text-secondary shadow-sm mb-4">
+                        <div class="card-body row text-nowrap">
+                            <div class="col px-0 px-sm-6 px-lg-4">
+                                <div class="row justify-content-center">
+                                    <div class="text-value-xl text-warning card-font-ar" id="totalConfirmed"></div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div data-i18n="confirmed">Confirmed</div>
+                                </div>
+                            </div>
+                            <div class="col px-0 px-sm-6 px-lg-4">
+                                <div class="row justify-content-center">
+                                    <div class="text-value-xl text-warning px-4 px-lg-4 card-new-confirmed card-font-ar" id="newConfirmed"></div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div data-i18n="today" id="newConfirmedText">Today</div>
+                                </div>
+                            </div>
+                            <div class="col px-0 px-sm-6 px-lg-4">
+                                <div class="row justify-content-center">
+                                    <div class="text-value-xl text-warning card-font-ar" id="totalDays"> </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div data-tooltip-i18n="confirmed-days-tooltip" data-tippy-placement="bottom"><span id="totalDaysText"></span>
+                                        <span class="icon-info-circle tooltip-info" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 px-lg-1">
+                    <div class="card card-recovered text-secondary shadow-sm mb-4">
+                        <div class="card-body row text-nowrap">
+                            <div class="col px-0 px-sm-6 px-lg-4">
+                                <div class="row justify-content-center">
+                                    <div class="text-value-xl text-success card-font-ar" id="totalRecovered"></div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div data-i18n="recovered">Recovered</div>
+                                </div>
+                            </div>
+                            <div class="col px-0 px-sm-6 px-lg-4">
+                                <div class="row justify-content-center">
+                                    <div class="text-value-xl text-success px-4 px-lg-4 card-new-recovered card-font-ar" id="newRecovered"></div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div data-i18n="today" id="newRecoveredText">Today</div>
+                                </div>
+                            </div>
+                            <div class="col px-0 px-sm-6 px-lg-4">
+                                <div class="row justify-content-center">
+                                    <div class="text-value-xl text-success card-font-ar" id="recoveryRate"></div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div data-tooltip-i18n="recovery-rate-tooltip" data-tippy-placement="bottom"><span data-i18n="rate">Rate</span>
+                                        <span class="icon-info-circle tooltip-info" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 px-lg-1">
+                    <div class="card card-deaths text-secondary shadow-sm mb-4">
+                        <div class="card-body row text-nowrap">
+                            <div class="col px-0 px-sm-6 px-lg-4">
+                                <div class="row justify-content-center">
+                                    <div class="text-value-xl text-danger card-font-ar" id="totalDeaths"></div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div data-i18n="deaths">Deaths</div>
+                                </div>
+                            </div>
+                            <div class="col px-0 px-sm-6 px-lg-4">
+                                <div class="row justify-content-center">
+                                    <div class="text-value-xl text-danger px-4 px-lg-5 card-new-deaths card-font-ar" id="newDeaths"></div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div data-i18n="today" id="newDeathsText">Today</div>
+                                </div>
+                            </div>
+                            <div class="col px-0 px-sm-6 px-lg-4">
+                                <div class="row justify-content-center">
+                                    <div class="text-value-xl text-danger card-font-ar" id="fatalityRate"></div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div data-tooltip-i18n="deaths-rate-tooltip" data-tippy-placement="bottom" aria-hidden="true"><span data-i18n="rate">Rate</span>
+                                        <span class="icon-info-circle tooltip-info"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 px-lg-1">
+                    <div class="card card-vaccinated text-secondary shadow-sm mb-4">
+                        <div class="card-body row text-nowrap">
+                            <div class="col px-0 px-sm-6 px-lg-4">
+                                <div class="row justify-content-center">
+                                    <div class="text-value-xl text-info card-font-ar" id="vaccinatedPartly"></div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div data-tooltip-i18n="vaccinated-partly-tooltip" data-tippy-placement="bottom" aria-hidden="true" id="vaccinatedPartlyTooltip"><span data-i18n="vaccinated-partly">Partly Vacci.</span>
+                                        <span class="icon-info-circle tooltip-info"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col px-0 px-sm-6 px-lg-4">
+                                <div class="row justify-content-center">
+                                    <div class="text-value-xl text-info px-4 px-lg-4 card-vaccinated-fully card-font-ar" id="vaccinatedFully"></div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div data-tooltip-i18n="vaccinated-fully-tooltip" data-tippy-placement="bottom" aria-hidden="true" id="vaccinatedFullyTooltip"><span data-i18n="vaccinated-fully">Fully Vacci.</span>
+                                        <span class="icon-info-circle tooltip-info"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col px-0 px-sm-6 px-lg-4">
+                                <div class="row justify-content-center">
+                                    <div class="text-value-xl text-info card-font-ar" id="critical"></div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div data-tooltip-i18n="active-critical-tooltip" data-tippy-placement="bottom" aria-hidden="true"><span data-i18n="critical">Critical</span>
+                                        <span class="icon-info-circle tooltip-info"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row my-2">
+                <div class="col-md-12 col-lg-12 py-1 pb-4">
+                    <ul class="nav nav-tabs" id="tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link" id="map-tab" data-toggle="tab" href="#map-pane" role="tab" aria-controls="map" aria-selected="false">
+                                <span class="icon-map pr-1"></span><span data-i18n="map">Map</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="chart-tab" data-toggle="tab" href="#chart-pane" role="tab" aria-controls="chart" aria-selected="false">
+                                <span class="icon-chart-bar pr-1"></span><span data-i18n="chart">Chart</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" id="table-tab" data-toggle="tab" href="#table-pane" role="tab" aria-controls="table" aria-selected="true">
+                                <span class="icon-table pr-1"></span><span data-i18n="table">Table</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="evolution-tab" data-toggle="tab" href="#evolution-pane" role="tab" aria-controls="evolution" aria-selected="false">
+                                <span class="icon-chart-line pr-1"></span><span data-i18n="evolution">Evolution</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content shadow-sm" id="tabContent">
+                        <div class="tab-pane fade border border-top-0" id="map-pane" role="tabpanel" aria-labelledby="map-tab">
+                            <div id='map'></div>
+                        </div>
+                        <div class="tab-pane fade border border-top-0" id="chart-pane" role="tabpanel" aria-labelledby="chart-tab">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6"></div>
+                                <div class="col-sm-12 col-md-6 d-flex flex-row-reverse">
+                                    <select class="form-control form-control-sm w-auto float-right mr-3 mt-3" id="wilayaChartsList" name="wilayaChartsList">
+                                        <option data-i18n="confirmed" value="confirmed">Confirmed</option>
+                                        <option data-i18n="new-confirmed" value="new_confirmed">New confirmed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style='height:800px;width:100%'>
+                                <canvas id="wilayaChart" dir="ltr"></canvas>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show active border border-top-0" id="table-pane" role="tabpanel" aria-labelledby="table-tab">
+                            <table id="wilayaTable" class="table table-sm table-hover table-bordered table-style">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Wilaya</th>
+                                        <th>Confirmed</th>
+                                        <th>New confirmed</th>
+                                        <th>Last reported</th>
+                                        <th>1<sup>st</sup> Reported</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade border border-top-0" id="evolution-pane" role="tabpanel" aria-labelledby="evolution-tab">
+                            <div class="row mb-4">
+                                <div class="col-sm-12 col-md-6"></div>
+                                <div class="col-sm-12 col-md-6 d-flex flex-row-reverse">
+                                    <select class="form-control form-control-sm w-auto float-right mr-3 mt-3" id="wilayaList" name="wilayaList">
+                                    </select>
+                                </div>
+                                <div class="col mt-3 mx-4 mb-4">
+                                    <div style='height:300px;width:100%'>
+                                        <canvas id="wilayaEvolutionChart" dir="ltr"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col mt-3 mx-3 mb-4">
+                                    <div style='height:300px;width:100%'>
+                                        <canvas id="wilayaDailyChart" dir="ltr"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 py-1">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <canvas id="genderChart" dir="ltr"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 py-1">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <canvas id="ageChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 py-1">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body pt-lg-5">
+                            <div style='height:auto;width:100%'>
+                                <canvas id='cumulChart'></canvas>
+                            </div>
+                            <div class="text-center">
+                                <div id="cumulDataRange" class="btn-group btn-group-toggle mt-3" data-toggle="buttons">
+                                    <label class="btn btn-sm btn-outline-secondary active">
+                                        <input type="radio" name="options" value="0" autocomplete="off" checked=""><span data-i18n="beginning">Beginning</span>
+                                    </label>
+                                    <label class="btn btn-sm btn-outline-secondary">
+                                        <input type="radio" name="options" value="-30" autocomplete="off"><span data-i18n="1-month">1 Month</span>
+                                    </label>
+                                    <label class="btn btn-sm btn-outline-secondary">
+                                        <input type="radio" name="options" value="-14" autocomplete="off"><span data-i18n="2-weeks">2 Weeks</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 py-1">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6"></div>
+                                <div class="col-sm-12 col-md-6 d-flex flex-row-reverse">
+                                    <select class="form-control form-control-sm w-auto float-right mr-3 mt-3" id="dailyChartsList" name="dailyChartsList">
+                                        <option data-i18n="confirmed" value="confirmed">Confirmed</option>
+                                        <option data-i18n="deaths" value="deaths">Deaths</option>
+                                        <option data-i18n="recovered" value="recovered">Recovered</option>
+                                        <option data-i18n="active" value="active">Active</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style='height:auto;width:100%'>
+                                <canvas id='dailyChart'></canvas>
+                            </div>
+                            <div class="text-center">
+                                <div id="dailyDataRange" class="btn-group btn-group-toggle mt-3" data-toggle="buttons">
+                                    <label class="btn btn-sm btn-outline-secondary active">
+                                        <input type="radio" name="options" value="0" autocomplete="off" checked=""><span data-i18n="beginning">Beginning</span>
+                                    </label>
+                                    <label class="btn btn-sm btn-outline-secondary">
+                                        <input type="radio" name="options" value="-30" autocomplete="off"><span data-i18n="1-month">1 Month</span>
+                                    </label>
+                                    <label class="btn btn-sm btn-outline-secondary">
+                                        <input type="radio" name="options" value="-14" autocomplete="off"><span data-i18n="2-weeks">2 Weeks</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div id="fb-comments" class="fb-comments" data-href="https://corona-dz.live/" data-numposts="10" data-width="100%"></div>
+                </div>
+            </div>
+
+            <footer class="pt-3 border-top">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                        <p>
+                            <small>
+                                <a class="text-muted link-unstyled" href="https://corona-dz.live"><img src="img/favicon.svg" alt="" width="32" height="32">
+                                    <span data-i18n="algeria-covid19-tracker" class="text-muted mx-2">Algeria Covid-19 Tracker</span></a>|
+                                <span class="a2a_kit" data-a2a-url="https://corona-dz.live" data-a2a-title="Algeria Covid-19 Tracker">
+                                    <a class="a2a_dd text-muted mx-2" id="shareBtn" href="#share" role="button">
+                                        <span class="icon-share mr-2" aria-hidden="true"></span><span data-i18n="share">Share</span></a>|</span>
+                                <a class="text-muted" href="mailto:amineroukh@gmail.com"><span class="icon-envelope mx-2" aria-hidden="true"></span><span class="mr-2" data-i18n="contact" >Contact</span></a>|
+                                <a class="text-muted" href="https://github.com/Amine27/covid-19-dz" target="_blank"><span class="icon-github mx-2" aria-hidden="true"></span><span class="mr-2" data-i18n="github" >Github</span></a>|
+                                <a class="text-muted" href="https://api.corona-dz.live" target="_blank"><span class="icon-sitemap mx-2" aria-hidden="true"></span><span data-i18n="api" >API</span></a>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </footer>
         </div>
 
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-recovered text-secondary shadow-sm mb-4">
-            <div class="card-body row text-center">
-              <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-success card-font-ar" id="totalRecovered"></div>
-                <div data-i18n="recovered">Recovered</div>
-              </div>
-              <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-success px-lg-3 card-new-recovered card-font-ar" id="newRecovered"></div>
-                <div data-i18n="today" id="newRecoveredText">Today</div>
-              </div>
-              <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-success card-font-ar" id="recoveryRate"></div>
-                <div data-tooltip-i18n="recovery-rate-tooltip" data-tippy-placement="bottom"><span data-i18n="rate">Rate</span>
-                  <span class="icon-info-circle tooltip-info" aria-hidden="true"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-deaths text-secondary shadow-sm mb-4">
-            <div class="card-body row text-center">
-              <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-danger card-font-ar" id="totalDeaths"></div>
-                <div data-i18n="deaths">Deaths</div>
-              </div>
-              <div class="col px-0 px-sm-6 px-lg-4">
-                <div class="text-value-xl text-danger px-lg-3 card-new-deaths card-font-ar" id="newDeaths"></div>
-                <div data-i18n="today" id="newDeathsText">Today</div>
-              </div>
-              <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-danger card-font-ar" id="fatalityRate"></div>
-                <div data-tooltip-i18n="deaths-rate-tooltip" data-tippy-placement="bottom" aria-hidden="true"><span data-i18n="rate">Rate</span>
-                  <span class="icon-info-circle tooltip-info"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-vaccinated text-secondary shadow-sm mb-4">
-            <div class="card-body row text-center">
-              <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-info card-font-ar" id="vaccinatedPartly"></div>
-                <div data-tooltip-i18n="vaccinated-partly-tooltip" data-tippy-placement="bottom" aria-hidden="true" id="vaccinatedPartlyTooltip"><span data-i18n="vaccinated-partly">Partly Vacci.</span>
-                </div>
-              </div>
-              <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-info px-lg-3 card-vaccinated-fully card-font-ar" id="vaccinatedFully"></div>
-                <div data-tooltip-i18n="vaccinated-fully-tooltip" data-tippy-placement="bottom" aria-hidden="true" id="vaccinatedFullyTooltip"><span data-i18n="vaccinated-fully">Fully Vacci.</span>
-                </div>
-              </div>
-              <div class="col px-0 px-sm-6 px-lg-3">
-                <div class="text-value-xl text-info card-font-ar" id="critical"></div>
-                <div data-tooltip-i18n="active-critical-tooltip" data-tippy-placement="bottom" aria-hidden="true"><span data-i18n="critical">Critical</span>
-                  <span class="icon-info-circle tooltip-info"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- <div class="col-sm-6 col-lg-3">
-             <div class="card card-active text-secondary shadow-sm mb-4">
-             <div class="card-body row text-center">
-             <div class="col px-0 px-sm-6 px-lg-3">
-             <div class="text-value-xl text-info card-font-ar" id="totalActive"></div>
-             <div data-i18n="active">Active</div>
-             </div>
-             <div class="col px-0 px-sm-6 px-lg-3">
-             <div class="text-value-xl text-info px-lg-3 card-new-active card-font-ar" id="newActive"></div>
-             <div data-i18n="today" id="newActiveText">Today</div>
-             </div>
-             <div class="col px-0 px-sm-6 px-lg-3">
-             <div class="text-value-xl text-info card-font-ar" id="critical"></div>
-             <div data-tooltip-i18n="active-critical-tooltip" data-tippy-placement="bottom" aria-hidden="true"><span data-i18n="critical">Critical</span>
-             <span class="icon-info-circle tooltip-info"></span>
-             </div>
-             </div>
-             </div>
-             </div>
-             </div>
-        -->
-      </div>
-      <div class="row my-2">
-        <div class="col-md-12 col-lg-12 py-1 pb-4">
-          <ul class="nav nav-tabs" id="tab" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link" id="map-tab" data-toggle="tab" href="#map-pane" role="tab" aria-controls="map" aria-selected="false">
-                <span class="icon-map pr-1"></span><span data-i18n="map">Map</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="chart-tab" data-toggle="tab" href="#chart-pane" role="tab" aria-controls="chart" aria-selected="false">
-                <span class="icon-chart-bar pr-1"></span><span data-i18n="chart">Chart</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" id="table-tab" data-toggle="tab" href="#table-pane" role="tab" aria-controls="table" aria-selected="true">
-                <span class="icon-table pr-1"></span><span data-i18n="table">Table</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="evolution-tab" data-toggle="tab" href="#evolution-pane" role="tab" aria-controls="evolution" aria-selected="false">
-                <span class="icon-chart-line pr-1"></span><span data-i18n="evolution">Evolution</span>
-              </a>
-            </li>
-          </ul>
-          <div class="tab-content shadow-sm" id="tabContent">
-            <div class="tab-pane fade border border-top-0" id="map-pane" role="tabpanel" aria-labelledby="map-tab">
-              <div id='map'></div>
-            </div>
-            <div class="tab-pane fade border border-top-0" id="chart-pane" role="tabpanel" aria-labelledby="chart-tab">
-              <div class="row">
-                <div class="col-sm-12 col-md-6"></div>
-                <div class="col-sm-12 col-md-6 d-flex flex-row-reverse">
-                  <select class="form-control form-control-sm w-auto float-right mr-3 mt-3" id="wilayaChartsList" name="wilayaChartsList">
-                    <option data-i18n="confirmed" value="confirmed">Confirmed</option>
-                    <option data-i18n="new-confirmed" value="new_confirmed">New confirmed</option>
-                  </select>
-                </div>
-              </div>
-              <div style='height:800px;width:100%'>
-                <canvas id="wilayaChart" dir="ltr"></canvas>
-              </div>
-            </div>
-            <div class="tab-pane fade show active border border-top-0" id="table-pane" role="tabpanel" aria-labelledby="table-tab">
-              <table id="wilayaTable" class="table table-sm table-hover table-bordered table-style">
-                <thead class="thead-light">
-                  <tr>
-                    <th>Wilaya</th>
-                    <th>Confirmed</th>
-                    <th>New confirmed</th>
-                    <th>Last reported</th>
-                    <th>1<sup>st</sup> Reported</th>
-                  </tr>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
-            </div>
-            <div class="tab-pane fade border border-top-0" id="evolution-pane" role="tabpanel" aria-labelledby="evolution-tab">
-              <div class="row mb-4">
-                <div class="col-sm-12 col-md-6"></div>
-                <div class="col-sm-12 col-md-6 d-flex flex-row-reverse">
-                  <select class="form-control form-control-sm w-auto float-right mr-3 mt-3" id="wilayaList" name="wilayaList">
-                  </select>
-                </div>
-                <div class="col mt-3 mx-4 mb-4">
-                  <div style='height:300px;width:100%'>
-                    <canvas id="wilayaEvolutionChart" dir="ltr"></canvas>
-                  </div>
-                </div>
-                <div class="col mt-3 mx-3 mb-4">
-                  <div style='height:300px;width:100%'>
-                    <canvas id="wilayaDailyChart" dir="ltr"></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 py-1">
-          <div class="card shadow-sm mb-4">
-            <div class="card-body">
-              <canvas id="genderChart" dir="ltr"></canvas>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 py-1">
-          <div class="card shadow-sm mb-4">
-            <div class="card-body">
-              <canvas id="ageChart"></canvas>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 py-1">
-          <div class="card shadow-sm mb-4">
-            <div class="card-body pt-lg-5">
-              <div style='height:auto;width:100%'>
-                <canvas id='cumulChart'></canvas>
-              </div>
-              <div class="text-center">
-                <div id="cumulDataRange" class="btn-group btn-group-toggle mt-3" data-toggle="buttons">
-                  <label class="btn btn-sm btn-outline-secondary active">
-                    <input type="radio" name="options" value="0" autocomplete="off" checked=""><span data-i18n="beginning">Beginning</span>
-                  </label>
-                  <label class="btn btn-sm btn-outline-secondary">
-                    <input type="radio" name="options" value="-30" autocomplete="off"><span data-i18n="1-month">1 Month</span>
-                  </label>
-                  <label class="btn btn-sm btn-outline-secondary">
-                    <input type="radio" name="options" value="-14" autocomplete="off"><span data-i18n="2-weeks">2 Weeks</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 py-1">
-          <div class="card shadow-sm mb-4">
-            <div class="card-body pt-0">
-              <div class="row">
-                <div class="col-sm-12 col-md-6"></div>
-                <div class="col-sm-12 col-md-6 d-flex flex-row-reverse">
-                  <select class="form-control form-control-sm w-auto float-right mr-3 mt-3" id="dailyChartsList" name="dailyChartsList">
-                    <option data-i18n="confirmed" value="confirmed">Confirmed</option>
-                    <option data-i18n="deaths" value="deaths">Deaths</option>
-                    <option data-i18n="recovered" value="recovered">Recovered</option>
-                    <option data-i18n="active" value="active">Active</option>
-                  </select>
-                </div>
-              </div>
-              <div style='height:auto;width:100%'>
-                <canvas id='dailyChart'></canvas>
-              </div>
-              <div class="text-center">
-                <div id="dailyDataRange" class="btn-group btn-group-toggle mt-3" data-toggle="buttons">
-                  <label class="btn btn-sm btn-outline-secondary active">
-                    <input type="radio" name="options" value="0" autocomplete="off" checked=""><span data-i18n="beginning">Beginning</span>
-                  </label>
-                  <label class="btn btn-sm btn-outline-secondary">
-                    <input type="radio" name="options" value="-30" autocomplete="off"><span data-i18n="1-month">1 Month</span>
-                  </label>
-                  <label class="btn btn-sm btn-outline-secondary">
-                    <input type="radio" name="options" value="-14" autocomplete="off"><span data-i18n="2-weeks">2 Weeks</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div id="fb-comments" class="fb-comments" data-href="https://corona-dz.live/" data-numposts="10" data-width="100%"></div>
-        </div>
-      </div>
-
-      <footer class="pt-3 border-top">
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <p>
-              <small>
-                <a class="text-muted link-unstyled" href="https://corona-dz.live"><img src="img/favicon.svg" alt="" width="32" height="32">
-                  <span data-i18n="algeria-covid19-tracker" class="text-muted mx-2">Algeria Covid-19 Tracker</span></a>|
-                <span class="a2a_kit" data-a2a-url="https://corona-dz.live" data-a2a-title="Algeria Covid-19 Tracker">
-                  <a class="a2a_dd text-muted mx-2" id="shareBtn" href="#share" role="button">
-                    <span class="icon-share mr-2" aria-hidden="true"></span><span data-i18n="share">Share</span></a>|</span>
-                <a class="text-muted" href="mailto:amineroukh@gmail.com"><span class="icon-envelope mx-2" aria-hidden="true"></span><span class="mr-2" data-i18n="contact" >Contact</span></a>|
-                <a class="text-muted" href="https://github.com/Amine27/covid-19-dz" target="_blank"><span class="icon-github mx-2" aria-hidden="true"></span><span class="mr-2" data-i18n="github" >Github</span></a>|
-                <a class="text-muted" href="https://api.corona-dz.live" target="_blank"><span class="icon-sitemap mx-2" aria-hidden="true"></span><span data-i18n="api" >API</span></a>
-              </small>
-            </p>
-          </div>
-        </div>
-      </footer>
-    </div>
-
-    <script>
-      if(navigator.share !== undefined) {
-        document.getElementById("shareBtn").classList.remove("a2a_dd");
-      }
-    </script>
-    <script async src="https://static.addtoany.com/menu/page.js"></script>
-    <script>
-      var a2a_config = a2a_config || {};
-      a2a_config.onclick = 1;
-    </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162515731-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || []
-      function gtag(){dataLayer.push(arguments)}
-      gtag('js', new Date())
-      gtag('config', 'UA-162515731-1')
-    </script>
-  </body>
+        <script>
+         if(navigator.share !== undefined) {
+             document.getElementById("shareBtn").classList.remove("a2a_dd");
+         }
+        </script>
+        <script async src="https://static.addtoany.com/menu/page.js"></script>
+        <script>
+         var a2a_config = a2a_config || {};
+         a2a_config.onclick = 1;
+        </script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162515731-1"></script>
+        <script>
+         window.dataLayer = window.dataLayer || []
+         function gtag(){dataLayer.push(arguments)}
+         gtag('js', new Date())
+         gtag('config', 'UA-162515731-1')
+        </script>
+    </body>
 </html>

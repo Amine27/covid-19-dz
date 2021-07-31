@@ -125,7 +125,7 @@ const getDataAugmentationRate = (dataType) => {
 export const getDataLocalized = (dataType) => dataType.map((e) => i18next.t(e))
 
 const showData = () => {
-  const lang = i18next.language
+  const lang = new Intl.Locale(i18next.language, { numberingSystem: "latn" })
   const nFormater = new Intl.NumberFormat(lang)
   const nFormaterCompact = new Intl.NumberFormat(lang, { notation: 'compact' })
   const nFormaterPercent = new Intl.NumberFormat(lang, { style: 'percent', minimumFractionDigits: 2 })

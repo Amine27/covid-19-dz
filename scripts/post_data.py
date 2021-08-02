@@ -79,7 +79,7 @@ def addAge(newDay):
 
     for i in range(len(ageOld)):
         data = {
-            'date': parser.parse(lastUpdatedOld).date(),
+            'date': parser.parse(dateOld[-1]).date(),
             'label': ageOld[i],
             'confirmed': ageConfirmedOld[i],
             'deaths': ageDeathsOld[i]
@@ -99,7 +99,7 @@ def addGender(newDay):
     head = {'Authorization': 'Bearer {}'.format(token)}
 
     data = {
-        'date': parser.parse(lastUpdatedOld).date(),
+        'date': parser.parse(dateOld[-1]).date(),
         'male': genderOld[0],
         'female': genderOld[1],
     }
@@ -119,7 +119,7 @@ def addProvince(newDay):
 
     for p_id, p in provinces.items():
         data = {
-            'date': parser.parse(lastUpdatedOld).date(),
+            'date': parser.parse(dateOld[-1]).date(),
             'provinceId': p_id,
             'confirmed': p['confirmed'],
             'recovered': p['recovered'],

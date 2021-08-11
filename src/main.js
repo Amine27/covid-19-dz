@@ -52,7 +52,7 @@ const getTotalData = (dataType) => {
 export const getDailyData = (dataType) => {
   const dailyData = []
   for (let i = 0; i < dataType.length; ++i) {
-    dailyData.push(dataType[i] - (dataType[i - 1] === undefined ? 0 : dataType[i - 1]))
+    dailyData.push(dataType[i] - (typeof dataType[i - 1] === 'undefined' ? 0 : dataType[i - 1]))
   }
   return dailyData
 }

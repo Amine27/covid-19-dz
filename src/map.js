@@ -12,15 +12,15 @@ let mapStatesBorderColor = 'white'
 const grades = [0, 100, 200, 300, 400, 500, 1000]
 const gradesText = ['0', '100', '200', '300', '400', '500', '1k']
 
-export function setMapStatesBorderColor(val) {
+export const setMapStatesBorderColor = (val) => {
   mapStatesBorderColor = val
 }
 
-export function setMapStyle(val) {
+export const setMapStyle = (val) => {
   mapStyle = val
 }
 
-export function initMap() {
+export const initMap = () => {
   if (mapInstance && mapInstance.remove) {
     mapInstance.off()
     mapInstance.remove()
@@ -102,7 +102,7 @@ export function initMap() {
 }
 
 // get color depending on population density value
-function getColor(d) {
+const getColor = (d) => {
   return d > grades[6] ? '#800026'
     : d > grades[5] ? '#BD0026'
     : d > grades[4] ? '#E31A1C'
@@ -113,7 +113,7 @@ function getColor(d) {
     : '#fff8db'
 }
 
-function highlightFeature(e) {
+const highlightFeature = (e) => {
   resetHighlight(previousTarget)
   previousTarget = e
   const layer = e.target
@@ -132,13 +132,13 @@ function highlightFeature(e) {
   info.update(layer.feature.properties)
 }
 
-function resetHighlight(e) {
+const resetHighlight = (e) => {
   if (e !== null) {
     geojson.resetStyle(e.target)
     info.update()
   }
 }
 
-function zoomToFeature(e) {
+const zoomToFeature = (e) => {
   mapInstance.fitBounds(e.target.getBounds())
 }

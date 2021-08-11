@@ -19,7 +19,7 @@ export let wilayaChart
 export let wilayaEvolutionChart
 export let wilayaDailyChart
 
-export function initCharts() {
+export const initCharts = () => {
   if (genderChart) {
     genderChart.destroy()
   }
@@ -203,7 +203,7 @@ export function initCharts() {
   })
 }
 
-export function initCumulChart(dataRange = 0) {
+export const initCumulChart = (dataRange = 0) => {
   if (cumulChart) {
     cumulChart.destroy()
   }
@@ -285,7 +285,7 @@ export function initCumulChart(dataRange = 0) {
   })
 }
 
-export function initDailyChart(dataType = 'confirmed', dataRange = 0) {
+export const initDailyChart = (dataType = 'confirmed', dataRange = 0) => {
   if (dailyChart) {
     dailyChart.destroy()
   }
@@ -387,7 +387,7 @@ export function initDailyChart(dataType = 'confirmed', dataRange = 0) {
   })
 }
 
-export function initWilayaEvolutionChart(date, confirmed) {
+export const initWilayaEvolutionChart = (date, confirmed) => {
   if (wilayaEvolutionChart) {
     wilayaEvolutionChart.destroy()
   }
@@ -445,7 +445,7 @@ export function initWilayaEvolutionChart(date, confirmed) {
   })
 }
 
-export function initWilayaDailyChart(date, dataType, data, avg7Data) {
+export const initWilayaDailyChart = (date, dataType, data, avg7Data) => {
   if (wilayaDailyChart) {
     wilayaDailyChart.destroy()
   }

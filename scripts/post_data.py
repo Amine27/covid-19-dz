@@ -32,6 +32,7 @@ provinces = {}
 token = ''
 URL = 'https://api.corona-dz.live'
 
+
 def login():
     data = {
         'email': '{}'.format(os.getenv('API_EMAIL')),
@@ -44,6 +45,7 @@ def login():
         return response.json()['token']
     except requests.exceptions.RequestException as e:
         raise SystemExit(e)
+
 
 def addCountry(newDay):
     head = {'Authorization': 'Bearer {}'.format(token)}
@@ -74,6 +76,7 @@ def addCountry(newDay):
     except requests.exceptions.RequestException as e:
         raise SystemExit(e)
 
+
 def addAge(newDay):
     head = {'Authorization': 'Bearer {}'.format(token)}
 
@@ -95,6 +98,7 @@ def addAge(newDay):
         except requests.exceptions.RequestException as e:
             raise SystemExit(e)
 
+
 def addGender(newDay):
     head = {'Authorization': 'Bearer {}'.format(token)}
 
@@ -113,6 +117,7 @@ def addGender(newDay):
         print(response.json())
     except requests.exceptions.RequestException as e:
         raise SystemExit(e)
+
 
 def addProvince(newDay):
     head = {'Authorization': 'Bearer {}'.format(token)}
@@ -143,6 +148,7 @@ def addProvince(newDay):
             print(response.json())
         except requests.exceptions.RequestException as e:
             raise SystemExit(e)
+
 
 def readData(f):
     global dateOld, confirmedOld, recoveredOld, deathsOld, treatmentOld, newConfirmedList, newRecoveredList, newDeathsList, newTreatmentList
@@ -193,6 +199,7 @@ def readData(f):
     avg7DeathsList = getAverageDailyData(newDeathsList, 7)
     avg7TreatmentList = getAverageDailyData(newTreatmentList, 7)
 
+
 def getProvincesAPIData(days):
     head = {'Authorization': 'Bearer {}'.format(token)}
     try:
@@ -213,19 +220,21 @@ def getProvincesAPIData(days):
     except requests.exceptions.RequestException as e:
         raise SystemExit(e)
 
+
 def checkNewDay():
     try:
         response = requests.get(URL+'/country/latest')
         response.raise_for_status()
         lastDate = parser.parse(response.json()['date']).date()
-        today = datetime.date.today()
-        if(lastDate < today):
-            print('new day:', today)
+        dataDate = parser.parse(dateOld[-1]).date()
+        if(lastDate < dataDate):
+            print('new day:', dataDate)
             return True
         print('modifying day:', lastDate)
         return False
     except requests.exceptions.RequestException as e:
         raise SystemExit(e)
+
 
 def getDailyData(dataType):
     dailyData = []
@@ -235,6 +244,7 @@ def getDailyData(dataType):
         else:
             dailyData.append(dataType[i] - (dataType[i-1]))
     return dailyData
+
 
 def getAverageDailyData(dailyData, days):
     averageDailyData = []
@@ -249,21 +259,23 @@ def getAverageDailyData(dailyData, days):
 
     return averageDailyData
 
-def updateData(newDay):
+
+def updateData():
     dataFile = "./src/data.js"
-    print(dataFile)
     readData(dataFile)
+    newDay = checkNewDay()
     addCountry(newDay)
     addAge(newDay)
     addGender(newDay)
     getProvincesAPIData("7")
     addProvince(newDay)
 
+
 def main():
     global token
     token = login()
-    newDay = checkNewDay()
-    updateData(newDay)
+    updateData()
+
 
 if __name__ == '__main__':
     main()

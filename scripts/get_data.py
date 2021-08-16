@@ -36,250 +36,119 @@ def getWilayaStats():
             wilaya = line.strip().split(':')
             pName = wilaya[0].replace('📌', '').strip()
             pStats = re.findall(r'\d+', wilaya[1])
-            pConfirmed = int(pStats[0])
-            pNewConfirmed = int(pStats[1])
-            # print(pName, pConfirmed, pNewConfirmed)
-            if pName == 'عين الدفلى':
-                provinces['AIN DEFLA']['confirmed'] = pConfirmed
-                provinces['AIN DEFLA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['AIN DEFLA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'عين تموشنت':
-                provinces['AIN TEMOUCHENT']['confirmed'] = pConfirmed
-                provinces['AIN TEMOUCHENT']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['AIN TEMOUCHENT']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'أدرار':
-                provinces['ADRAR']['confirmed'] = pConfirmed
-                provinces['ADRAR']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['ADRAR']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'الجزائر':
-                provinces['ALGER']['confirmed'] = pConfirmed
-                provinces['ALGER']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['ALGER']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'عنابة':
-                provinces['ANNABA']['confirmed'] = pConfirmed
-                provinces['ANNABA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['ANNABA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'بشار':
-                provinces['BECHAR']['confirmed'] = pConfirmed
-                provinces['BECHAR']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['BECHAR']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'بجاية':
-                provinces['BEJAIA']['confirmed'] = pConfirmed
-                provinces['BEJAIA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['BEJAIA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'باتنة':
-                provinces['BATNA']['confirmed'] = pConfirmed
-                provinces['BATNA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['BATNA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'بسكرة':
-                provinces['BISKRA']['confirmed'] = pConfirmed
-                provinces['BISKRA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['BISKRA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'البليدة':
-                provinces['BLIDA']['confirmed'] = pConfirmed
-                provinces['BLIDA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['BLIDA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'برج بوعريريج':
-                provinces['BORDJ BOU ARRERIDJ']['confirmed'] = pConfirmed
-                provinces['BORDJ BOU ARRERIDJ']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['BORDJ BOU ARRERIDJ']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'البويرۃ':
-                provinces['BOUIRA']['confirmed'] = pConfirmed
-                provinces['BOUIRA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['BOUIRA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'بومرداس':
-                provinces['BOUMERDES']['confirmed'] = pConfirmed
-                provinces['BOUMERDES']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['BOUMERDES']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'الشلف':
-                provinces['CHLEF']['confirmed'] = pConfirmed
-                provinces['CHLEF']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['CHLEF']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'قسنطينة':
-                provinces['CONSTANTINE']['confirmed'] = pConfirmed
-                provinces['CONSTANTINE']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['CONSTANTINE']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'الجلفة':
-                provinces['DJELFA']['confirmed'] = pConfirmed
-                provinces['DJELFA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['DJELFA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'البيض':
-                provinces['EL BAYADH']['confirmed'] = pConfirmed
-                provinces['EL BAYADH']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['EL BAYADH']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'الوادي':
-                provinces['EL OUED']['confirmed'] = pConfirmed
-                provinces['EL OUED']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['EL OUED']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'الطارف':
-                provinces['EL TARF']['confirmed'] = pConfirmed
-                provinces['EL TARF']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['EL TARF']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'غرداية':
-                provinces['GHARDAIA']['confirmed'] = pConfirmed
-                provinces['GHARDAIA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['GHARDAIA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'قالمة':
-                provinces['GUELMA']['confirmed'] = pConfirmed
-                provinces['GUELMA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['GUELMA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'إيليزي':
-                provinces['ILLIZI']['confirmed'] = pConfirmed
-                provinces['ILLIZI']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['ILLIZI']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'جيجل':
-                provinces['JIJEL']['confirmed'] = pConfirmed
-                provinces['JIJEL']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['JIJEL']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'خنشلة':
-                provinces['KHENCHELA']['confirmed'] = pConfirmed
-                provinces['KHENCHELA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['KHENCHELA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'الأغواط':
-                provinces['LAGHOUAT']['confirmed'] = pConfirmed
-                provinces['LAGHOUAT']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['LAGHOUAT']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'المسيلة':
-                provinces["M'SILA"]['confirmed'] = pConfirmed
-                provinces["M'SILA"]['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces["M'SILA"]['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'المدية':
-                provinces['MEDEA']['confirmed'] = pConfirmed
-                provinces['MEDEA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['MEDEA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'معسكر':
-                provinces['MASCARA']['confirmed'] = pConfirmed
-                provinces['MASCARA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['MASCARA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'ميلة':
-                provinces['MILA']['confirmed'] = pConfirmed
-                provinces['MILA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['MILA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'مستغانم':
-                provinces['MOSTAGANEM']['confirmed'] = pConfirmed
-                provinces['MOSTAGANEM']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['MOSTAGANEM']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'النعامة':
-                provinces['NAAMA']['confirmed'] = pConfirmed
-                provinces['NAAMA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['NAAMA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'وهران':
-                provinces['ORAN']['confirmed'] = pConfirmed
-                provinces['ORAN']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['ORAN']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'ورقلة':
-                provinces['OUARGLA']['confirmed'] = pConfirmed
-                provinces['OUARGLA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['OUARGLA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'أم البواقي':
-                provinces['OUM EL BOUAGHI']['confirmed'] = pConfirmed
-                provinces['OUM EL BOUAGHI']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['OUM EL BOUAGHI']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'غليزان':
-                provinces['RELIZANE']['confirmed'] = pConfirmed
-                provinces['RELIZANE']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['RELIZANE']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'سطيف':
-                provinces['SETIF']['confirmed'] = pConfirmed
-                provinces['SETIF']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['SETIF']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'سعيدة':
-                provinces['SAIDA']['confirmed'] = pConfirmed
-                provinces['SAIDA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['SAIDA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'سيدي بلعباس':
-                provinces['SIDI BEL ABBES']['confirmed'] = pConfirmed
-                provinces['SIDI BEL ABBES']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['SIDI BEL ABBES']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'سكيكدة':
-                provinces['SKIKDA']['confirmed'] = pConfirmed
-                provinces['SKIKDA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['SKIKDA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'سوق أهراس':
-                provinces['SOUK AHRAS']['confirmed'] = pConfirmed
-                provinces['SOUK AHRAS']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['SOUK AHRAS']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'تبسة':
-                provinces['TEBESSA']['confirmed'] = pConfirmed
-                provinces['TEBESSA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['TEBESSA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'تمنراست':
-                provinces['TAMANGHASSET']['confirmed'] = pConfirmed
-                provinces['TAMANGHASSET']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['TAMANGHASSET']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'تيارت':
-                provinces['TIARET']['confirmed'] = pConfirmed
-                provinces['TIARET']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['TIARET']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'تندوف':
-                provinces['TINDOUF']['confirmed'] = pConfirmed
-                provinces['TINDOUF']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['TINDOUF']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'تيبازة':
-                provinces['TIPAZA']['confirmed'] = pConfirmed
-                provinces['TIPAZA']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['TIPAZA']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'تيسمسيلت':
-                provinces['TISSEMSILT']['confirmed'] = pConfirmed
-                provinces['TISSEMSILT']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['TISSEMSILT']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'تيزي وزو':
-                provinces['TIZI OUZOU']['confirmed'] = pConfirmed
-                provinces['TIZI OUZOU']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['TIZI OUZOU']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
-            elif pName == 'تلمسان':
-                provinces['TLEMCEN']['confirmed'] = pConfirmed
-                provinces['TLEMCEN']['new_confirmed'] = pNewConfirmed
-                if pNewConfirmed > 0 and provincesDate == totalDate:
-                    provinces['TLEMCEN']['last_reported'] = provincesDate.strftime('%Y-%m-%d')
+            pConfirmed = pNewConfirmed = 0
 
+            if (len(pStats) == 1):
+                pNewConfirmed = int(pStats[0])
+            elif (len(pStats) == 2):
+                pConfirmed = int(pStats[0])
+                pNewConfirmed = int(pStats[1])
+            pId = ''
+
+            if pName == 'عين الدفلى':
+                pId = 'AIN DEFLA'
+            elif pName == 'عين تموشنت':
+                pId = 'AIN TEMOUCHENT'
+            elif pName == 'أدرار':
+                pId = 'ADRAR'
+            elif pName == 'الجزائر':
+                pId = 'ALGER'
+            elif pName == 'عنابة':
+                pId = 'ANNABA'
+            elif pName == 'بشار':
+                pId = 'BECHAR'
+            elif pName == 'بجاية':
+                pId = 'BEJAIA'
+            elif pName == 'باتنة':
+                pId = 'BATNA'
+            elif pName == 'بسكرة':
+                pId = 'BISKRA'
+            elif pName == 'البليدة':
+                pId = 'BLIDA'
+            elif pName == 'برج بوعريريج':
+                pId = 'BORDJ BOU ARRERIDJ'
+            elif pName == 'البويرۃ' or pName == 'البويرة':
+                pId = 'BOUIRA'
+            elif pName == 'بومرداس':
+                pId = 'BOUMERDES'
+            elif pName == 'الشلف':
+                pId = 'CHLEF'
+            elif pName == 'قسنطينة':
+                pId = 'CONSTANTINE'
+            elif pName == 'الجلفة':
+                pId = 'DJELFA'
+            elif pName == 'البيض':
+                pId = 'EL BAYADH'
+            elif pName == 'الوادي':
+                pId = 'EL OUED'
+            elif pName == 'الطارف':
+                pId = 'EL TARF'
+            elif pName == 'غرداية':
+                pId = 'GHARDAIA'
+            elif pName == 'قالمة':
+                pId = 'GUELMA'
+            elif pName == 'إيليزي':
+                pId = 'ILLIZI'
+            elif pName == 'جيجل':
+                pId = 'JIJEL'
+            elif pName == 'خنشلة':
+                pId = 'KHENCHELA'
+            elif pName == 'الأغواط':
+                pId = 'LAGHOUAT'
+            elif pName == 'المسيلة':
+                pId = "M'SILA"
+            elif pName == 'المدية':
+                pId = 'MEDEA'
+            elif pName == 'معسكر':
+                pId = 'MASCARA'
+            elif pName == 'ميلة':
+                pId = 'MILA'
+            elif pName == 'مستغانم':
+                pId = 'MOSTAGANEM'
+            elif pName == 'النعامة':
+                pId = 'NAAMA'
+            elif pName == 'وهران':
+                pId = 'ORAN'
+            elif pName == 'ورقلة':
+                pId = 'OUARGLA'
+            elif pName == 'أم البواقي':
+                pId = 'OUM EL BOUAGHI'
+            elif pName == 'غليزان':
+                pId = 'RELIZANE'
+            elif pName == 'سطيف':
+                pId = 'SETIF'
+            elif pName == 'سعيدة':
+                pId = 'SAIDA'
+            elif pName == 'سيدي بلعباس':
+                pId = 'SIDI BEL ABBES'
+            elif pName == 'سكيكدة':
+                pId = 'SKIKDA'
+            elif pName == 'سوق أهراس':
+                pId = 'SOUK AHRAS'
+            elif pName == 'تبسة':
+                pId = 'TEBESSA'
+            elif pName == 'تمنراست':
+                pId = 'TAMANGHASSET'
+            elif pName == 'تيارت':
+                pId = 'TIARET'
+            elif pName == 'تندوف':
+                pId = 'TINDOUF'
+            elif pName == 'تيبازة':
+                pId = 'TIPAZA'
+            elif pName == 'تيسمسيلت':
+                pId = 'TISSEMSILT'
+            elif pName == 'تيزي وزو':
+                pId = 'TIZI OUZOU'
+            elif pName == 'تلمسان':
+                pId = 'TLEMCEN'
+
+            if (provincesDate >= datetime.date.today()):
+                provinces[pId]['confirmed'] = provinces[pId]['confirmed'] + pNewConfirmed if pConfirmed == 0 else pConfirmed
+            provinces[pId]['new_confirmed'] = pNewConfirmed
+            if pNewConfirmed > 0 and provincesDate == totalDate:
+                provinces[pId]['last_reported'] = provincesDate.strftime('%Y-%m-%d')
+
+            # print(pName, provinces[pId]['confirmed'], provinces[pId]['new_confirmed'])
 
 def getTotalStats():
     global totalDate
@@ -334,9 +203,9 @@ def readData():
                 provinces[pName] = {}
                 provinces[pName]['id'] = int(p['id'])
                 provinces[pName]['name'] = line[line.find('"')+1:line.find('":')]
-                provinces[pName]['confirmed'] = p['confirmed']
-                provinces[pName]['recovered'] = p['recovered']
-                provinces[pName]['deaths'] = p['deaths']
+                provinces[pName]['confirmed'] = int(p['confirmed'])
+                provinces[pName]['recovered'] = int(p['recovered'])
+                provinces[pName]['deaths'] = int(p['deaths'])
                 provinces[pName]['new_confirmed'] = 0
                 provinces[pName]['new_recovered'] = 0
                 provinces[pName]['new_deaths'] = 0

@@ -5,3 +5,5 @@ dist
 *.log
 *~
 \#*\#
+src/data-total.txt
+src/data-wilaya.txt

@@ -6,7 +6,8 @@
     "node": true,
     "jquery": true,
     "es6": true,
-    "amd": true
+    "amd": true,
+    "jest": true
   },
   "extends": "eslint:recommended",
   "plugins": ["compat"],

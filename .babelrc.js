@@ -1,11 +1,14 @@
 module.exports = {
   presets: [
     [
-      '@babel/env',
+      '@babel/preset-env',
       {
         loose: true,
         modules: false,
-        exclude: ['transform-typeof-symbol']
+        exclude: ['transform-typeof-symbol'],
+        targets: {
+          esmodules: true,
+        }
       }
     ]
   ],
@@ -15,7 +18,7 @@ module.exports = {
   ].filter(Boolean),
   env: {
     test: {
-      plugins: [ 'istanbul' ]
+      plugins: [ '@babel/plugin-transform-modules-commonjs' ]
     }
   }
 };

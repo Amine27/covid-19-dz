@@ -45,18 +45,16 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-          outputPath: 'img/'
+        type: 'asset/resource',
+        generator: {
+          filename: 'img/[name].[ext]'
         }
       },
       {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[hash].[ext]',
-          outputPath: 'fonts/'
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name].[hash].[ext]'
         }
       }
     ]
@@ -70,16 +68,18 @@ module.exports = {
       filename: '[name].[chunkhash].css'
     }),
     new OptimizeCSSAssetsPlugin({}),
-    new CopyWebpackPlugin([
-      {
-        from: './static/img',
-        to: 'img'
-      },
-      {
-        from: './static/map',
-        to: 'map'
-      }
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: './static/img',
+          to: 'img'
+        },
+        {
+          from: './static/map',
+          to: 'map'
+        }
+      ]
+    }),
     new MomentLocalesPlugin({
       localesToKeep: ['fr', 'ar-dz']
     }),

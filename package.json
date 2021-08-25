@@ -44,8 +44,9 @@
   },
   "dependencies": {
     "bootstrap-v4-rtl": "^4.4.1-2",
-    "chart.js": "^2.9.4",
-    "chartjs-plugin-datalabels": "^0.7.0",
+    "chart.js": "^3.5.1",
+    "chartjs-adapter-moment": "^1.0.0",
+    "chartjs-plugin-datalabels": "^2.0.0",
     "datatables.net-bs4": "^1.10.25",
     "datatables.net-plugins": "^1.10.24",
     "dotenv": "^10.0.0",

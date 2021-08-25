@@ -9,6 +9,7 @@ import i18next from 'i18next'
 import jqueryI18next from 'jquery-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import tippy from 'tippy.js'
+import { Chart } from 'chart.js'
 
 import resources from '../static/locales'
 import {
@@ -353,18 +354,18 @@ const updateLayoutDirection = () => {
   if (dir === 'rtl') {
     $('html,#map').addClass('font-face-ar')
     $('#dropdownMenu').removeClass('dropdown-menu-right')
-    Chart.defaults.global.defaultFontFamily = "'Tajawal', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'"
-    Chart.defaults.global.legend.rtl = true
-    Chart.defaults.global.tooltips.rtl = true
+    Chart.defaults.font.family = "'Tajawal', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'"
+    Chart.defaults.plugins.legend.rtl = true
+    Chart.defaults.plugins.tooltip.rtl = true
   } else {
     $('html,#map').removeClass('font-face-ar')
     $('#dropdownMenu').addClass('dropdown-menu-right')
-    Chart.defaults.global.defaultFontFamily = "'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'"
-    Chart.defaults.global.legend.rtl = false
-    Chart.defaults.global.tooltips.rtl = false
+    Chart.defaults.font.family = "'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'"
+    Chart.defaults.plugins.legend.rtl = false
+    Chart.defaults.plugins.tooltip.rtl = false
   }
-  Chart.defaults.global.legend.textDirection = dir
-  Chart.defaults.global.tooltips.textDirection = dir
+  Chart.defaults.plugins.legend.textDirection = dir
+  Chart.defaults.plugins.tooltip.textDirection = dir
   $('tbody').attr('dir', dir)
 }
 
@@ -386,7 +387,7 @@ const updateTheme = (colorScheme) => {
     localStorage.setItem('theme', 'dark')
     $('#theme-switch').removeClass('icon-moon text-muted')
     $('#theme-switch').addClass('icon-sun text-warning')
-    Chart.defaults.global.defaultFontColor = '#e6e6e6'
+    Chart.defaults.color = '#e6e6e6'
     chartColors.gridLinesColor = '#444'
     setMapStyle('dark-v10')
     setMapStatesBorderColor('#444')
@@ -395,7 +396,7 @@ const updateTheme = (colorScheme) => {
     localStorage.setItem('theme', 'light')
     $('#theme-switch').removeClass('icon-sun text-warning')
     $('#theme-switch').addClass('icon-moon text-muted')
-    Chart.defaults.global.defaultFontColor = '#666'
+    Chart.defaults.color = '#666'
     chartColors.gridLinesColor = 'rgba(0, 0, 0, 0.1)'
     setMapStyle('light-v10')
     setMapStatesBorderColor('white')

@@ -1,6 +1,7 @@
 import i18next from 'i18next'
-import Chart from 'chart.js'
-import datalabels from 'chartjs-plugin-datalabels'
+import { Chart, ArcElement, LineElement, BarElement, PointElement, DoughnutController, BarController, LineController, CategoryScale, LinearScale, TimeScale, Legend, Title, Tooltip } from 'chart.js'
+import 'chartjs-adapter-moment'
+import ChartDataLabels from 'chartjs-plugin-datalabels'
 import {
   age, ageConfirmedData, ageDeathsData, confirmed, date, deaths, gender, genderData, provinces, recovered
 } from './data.js'
@@ -8,8 +9,10 @@ import {
   active, chartColors, getAverageDailyData, getDailyData, getDataLocalized, getDataPerWilayaName, getDataPerWilayaValue
 } from './main.js'
 
-Chart.defaults.global.plugins.datalabels.display = false
-Chart.defaults.global.hover.events = ['mousemove', 'mouseout', 'click']
+Chart.register(LineElement, ArcElement, BarElement, PointElement, DoughnutController, BarController, LineController, CategoryScale, LinearScale, TimeScale, Legend, Title, Tooltip, ChartDataLabels)
+
+Chart.defaults.plugins.datalabels.display = false
+Chart.defaults.hover.events = ['mousemove', 'mouseout', 'click']
 
 export let cumulChart
 export let genderChart
@@ -56,13 +59,6 @@ export const initCharts = () => {
       response: true,
       maintainAspectRatio: false,
       aspectRatio: 1,
-      legend: {
-        position: 'top'
-      },
-      title: {
-        display: true,
-        text: i18next.t('cases-gender')
-      },
       animation: {
         animateScale: true,
         animateRotate: true
@@ -70,18 +66,23 @@ export const initCharts = () => {
       plugins: {
         datalabels: {
           display: true,
+          textAlign: 'center',
           color: 'white',
           font: {
             weight: 'bold'
           },
           formatter: (value, ctx) => {
-            let sum = 0
             const dataArr = ctx.chart.data.datasets[0].data
-            dataArr.map((data) => {
-              sum += data
-            })
+            const sum = dataArr.reduce((i, curr) => i + curr)
             return `${(value * 100 / sum).toFixed(2)}%`
           }
+        },
+        legend: {
+          position: 'top'
+        },
+        title: {
+          display: true,
+          text: i18next.t('cases-gender')
         }
       }
     }
@@ -112,41 +113,44 @@ export const initCharts = () => {
       response: true,
       maintainAspectRatio: false,
       aspectRatio: 1,
-      legend: {
-        display: true
-      },
       scales: {
-        xAxes: [{
-          gridLines: {
+        x: {
+          grid: {
             drawOnChartArea: false
           }
-        }],
-        yAxes: [{
+        },
+        y: {
           ticks: {
             beginAtZero: true
           },
-          gridLines: {
+          grid: {
             color: chartColors.gridLinesColor
           }
-        }]
+        }
       },
-      title: {
-        display: true,
-        text: i18next.t('cases-age')
-      },
-      tooltips: {
-        mode: 'index',
-        intersect: false
+      plugins: {
+        title: {
+          display: true,
+          text: i18next.t('cases-age')
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        },
+        legend: {
+          display: true
+        }
       }
     }
   })
 
   wilayaChart = new Chart($('#wilayaChart'), {
-    type: 'horizontalBar',
+    type: 'bar',
     data: {
       labels: getDataPerWilayaName(provinces, 'confirmed', false),
       datasets: [
         {
+          axis: 'y',
           label: i18next.t('confirmed'),
           backgroundColor: chartColors.orange,
           borderColor: chartColors.orange,
@@ -156,47 +160,48 @@ export const initCharts = () => {
       ]
     },
     options: {
+      indexAxis: 'y',
       layout: {
         padding: {
-          right: 30,
-          left: 130
+          right: 20,
+          left: 10
         }
       },
       response: true,
       maintainAspectRatio: false,
       aspectRatio: 1,
-      legend: {
-        display: false
-      },
-      title: {
-        display: true,
-        text: i18next.t('cases-wilaya')
-      },
-      tooltips: {
-        mode: 'index',
-        intersect: false
-      },
       scales: {
-        xAxes: [{
+        x: {
           ticks: {
             beginAtZero: true
           }
-        }],
-        yAxes: [{
+        },
+        y: {
           ticks: {
-            mirror: true,
-            padding: 130
+            autoSkip: false,
+            crossAlign: 'far'
           },
-          gridLines: {
+          grid: {
             color: chartColors.gridLinesColor
           }
-        }]
+        }
       },
       plugins: {
         datalabels: {
           display: true,
           anchor: 'end',
-          align:'right'
+          align: 'right'
+        },
+        legend: {
+          display: false
+        },
+        title: {
+          display: true,
+          text: i18next.t('cases-wilaya')
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false
         }
       }
     }
@@ -252,34 +257,36 @@ export const initCumulChart = (dataRange = 0) => {
       maintainAspectRatio: false,
       aspectRatio: 1,
       scales: {
-        xAxes: [{
+        x: {
           type: 'time',
           time: {
             parser: 'M/D/YY',
             tooltipFormat: 'll'
           },
-          gridLines: {
+          grid: {
             drawOnChartArea: false
           }
-        }],
-        yAxes: [{
-          gridLines: {
+        },
+        y: {
+          grid: {
             color: chartColors.gridLinesColor
           }
-        }]
-      },
-      title: {
-        display: true,
-        text: i18next.t('cases-evolution')
+        }
       },
       elements: {
         point: {
           radius: 0
         }
       },
-      tooltips: {
-        mode: 'index',
-        intersect: false
+      plugins: {
+        title: {
+          display: true,
+          text: i18next.t('cases-evolution')
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        }
       }
     }
   })
@@ -346,42 +353,44 @@ export const initDailyChart = (dataType = 'confirmed', dataRange = 0) => {
       response: true,
       maintainAspectRatio: false,
       aspectRatio: 1,
-      legend: {
-        display: true
-      },
       scales: {
-        xAxes: [{
+        x: {
           offset: true,
           type: 'time',
           time: {
             parser: 'M/D/YY',
             tooltipFormat: 'll'
           },
-          gridLines: {
+          grid: {
             drawOnChartArea: false
           }
-        }],
-        yAxes: [{
+        },
+        y: {
           ticks: {
             beginAtZero: true
           },
-          gridLines: {
+          grid: {
             color: chartColors.gridLinesColor
           }
-        }]
-      },
-      title: {
-        display: true,
-        text: i18next.t('daily-cases')
+        }
       },
       elements: {
         point: {
           radius: 0
         }
       },
-      tooltips: {
-        mode: 'index',
-        intersect: false
+      plugins: {
+        title: {
+          display: true,
+          text: i18next.t('daily-cases')
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        },
+        legend: {
+          display: true
+        }
       }
     }
   })
@@ -412,34 +421,36 @@ export const initWilayaEvolutionChart = (date, confirmed) => {
       maintainAspectRatio: false,
       aspectRatio: 1,
       scales: {
-        xAxes: [{
+        x: {
           type: 'time',
           time: {
             // parser: 'YYYY-MM-DDTHH:mm:ssZ',
             tooltipFormat: 'll'
           },
-          gridLines: {
+          grid: {
             drawOnChartArea: false
           }
-        }],
-        yAxes: [{
-          gridLines: {
+        },
+        y: {
+          grid: {
             color: chartColors.gridLinesColor
           }
-        }]
-      },
-      title: {
-        display: true,
-        text: i18next.t('cases-evolution')
+        }
       },
       elements: {
         point: {
           radius: 0
         }
       },
-      tooltips: {
-        mode: 'index',
-        intersect: false
+      plugins: {
+        title: {
+          display: true,
+          text: i18next.t('cases-evolution')
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        }
       }
     }
   })
@@ -489,42 +500,44 @@ export const initWilayaDailyChart = (date, dataType, data, avg7Data) => {
       response: true,
       maintainAspectRatio: false,
       aspectRatio: 1,
-      legend: {
-        display: true
-      },
       scales: {
-        xAxes: [{
+        x: {
           offset: true,
           type: 'time',
           time: {
             // parser: 'YYYY-MM-DDTHH:mm:ssZ',
             tooltipFormat: 'll'
           },
-          gridLines: {
+          grid: {
             drawOnChartArea: false
           }
-        }],
-        yAxes: [{
+        },
+        y: {
           ticks: {
             beginAtZero: true
           },
-          gridLines: {
+          grid: {
             color: chartColors.gridLinesColor
           }
-        }]
-      },
-      title: {
-        display: true,
-        text: i18next.t('daily-cases')
+        }
       },
       elements: {
         point: {
           radius: 0
         }
       },
-      tooltips: {
-        mode: 'index',
-        intersect: false
+      plugins: {
+        title: {
+          display: true,
+          text: i18next.t('daily-cases')
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        },
+        legend: {
+          display: true
+        }
       }
     }
   })

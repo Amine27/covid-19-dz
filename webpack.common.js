@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const {
   CleanWebpackPlugin
@@ -67,7 +67,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].[chunkhash].css'
     }),
-    new OptimizeCSSAssetsPlugin({}),
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -89,6 +88,9 @@ module.exports = {
     splitChunks: {
       name: 'vendor',
       chunks: 'all'
-    }
+    },
+    minimizer: [
+      new CssMinimizerPlugin()
+    ]
   }
 }

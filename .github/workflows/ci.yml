@@ -29,6 +29,11 @@ jobs:
     - run: npm ci
     - run: npm run build-prod --if-present
     - run: npm test
+    
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
     - name: Deploy to Server
       uses: easingthemes/ssh-deploy@main
       env:

@@ -44,8 +44,6 @@ jobs:
       with:
         name: dist
         path: dist
-    - name: Display structure of downloaded files
-      run: ls -R
     - name: Deploy to production server
       uses: easingthemes/ssh-deploy@main
       env:

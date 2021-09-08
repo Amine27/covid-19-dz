@@ -29,12 +29,21 @@ jobs:
     - run: npm ci
     - run: npm run build-prod --if-present
     - run: npm test
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: dist
+        path: dist
     
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-    - name: Deploy to Server
+    - name: Download production artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: dist
+    - name: Deploy to production server
       uses: easingthemes/ssh-deploy@main
       env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}

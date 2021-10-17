@@ -152,7 +152,9 @@ const showData = () => {
   $('#recoveryRate').text(nFormaterPercent.format(getDataRate(confirmed, recovered)))
   $('#critical').text(nFormater.format(critical))
 
+  document.querySelector('#vaccinatedFully')._tippy.setContent(nFormater.format(getTotalData(vaccinatedFully)))
   document.querySelector('#vaccinatedFullyTooltip')._tippy.setContent(i18next.t('vaccinated-fully-tooltip', { count: nFormaterPercent.format(getVaccinatedRate(vaccinatedFully)) }))
+  document.querySelector('#vaccinatedPartly')._tippy.setContent(nFormater.format(getTotalData(vaccinatedPartly)))
   document.querySelector('#vaccinatedPartlyTooltip')._tippy.setContent(i18next.t('vaccinated-partly-tooltip', { count: nFormaterPercent.format(getVaccinatedRate(vaccinatedPartly)) }))
 }
 

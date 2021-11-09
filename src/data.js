@@ -13,7 +13,7 @@ export const age = ['< 1', '1 - 14', '15 - 24', '25 - 49', '50 - 59', '+60', 'N/
 export const ageConfirmedData = [79, 697, 1882, 21582, 9384, 18388, 3618]
 export const ageDeathsData = [0, 2, 1, 74, 138, 637, 0]
 export const populationTotal = 43900000
-export const lastUpdated = '2021-11-09 17:25'
+export const lastUpdated = '2021-11-09 17:26'
 export const provinces = {
   "Aïn Defla": { id: 44, confirmed: 1081, recovered: 0, deaths: 9, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-27", last_reported: "2021-09-30" },
   "Aïn Témouchent": { id: 46, confirmed: 2506, recovered: 0, deaths: 5, new_confirmed: 0, new_recovered: 0, new_deaths: 0, reported: "2020-03-23", last_reported: "2021-10-10" },

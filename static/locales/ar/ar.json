@@ -41,6 +41,7 @@
     "active-critical-tooltip": "تحت العناية المركزة",
     "vaccinated-partly-tooltip": "{{count}} من السكان تم تلقيحهم جزئيًا على الأقل",
     "vaccinated-fully-tooltip": "{{count}} من السكان تم تلقيحهم بالكامل",
+    "vaccinations-evolution": "تطور عدد الملقحين",
     "cases-evolution": "تطور عدد الحالات",
     "cases-gender": "جنس المصابين",
     "cases-age": "الفئة العمرية للمصابين",

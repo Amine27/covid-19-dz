@@ -3,7 +3,7 @@ import { Chart, ArcElement, LineElement, BarElement, PointElement, DoughnutContr
 import 'chartjs-adapter-moment'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
 import {
-  age, ageConfirmedData, ageDeathsData, confirmed, date, deaths, gender, genderData, provinces, recovered
+  age, ageConfirmedData, ageDeathsData, confirmed, date, deaths, gender, genderData, provinces, recovered, vaccinatedDate, vaccinatedFully, vaccinatedPartly
 } from './data.js'
 import {
   active, chartColors, getAverageDailyData, getDailyData, getDataLocalized, getDataPerWilayaName, getDataPerWilayaValue
@@ -21,6 +21,7 @@ export let dailyChart
 export let wilayaChart
 export let wilayaEvolutionChart
 export let wilayaDailyChart
+export let vaccinationChart
 
 export const initCharts = () => {
   if (genderChart) {
@@ -35,6 +36,7 @@ export const initCharts = () => {
 
   initDailyChart()
   initCumulChart()
+  initVaccinationChart()
 
   genderChart = new Chart($('#genderChart'), {
     type: 'doughnut',
@@ -539,6 +541,83 @@ export const initWilayaDailyChart = (date, dataType, data, avg7Data) => {
           display: true
         }
       }
+    }
+  })
+}
+
+export const initVaccinationChart = (dataRange = 0) => {
+  if (vaccinationChart) {
+    vaccinationChart.destroy()
+  }
+
+  vaccinationChart = new Chart($('#vaccinationChart'), {
+    type: 'line',
+    data: {
+      labels: vaccinatedDate.slice(dataRange),
+      datasets: [
+        {
+          label: i18next.t('vaccinated-partly'),
+          backgroundColor: chartColors.blue,
+          borderColor: chartColors.blue,
+          fill: false,
+          borderWidth: 2,
+          data: vaccinatedPartly.slice(dataRange)
+        },
+        {
+          label: i18next.t('vaccinated-fully'),
+          backgroundColor: chartColors.green,
+          borderColor: chartColors.green,
+          fill: false,
+          borderWidth: 2,
+          data: vaccinatedFully.slice(dataRange)
+        }
+      ]
+    },
+    options: {
+      response: true,
+      maintainAspectRatio: false,
+      aspectRatio: 1,
+      scales: {
+        x: {
+          type: 'time',
+          time: {
+            parser: 'M/D/YY',
+            tooltipFormat: 'll'
+          },
+          grid: {
+            drawOnChartArea: false
+          }
+        },
+        y: {
+          grid: {
+            color: chartColors.gridLinesColor
+          },
+          ticks: {
+            // Include a dollar sign in the ticks
+            callback: (value, index, values) => {
+              const lang = new Intl.Locale(i18next.language, { numberingSystem: "latn" })
+              const nFormaterCompact = new Intl.NumberFormat(lang, { notation: 'compact' })
+              return nFormaterCompact.format(value)
+            }
+          }
+        }
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: i18next.t('vaccinations-evolution')
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        }
+      },
+      locale: i18next.language
     }
   })
 }

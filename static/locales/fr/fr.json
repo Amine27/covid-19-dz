@@ -41,7 +41,7 @@
     "active-critical-tooltip": "Sous soins intensifs",
     "vaccinated-partly-tooltip": "{{count}} de la population au moins partiellement vaccinée",
     "vaccinated-fully-tooltip": "{{count}} de la population entièrement vaccinée",
-    "vaccinations-evolution": "Evolution de la vaccination",
+    "vaccinations-evolution": "Evolution des vaccinations",
     "cases-evolution": "Evolution des cas",
     "cases-gender": "Cas par sexe",
     "cases-age": "Cas par tranche d'age",

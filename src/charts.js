@@ -61,6 +61,7 @@ export const initCharts = () => {
       response: true,
       maintainAspectRatio: false,
       aspectRatio: 1,
+      locale: i18next.language,
       animation: {
         animateScale: true,
         animateRotate: true
@@ -115,6 +116,7 @@ export const initCharts = () => {
       response: true,
       maintainAspectRatio: false,
       aspectRatio: 1,
+      locale: i18next.language,
       scales: {
         x: {
           grid: {
@@ -172,6 +174,7 @@ export const initCharts = () => {
       response: true,
       maintainAspectRatio: false,
       aspectRatio: 1,
+      locale: i18next.language,
       scales: {
         x: {
           ticks: {
@@ -258,6 +261,7 @@ export const initCumulChart = (dataRange = 0) => {
       response: true,
       maintainAspectRatio: false,
       aspectRatio: 1,
+      locale: i18next.language,
       scales: {
         x: {
           type: 'time',
@@ -355,6 +359,7 @@ export const initDailyChart = (dataType = 'confirmed', dataRange = 0) => {
       response: true,
       maintainAspectRatio: false,
       aspectRatio: 1,
+      locale: i18next.language,
       scales: {
         x: {
           offset: true,
@@ -422,6 +427,7 @@ export const initWilayaEvolutionChart = (date, confirmed) => {
       response: true,
       maintainAspectRatio: false,
       aspectRatio: 1,
+      locale: i18next.language,
       scales: {
         x: {
           type: 'time',
@@ -502,6 +508,7 @@ export const initWilayaDailyChart = (date, dataType, data, avg7Data) => {
       response: true,
       maintainAspectRatio: false,
       aspectRatio: 1,
+      locale: i18next.language,
       scales: {
         x: {
           offset: true,
@@ -577,6 +584,7 @@ export const initVaccinationChart = (dataRange = 0) => {
       response: true,
       maintainAspectRatio: false,
       aspectRatio: 1,
+      locale: i18next.language,
       scales: {
         x: {
           type: 'time',
@@ -616,8 +624,7 @@ export const initVaccinationChart = (dataRange = 0) => {
           mode: 'index',
           intersect: false
         }
-      },
-      locale: i18next.language
+      }
     }
   })
 }

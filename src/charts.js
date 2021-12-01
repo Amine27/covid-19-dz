@@ -3,11 +3,12 @@ import { Chart, ArcElement, LineElement, BarElement, PointElement, DoughnutContr
 import 'chartjs-adapter-moment'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
 import {
-  age, ageConfirmedData, ageDeathsData, confirmed, date, deaths, gender, genderData, provinces, recovered, vaccinatedDate, vaccinatedFully, vaccinatedPartly
+  age, ageConfirmedData, ageDeathsData, boosterDose, confirmed, date, deaths, gender, genderData, provinces, recovered, vaccinatedDate, vaccinatedFully, vaccinatedPartly, deliveredDose, administeredDose
 } from './data.js'
 import {
-  active, chartColors, getAverageDailyData, getDailyData, getDataLocalized, getDataPerWilayaName, getDataPerWilayaValue
+  active, chartColors, getAverageDailyData, getDailyData, getDataLocalized, getDataPerWilayaName, getDataPerWilayaValue, getStockDoses
 } from './main.js'
+
 
 Chart.register(LineElement, ArcElement, BarElement, PointElement, DoughnutController, BarController, LineController, CategoryScale, LinearScale, TimeScale, Legend, Title, Tooltip, ChartDataLabels)
 
@@ -22,6 +23,7 @@ export let wilayaChart
 export let wilayaEvolutionChart
 export let wilayaDailyChart
 export let vaccinationChart
+export let doseChart
 
 export const initCharts = () => {
   if (genderChart) {
@@ -37,6 +39,7 @@ export const initCharts = () => {
   initDailyChart()
   initCumulChart()
   initVaccinationChart()
+  initDoseChart()
 
   genderChart = new Chart($('#genderChart'), {
     type: 'doughnut',
@@ -577,6 +580,14 @@ export const initVaccinationChart = (dataRange = 0) => {
           fill: false,
           borderWidth: 2,
           data: vaccinatedFully.slice(dataRange)
+        },
+        {
+          label: i18next.t('booster-dose'),
+          backgroundColor: chartColors.orange,
+          borderColor: chartColors.orange,
+          fill: false,
+          borderWidth: 2,
+          data: boosterDose.slice(dataRange)
         }
       ]
     },
@@ -619,6 +630,91 @@ export const initVaccinationChart = (dataRange = 0) => {
         title: {
           display: true,
           text: i18next.t('vaccinations-evolution')
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        }
+      }
+    }
+  })
+}
+
+export const initDoseChart = (dataRange = 0) => {
+  if (doseChart) {
+    doseChart.destroy()
+  }
+
+  doseChart = new Chart($('#doseChart'), {
+    type: 'line',
+    data: {
+      labels: vaccinatedDate.slice(dataRange),
+      datasets: [
+        {
+          label: i18next.t('delivered-dose'),
+          backgroundColor: chartColors.blue,
+          borderColor: chartColors.blue,
+          fill: false,
+          borderWidth: 2,
+          data: deliveredDose.slice(dataRange)
+        },
+        {
+          label: i18next.t('administered-dose'),
+          backgroundColor: chartColors.green,
+          borderColor: chartColors.green,
+          fill: false,
+          borderWidth: 2,
+          data: administeredDose.slice(dataRange)
+        },
+        {
+          label: i18next.t('stock-dose'),
+          backgroundColor: chartColors.orange,
+          borderColor: chartColors.orange,
+          fill: false,
+          borderWidth: 2,
+          data: getStockDoses().slice(dataRange)
+        }
+      ]
+    },
+    options: {
+      response: true,
+      maintainAspectRatio: false,
+      aspectRatio: 1,
+      locale: i18next.language,
+      scales: {
+        x: {
+          type: 'time',
+          time: {
+            parser: 'M/D/YY',
+            tooltipFormat: 'll'
+          },
+          grid: {
+            drawOnChartArea: false
+          }
+        },
+        y: {
+          grid: {
+            color: chartColors.gridLinesColor
+          },
+          ticks: {
+            // Include a dollar sign in the ticks
+            callback: (value, index, values) => {
+              const lang = new Intl.Locale(i18next.language, { numberingSystem: "latn" })
+              const nFormaterCompact = new Intl.NumberFormat(lang, { notation: 'compact' })
+              return nFormaterCompact.format(value)
+            }
+          }
+        }
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: i18next.t('doses-evolution')
         },
         tooltips: {
           mode: 'index',

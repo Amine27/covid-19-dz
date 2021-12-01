@@ -13,7 +13,7 @@ import { Chart } from 'chart.js'
 
 import resources from '../static/locales'
 import {
-  date, confirmed, recovered, deaths, critical, lastUpdated, provinces, vaccinatedPartly, vaccinatedFully, populationTotal
+  date, confirmed, recovered, deaths, critical, lastUpdated, provinces, vaccinatedPartly, vaccinatedFully, boosterDose, deliveredDose, administeredDose, vaccine, populationTotal, vaccinatedDate
 } from './data.js'
 import {
   initCharts, initCumulChart, initDailyChart, initWilayaDailyChart, initWilayaEvolutionChart, wilayaChart
@@ -123,6 +123,14 @@ const getDataAugmentationRate = (dataType) => {
   return rate
 }
 
+export const getStockDoses = () => {
+  const stockDose = []
+  for (let i = 0; i < vaccinatedDate.length; ++i) {
+    stockDose.push(deliveredDose[i] - administeredDose[i])
+  }
+  return stockDose
+}
+
 export const getDataLocalized = (dataType) => dataType.map((e) => i18next.t(e))
 
 const showData = () => {
@@ -139,6 +147,7 @@ const showData = () => {
   $('#totalDeaths').text(nFormater.format(getTotalData(deaths)))
   $('#vaccinatedFully').text(nFormaterCompact.format(getTotalData(vaccinatedFully)))
   $('#vaccinatedPartly').text(nFormaterCompact.format(getTotalData(vaccinatedPartly)))
+  $('#boosterDose').text(nFormaterCompact.format(getTotalData(boosterDose)))
   // $('#totalActive').text(nFormater.format(getTotalData(active)))
 
   $('#newConfirmed').text(nFormater.format(getNewData(confirmed)))
@@ -156,6 +165,8 @@ const showData = () => {
   document.querySelector('#vaccinatedFullyTooltip')._tippy.setContent(i18next.t('vaccinated-fully-tooltip', { count: nFormaterPercent.format(getVaccinatedRate(vaccinatedFully)) }))
   document.querySelector('#vaccinatedPartly')._tippy.setContent(nFormater.format(getTotalData(vaccinatedPartly)))
   document.querySelector('#vaccinatedPartlyTooltip')._tippy.setContent(i18next.t('vaccinated-partly-tooltip', { count: nFormaterPercent.format(getVaccinatedRate(vaccinatedPartly)) }))
+  document.querySelector('#boosterDose')._tippy.setContent(nFormater.format(getTotalData(boosterDose)))
+  document.querySelector('#boosterDoseTooltip')._tippy.setContent(i18next.t('booster-dose-tooltip', { count: nFormaterPercent.format(getVaccinatedRate(boosterDose)) }))
 }
 
 const setupTable = (languageArray) => {

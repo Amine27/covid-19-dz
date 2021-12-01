@@ -83,16 +83,26 @@
                                     <div data-i18n="today" id="newConfirmedText">Today</div>
                                 </div>
                             </div>
-                            <div class="col px-0 px-sm-6 px-lg-4">
+                            <div class="col px-0 px-sm-6 px-lg-5">
                                 <div class="row justify-content-center">
-                                    <div class="text-value-xl text-warning card-font-ar" id="totalDays"> </div>
+                                    <div class="text-value-xl text-warning card-font-ar" id="critical"></div>
                                 </div>
                                 <div class="row justify-content-center">
-                                    <div data-tooltip-i18n="confirmed-days-tooltip" data-tippy-placement="bottom"><span id="totalDaysText"></span>
-                                        <span class="icon-info-circle tooltip-info" aria-hidden="true"></span>
+                                    <div data-tooltip-i18n="active-critical-tooltip" data-tippy-placement="bottom" aria-hidden="true"><span data-i18n="critical">Critical</span>
+                                        <span class="icon-info-circle tooltip-info"></span>
                                     </div>
                                 </div>
                             </div>
+                            <!-- <div class="col px-0 px-sm-6 px-lg-4">
+                                 <div class="row justify-content-center">
+                                 <div class="text-value-xl text-warning card-font-ar" id="totalDays"> </div>
+                                 </div>
+                                 <div class="row justify-content-center">
+                                 <div data-tooltip-i18n="confirmed-days-tooltip" data-tippy-placement="bottom"><span id="totalDaysText"></span>
+                                 <span class="icon-info-circle tooltip-info" aria-hidden="true"></span>
+                                 </div>
+                                 </div>
+                                 </div> -->
                         </div>
                     </div>
                 </div>
@@ -166,7 +176,7 @@
                 <div class="col-sm-6 col-lg-3 px-lg-1">
                     <div class="card card-vaccinated text-secondary shadow-sm mb-4">
                         <div class="card-body row text-nowrap">
-                            <div class="col px-0 px-sm-6 px-lg-4">
+                            <div class="col px-0 px-sm-6 px-lg-3">
                                 <div class="row justify-content-center">
                                     <div data-tooltip-i18n="vaccinated-partly-num-tooltip" data-tippy-placement="bottom" class="text-value-xl text-info card-font-ar" id="vaccinatedPartly"></div>
                                 </div>
@@ -176,9 +186,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col px-0 px-sm-6 px-lg-4">
+                            <div class="col px-0 px-sm-6 px-lg-3">
                                 <div class="row justify-content-center">
-                                    <div data-tooltip-i18n="vaccinated-fully-num-tooltip" data-tippy-placement="bottom" class="text-value-xl text-info px-4 px-lg-4 card-vaccinated-fully card-font-ar" id="vaccinatedFully"></div>
+                                    <div data-tooltip-i18n="vaccinated-fully-num-tooltip" data-tippy-placement="bottom" class="text-value-xl text-info px-3 px-lg-4 card-vaccinated-fully card-font-ar" id="vaccinatedFully"></div>
                                 </div>
                                 <div class="row justify-content-center">
                                     <div data-tooltip-i18n="vaccinated-fully-tooltip" data-tippy-placement="bottom" aria-hidden="true" id="vaccinatedFullyTooltip"><span data-i18n="vaccinated-fully">Fully Vacci.</span>
@@ -186,12 +196,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col px-0 px-sm-6 px-lg-4">
+                            <div class="col px-0 px-sm-6 px-lg-3">
                                 <div class="row justify-content-center">
-                                    <div class="text-value-xl text-info card-font-ar" id="critical"></div>
+                                    <div data-tooltip-i18n="booster-dose-num-tooltip" data-tippy-placement="bottom" class="text-value-xl text-info card-font-ar" id="boosterDose"></div>
                                 </div>
                                 <div class="row justify-content-center">
-                                    <div data-tooltip-i18n="active-critical-tooltip" data-tippy-placement="bottom" aria-hidden="true"><span data-i18n="critical">Critical</span>
+                                    <div data-tooltip-i18n="booster-dose-tooltip" data-tippy-placement="bottom" aria-hidden="true" id="boosterDoseTooltip"><span data-i18n="booster-dose">Booster dose</span>
                                         <span class="icon-info-circle tooltip-info"></span>
                                     </div>
                                 </div>
@@ -317,15 +327,6 @@
                 </div>
                 <div class="col-md-6 py-1">
                     <div class="card shadow-sm mb-4">
-                        <div class="card-body pt-lg-5">
-                            <div style='height:auto;width:100%'>
-                                <canvas id='vaccinationChart'></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 py-1">
-                    <div class="card shadow-sm mb-4">
                         <div class="card-body pt-0">
                             <div class="row">
                                 <div class="col-sm-12 col-md-6"></div>
@@ -353,6 +354,24 @@
                                         <input type="radio" name="options" value="-14" autocomplete="off"><span data-i18n="2-weeks">2 Weeks</span>
                                     </label>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 py-1">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <div style='height:auto;width:100%'>
+                                <canvas id='vaccinationChart'></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 py-1">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <div style='height:auto;width:100%'>
+                                <canvas id='doseChart'></canvas>
                             </div>
                         </div>
                     </div>

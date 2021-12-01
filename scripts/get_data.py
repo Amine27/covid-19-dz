@@ -172,7 +172,7 @@ def getTotalStats():
 
 
 def readData():
-    global dateOld, confirmedOld, recoveredOld, deathsOld, treatmentOld, provinces, genderOld, ageConfirmedOld, ageDeathsOld, vaccinatedDateOld, vaccinatedPartlyOld, vaccinatedFullyOld
+    global dateOld, confirmedOld, recoveredOld, deathsOld, treatmentOld, provinces, genderOld, ageConfirmedOld, ageDeathsOld, vaccinatedDateOld, vaccinatedPartlyOld, vaccinatedFullyOld, boosterDoseOld, deliveredDoseOld, administeredDoseOld, vaccineOld
     with open('src/data.js') as f:
         for line in f:
             if(line.startswith('export const date')):
@@ -191,6 +191,14 @@ def readData():
                 vaccinatedPartlyOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
             elif(line.startswith('export const vaccinatedFully')):
                 vaccinatedFullyOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
+            elif(line.startswith('export const boosterDose')):
+                boosterDoseOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
+            elif(line.startswith('export const deliveredDose')):
+                deliveredDoseOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
+            elif(line.startswith('export const administeredDose')):
+                administeredDoseOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
+            elif(line.startswith('export const vaccine')):
+                vaccineOld = line[line.find("[")+1:line.find("]")].replace("'", "").split(', ')
             elif(line.startswith('export const genderData')):
                 genderOld = list(map(int, line[line.find("[")+1:line.find("]")].split(',')))
             elif(line.startswith('export const ageConfirmedData')):
@@ -236,6 +244,10 @@ def updateData():
                  + '\nexport const vaccinatedDate = ' + str(vaccinatedDateOld)
                  + '\nexport const vaccinatedPartly = ' + str(vaccinatedPartlyOld)
                  + '\nexport const vaccinatedFully = ' + str(vaccinatedFullyOld)
+                 + '\nexport const boosterDose = ' + str(boosterDoseOld)
+                 + '\nexport const deliveredDose = ' + str(deliveredDoseOld)
+                 + '\nexport const administeredDose = ' + str(administeredDoseOld)
+                 + '\nexport const vaccine = ' + str(vaccineOld)
                  + '\nexport const critical = ' + str(totalOfficialStats['critical'])
                  + "\nexport const gender = ['Male', 'Female']"
                  + '\nexport const genderData = ['+str(totalOfficialStats['man'])+', ' + str(totalOfficialStats['woman'])+']'

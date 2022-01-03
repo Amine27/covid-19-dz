@@ -1,5 +1,5 @@
 import {
-  date, confirmed, recovered, deaths, critical, lastUpdated, provinces, vaccinatedDate, vaccinatedPartly, vaccinatedFully, populationTotal
+  date, confirmed, recovered, deaths, critical, lastUpdated, provinces, vaccinatedDate, vaccinatedPartly, vaccinatedFully, boosterDose, deliveredDose, administeredDose, populationTotal
 } from '../src/data.js'
 
 import moment from 'moment'
@@ -46,9 +46,12 @@ describe('Data test routines', () => {
     expect(moment(lastUpdated, 'YYYY-MM-DD HH:mm', true).isValid()).toBeTruthy()
   })
 
-  test('vaccinated date, fully and partly have the same length', () => {
+  test('vaccinated data have the same length', () => {
     expect(vaccinatedDate.length).toBe(vaccinatedFully.length)
     expect(vaccinatedDate.length).toBe(vaccinatedPartly.length)
+    expect(vaccinatedDate.length).toBe(boosterDose.length)
+    expect(vaccinatedDate.length).toBe(deliveredDose.length)
+    expect(vaccinatedDate.length).toBe(administeredDose.length)
   })
 
   test('vaccinated values are correct', () => {

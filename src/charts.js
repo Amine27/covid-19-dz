@@ -140,13 +140,13 @@ export const initCharts = () => {
           display: true,
           text: i18next.t('cases-age')
         },
-        tooltips: {
-          mode: 'index',
-          intersect: false
-        },
         legend: {
           display: true
         }
+      },
+      interaction: {
+        intersect: false,
+        mode: 'index'
       }
     }
   })
@@ -206,11 +206,11 @@ export const initCharts = () => {
         title: {
           display: true,
           text: i18next.t('cases-wilaya')
-        },
-        tooltips: {
-          mode: 'index',
-          intersect: false
         }
+      },
+      interaction: {
+        intersect: false,
+        mode: 'index'
       }
     }
   })
@@ -291,11 +291,11 @@ export const initCumulChart = (dataRange = 0) => {
         title: {
           display: true,
           text: i18next.t('cases-evolution')
-        },
-        tooltips: {
-          mode: 'index',
-          intersect: false
         }
+      },
+      interaction: {
+        intersect: false,
+        mode: 'index'
       }
     }
   })
@@ -394,13 +394,13 @@ export const initDailyChart = (dataType = 'confirmed', dataRange = 0) => {
           display: true,
           text: i18next.t('daily-cases')
         },
-        tooltips: {
-          mode: 'index',
-          intersect: false
-        },
         legend: {
           display: true
         }
+      },
+      interaction: {
+        intersect: false,
+        mode: 'index'
       }
     }
   })
@@ -457,11 +457,11 @@ export const initWilayaEvolutionChart = (date, confirmed) => {
         title: {
           display: true,
           text: i18next.t('cases-evolution')
-        },
-        tooltips: {
-          mode: 'index',
-          intersect: false
         }
+      },
+      interaction: {
+        intersect: false,
+        mode: 'index'
       }
     }
   })
@@ -543,13 +543,13 @@ export const initWilayaDailyChart = (date, dataType, data, avg7Data) => {
           display: true,
           text: i18next.t('daily-cases')
         },
-        tooltips: {
-          mode: 'index',
-          intersect: false
-        },
         legend: {
           display: true
         }
+      },
+      interaction: {
+        intersect: false,
+        mode: 'index'
       }
     }
   })
@@ -630,11 +630,11 @@ export const initVaccinationChart = (dataRange = 0) => {
         title: {
           display: true,
           text: i18next.t('vaccinations-evolution')
-        },
-        tooltips: {
-          mode: 'index',
-          intersect: false
         }
+      },
+      interaction: {
+        intersect: false,
+        mode: 'index'
       }
     }
   })
@@ -715,11 +715,11 @@ export const initDoseChart = (dataRange = 0) => {
         title: {
           display: true,
           text: i18next.t('doses-evolution')
-        },
-        tooltips: {
-          mode: 'index',
-          intersect: false
         }
+      },
+      interaction: {
+        intersect: false,
+        mode: 'index'
       }
     }
   })

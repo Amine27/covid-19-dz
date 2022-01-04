@@ -6,7 +6,7 @@ import {
   age, ageConfirmedData, ageDeathsData, boosterDose, confirmed, date, deaths, gender, genderData, provinces, recovered, vaccinatedDate, vaccinatedFully, vaccinatedPartly, deliveredDose, administeredDose
 } from './data.js'
 import {
-  active, chartColors, getAverageDailyData, getDailyData, getDataLocalized, getDataPerWilayaName, getDataPerWilayaValue, getStockDoses
+  active, chartColors, getAverageDailyData, getDailyData, getDataLocalized, getDataPerWilayaName, getDataPerWilayaValue, getStockDoses, getVaccinatedValueRate
 } from './main.js'
 
 
@@ -630,6 +630,27 @@ export const initVaccinationChart = (dataRange = 0) => {
         title: {
           display: true,
           text: i18next.t('vaccinations-evolution')
+        },
+        tooltip: {
+          callbacks: {
+            label: (context) => {
+              let label = context.dataset.label || ''
+              const value = context.parsed.y
+
+              if (label) {
+                label += ': '
+              }
+              if (value !== null) {
+                const lang = new Intl.Locale(i18next.language, { numberingSystem: 'latn' })
+                const nFormater = new Intl.NumberFormat(lang)
+
+                label += `${nFormater.format(value)} `
+                const nFormaterPercent = new Intl.NumberFormat(lang, { style: 'percent', minimumFractionDigits: 2 })
+                label += `(${nFormaterPercent.format(getVaccinatedValueRate(value))})`
+              }
+              return label
+            }
+          }
         }
       },
       interaction: {

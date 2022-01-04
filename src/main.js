@@ -117,6 +117,8 @@ const getDataRate = (confirmed, dataType) => getTotalData(dataType) / getTotalDa
 
 const getVaccinatedRate = (dataType) => getTotalData(dataType) / populationTotal
 
+export const getVaccinatedValueRate = (value) => value / populationTotal
+
 const getDataAugmentationRate = (dataType) => {
   let rate = ((getTotalData(dataType) - dataType[dataType.length - 2]) / getTotalData(dataType) * 100).toFixed(2)
   rate = rate > 0 ? `${rate}%` : '0%'

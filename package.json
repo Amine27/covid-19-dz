@@ -59,7 +59,7 @@
     "leaflet": "^1.7.1",
     "leaflet-ajax": "^2.1.0",
     "moment": "^2.29.1",
-    "moment-timezone": "^0.5.33",
+    "moment-timezone": "^0.5.35",
     "popper.js": "^1.16.1",
     "tippy.js": "^6.3.1"
   }
